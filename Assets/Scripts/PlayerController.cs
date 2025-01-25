@@ -16,16 +16,22 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5;
     public float gravity = -9.8f;
     public float jumpHeight = 1.2f;
+    public float dashSpeed = 10.0f;
+    public float dashDuration = 1f;
+    public float dashCooldown = 5.0f;
 
     Vector3 _PlayerVelocity;
 
     bool isGrounded;
+    bool isDash;
 
     [Header("Camera")]
     public Camera cam;
     public float sensitivity;
 
     float xRotation = 0f;
+    int jumpCount = 0;
+    float moveSpeed_temp = 0f;
 
     void Awake()
     { 
@@ -39,12 +45,15 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        isDash = true;
+        moveSpeed_temp = moveSpeed;
     }
 
     void Update()
     {
         isGrounded = controller.isGrounded;
-        Debug.Log(isGrounded);
+        //Debug.Log(isGrounded);
         // Repeat Inputs
         if(input.Attack.IsPressed())
         { Attack(); }
@@ -90,16 +99,52 @@ public class PlayerController : MonoBehaviour
     void OnDisable()
     { input.Disable(); }
 
+    void Dash()
+    {
+        float tempTime;
+        Vector3 dashVector = new Vector3();
+        Vector2 inputVector = new Vector2();
+        inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
+        if (inputVector.x != 0 || inputVector.y != 0)
+        {
+            if (isDash)
+            {
+                moveSpeed = dashSpeed;
+                isDash = false;
+                Invoke("Dashing", dashDuration);
+                Invoke("DashCooldown", dashCooldown);
+            }
+        }
+    }
+
+    void Dashing()
+    {
+        moveSpeed = moveSpeed_temp;
+    }
+
+    void DashCooldown()
+    {
+        isDash = true;
+    }
     void Jump()
     {
         // Adds force to the player rigidbody to jump
         if (isGrounded)
+        {
             _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            jumpCount++;
+        }
+        else if (!isGrounded && jumpCount > 0)
+        {
+            _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+            jumpCount = 0;
+        }
     }
 
     void AssignInputs()
     {
         input.Jump.performed += ctx => Jump();
+        input.Dash.performed += ctx => Dash();
         input.Attack.started += ctx => Attack();
     }
 
