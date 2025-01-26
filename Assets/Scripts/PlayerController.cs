@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,14 +17,27 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5;
     public float gravity = -9.8f;
     public float jumpHeight = 1.2f;
+    
+    [Header("Dash")]
     public float dashSpeed = 10.0f;
-    public float dashDuration = 1f;
-    public float dashCooldown = 5.0f;
+    public float dashEnergyDrainRate = 10.0f;
+    public float maxDashEnergy = 100.0f;
+    public float dashEnergyCost = 60.0f;
+    public Slider dashSlider;
+    float currentDashEnergy;
 
+    [Header("Run")]
+    public float runSpeed = 20.0f;
+    public float maxRunEnergy = 100.0f;
+    public float runEnergyDrainRate = 5.0f;
+    public float runEnergyRegenRate = 5.0f;
+    public Slider runSlider;
+    float currentRunEnergy;
+    
     Vector3 _PlayerVelocity;
 
     bool isGrounded;
-    bool isDash;
+    bool isRun;
 
     [Header("Camera")]
     public Camera cam;
@@ -46,8 +60,15 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
-        isDash = true;
         moveSpeed_temp = moveSpeed;
+        dashSlider.maxValue = maxDashEnergy;
+        dashSlider.value = maxDashEnergy;
+        currentDashEnergy = maxDashEnergy;
+        
+        isRun = true;
+        runSlider.maxValue = maxRunEnergy;
+        runSlider.value = maxRunEnergy;
+        currentRunEnergy = maxRunEnergy;
     }
 
     void Update()
@@ -57,13 +78,15 @@ public class PlayerController : MonoBehaviour
         // Repeat Inputs
         if(input.Attack.IsPressed())
         { Attack(); }
-
+        
         SetAnimations();
     }
 
-    void FixedUpdate() 
-    { MoveInput(input.Movement.ReadValue<Vector2>()); }
-
+    void FixedUpdate()
+    {
+        MoveInput(input.Movement.ReadValue<Vector2>()); 
+    }
+    
     void LateUpdate() 
     { LookInput(input.Look.ReadValue<Vector2>()); }
 
@@ -72,7 +95,23 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = Vector3.zero;
         moveDirection.x = input.x;
         moveDirection.z = input.y;
-
+        
+        RegenRunEnergy();
+        RegenDashEnergy();
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            FastMove();
+        }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            Dash();
+        }
+        else
+        {
+            isRun = false; 
+            moveSpeed = moveSpeed_temp;
+        }
+        
         controller.Move(transform.TransformDirection(moveDirection) * moveSpeed * Time.deltaTime);
         _PlayerVelocity.y += gravity * Time.deltaTime;
         if(isGrounded && _PlayerVelocity.y < 0)
@@ -101,30 +140,53 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        float tempTime;
-        Vector3 dashVector = new Vector3();
         Vector2 inputVector = new Vector2();
         inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
         if (inputVector.x != 0 || inputVector.y != 0)
         {
-            if (isDash)
+            if (currentDashEnergy > dashEnergyCost)
             {
                 moveSpeed = dashSpeed;
-                isDash = false;
-                Invoke("Dashing", dashDuration);
-                Invoke("DashCooldown", dashCooldown);
+                currentDashEnergy -= dashEnergyCost;
             }
         }
     }
 
-    void Dashing()
+    private void RegenDashEnergy()
     {
-        moveSpeed = moveSpeed_temp;
+        if (currentDashEnergy <= dashSlider.maxValue)
+        {
+            currentDashEnergy += dashEnergyDrainRate * Time.deltaTime;
+            dashSlider.value = currentDashEnergy;
+        }
     }
 
-    void DashCooldown()
+    void FastMove()
     {
-        isDash = true;
+        isRun = true;
+        if (currentRunEnergy > 1.0f)
+        {
+            moveSpeed = runSpeed;
+            currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
+            runSlider.value = currentRunEnergy;
+        }
+        else
+        {
+            moveSpeed = moveSpeed_temp;
+        }
+    }
+
+    private void RegenRunEnergy()
+    {
+        if (isRun == false)
+        {
+            if (currentRunEnergy <= runSlider.maxValue)
+            {
+                currentRunEnergy += runEnergyRegenRate * Time.deltaTime;
+                runSlider.value = currentRunEnergy;
+            }
+            
+        }
     }
     void Jump()
     {
@@ -144,7 +206,6 @@ public class PlayerController : MonoBehaviour
     void AssignInputs()
     {
         input.Jump.performed += ctx => Jump();
-        input.Dash.performed += ctx => Dash();
         input.Attack.started += ctx => Attack();
     }
 
