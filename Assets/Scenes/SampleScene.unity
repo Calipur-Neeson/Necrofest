@@ -513,6 +513,10 @@ PrefabInstance:
       propertyPath: runEnergyRegenRate
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1037833777714491778, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1788623314744564116, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -557,11 +561,92 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: groupCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: delays.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: speeds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: damages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: weapons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'delays.Array.data[0]'
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'delays.Array.data[1]'
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: distances.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'speeds.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'speeds.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'damages.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'damages.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'weapons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1571948866}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'weapons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 855839166}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'distances.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'distances.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: animatorSpeeds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'animatorSpeeds.Array.data[0]'
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5257396468031630544, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: 'animatorSpeeds.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+--- !u!1 &855839166 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1037833777714491778, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+  m_PrefabInstance: {fileID: 774962588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &891228984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +1104,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566361166}
   m_CullTransparentMesh: 1
+--- !u!1 &1571948866 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7346804865842521702, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+  m_PrefabInstance: {fileID: 774962588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1773112108
 GameObject:
   m_ObjectHideFlags: 0

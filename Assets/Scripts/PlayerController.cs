@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput.MainActions input;
 
     CharacterController controller;
-    Animator animator;
+    public Animator animator;
     AudioSource audioSource;
 
     [Header("Controller")]
@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
     public float attackDistance = 3f;
     public float attackDelay = 0.4f;
     public float attackSpeed = 1f;
-    public int attackDamage = 1;
+    public float attackDamage = 1;
     public LayerMask attackLayer;
 
     public GameObject hitEffect;
