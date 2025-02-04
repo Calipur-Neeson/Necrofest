@@ -3,6 +3,7 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     public static CardManager Instance { get; private set; }
+    public Card[] cardHand;
 
     private void Awake() 
     { 
@@ -18,15 +19,12 @@ public class CardManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        //list of cards owned
-        Card[] cardHand = new []{new Card()};
-        
-        //show cards on bottom left? 
-        
+    //list of cards owned
+    cardHand = new Card[transform.childCount];
 
-        
+    //show cards on bottom left? 
     }
     
     

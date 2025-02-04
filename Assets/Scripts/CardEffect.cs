@@ -17,6 +17,23 @@ public class CardEffect : MonoBehaviour
 
     public void  TriggerEffect(string name)
     {
-        
+        switch (name)
+        {
+            case "Increase damage":
+            {
+                //playerDamageMulti+1
+                break;
+            }
+            case "Increase health":
+            {
+                //playerHealthIncrease
+                break;
+            }
+            case "Increase speed":
+            {
+                //playerSpeedIncrease
+                break;
+            }
+        }
     }
 }
