@@ -3,22 +3,25 @@ using UnityEngine.InputSystem;
 
 public class AttackManager : MonoBehaviour
 {
+    [Header("Player Property")]
     public GameObject player;
-    private PlayerController playerControl;
-
     public GameObject weapon;
-    private SwitchWeapon switchWeapon;
-
     public float jumpHeight;
     public float moveSpeed;
+    
+    [Header("Attack Property")]
     public float hitDamage;
     public float hitSpeed;
+    [Range(0f, 100f)] 
     public float hitCriticalChance;
     public float hitDamageIncreaseRate;
     public float hitCriticalDamageIncresseRate;
     
     private float hitNormalDamage;
     private float hitCriticalDamage;
+    private SwitchWeapon switchWeapon;
+    private PlayerController playerControl;
+
     private void Start()
     {
         playerControl = player.GetComponent<PlayerController>();
