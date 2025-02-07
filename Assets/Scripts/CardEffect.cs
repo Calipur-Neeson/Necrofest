@@ -93,7 +93,7 @@ public class CardEffect : MonoBehaviour
                 public void ChainSwings()
                 {   
                  float comboTimer = 3f;
-                 event(attackMelee)
+                 event(PlayerAttackMelee)
                     {
                         while (time.deltaTime => time.deltaTime + comboTimer)
                             {
@@ -111,7 +111,7 @@ public class CardEffect : MonoBehaviour
                 /*
                 public void Skirmisher()
                 {
-                 event()
+                 event(PlayerAttackRange)
                  
                 }
                  
