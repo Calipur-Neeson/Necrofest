@@ -26,6 +26,7 @@ public class AttackManager : MonoBehaviour
     {
         playerControl = player.GetComponent<PlayerController>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
+        ResetPlayerAttackAnimation();
 
     }
 

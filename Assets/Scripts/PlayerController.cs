@@ -84,12 +84,13 @@ public class PlayerController : MonoBehaviour
         { Attack(); }
         
         SetAnimations();
+        MoveInput(input.Movement.ReadValue<Vector2>());
     }
 
-    void FixedUpdate()
-    {
-        MoveInput(input.Movement.ReadValue<Vector2>()); 
-    }
+    //void FixedUpdate()
+    //{
+    //    MoveInput(input.Movement.ReadValue<Vector2>()); 
+    //}
     
     void LateUpdate() 
     { LookInput(input.Look.ReadValue<Vector2>()); }
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftControl))
         {
             Dash();
+            Invoke(nameof(InitialMoveSpeed), 0.2f);
         }
         else
         {
@@ -151,9 +153,15 @@ public class PlayerController : MonoBehaviour
             if (currentDashEnergy > dashEnergyCost)
             {
                 moveSpeed = dashSpeed;
+                
                 currentDashEnergy -= dashEnergyCost;
             }
         }
+        
+    }
+    private void InitialMoveSpeed()
+    {
+        moveSpeed = moveSpeed_temp;
     }
 
     private void RegenDashEnergy()
