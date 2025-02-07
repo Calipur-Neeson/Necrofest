@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -69,6 +70,9 @@ public class PlayerController : MonoBehaviour
         runSlider.maxValue = maxRunEnergy;
         runSlider.value = maxRunEnergy;
         currentRunEnergy = maxRunEnergy;
+
+        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        hitCollider.enabled = false;
     }
 
     void Update()
@@ -80,12 +84,13 @@ public class PlayerController : MonoBehaviour
         { Attack(); }
         
         SetAnimations();
+        MoveInput(input.Movement.ReadValue<Vector2>());
     }
 
-    void FixedUpdate()
-    {
-        MoveInput(input.Movement.ReadValue<Vector2>()); 
-    }
+    //void FixedUpdate()
+    //{
+    //    MoveInput(input.Movement.ReadValue<Vector2>()); 
+    //}
     
     void LateUpdate() 
     { LookInput(input.Look.ReadValue<Vector2>()); }
@@ -105,6 +110,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKey(KeyCode.LeftControl))
         {
             Dash();
+            Invoke(nameof(InitialMoveSpeed), 0.2f);
         }
         else
         {
@@ -147,9 +153,15 @@ public class PlayerController : MonoBehaviour
             if (currentDashEnergy > dashEnergyCost)
             {
                 moveSpeed = dashSpeed;
+                
                 currentDashEnergy -= dashEnergyCost;
             }
         }
+        
+    }
+    private void InitialMoveSpeed()
+    {
+        moveSpeed = moveSpeed_temp;
     }
 
     private void RegenDashEnergy()
@@ -252,6 +264,8 @@ public class PlayerController : MonoBehaviour
     public float attackSpeed = 1f;
     public float attackDamage = 1;
     public LayerMask attackLayer;
+    public LayerMask enemyLayer;
+    public GameObject handPosition;
 
     public GameObject hitEffect;
     public AudioClip swordSwing;
@@ -268,8 +282,11 @@ public class PlayerController : MonoBehaviour
         readyToAttack = false;
         attacking = true;
 
+        ActiveHitCollider();
+        SetHitCollider();
         Invoke(nameof(ResetAttack), attackSpeed);
         Invoke(nameof(AttackRaycast), attackDelay);
+        Invoke(nameof(ActiveHitCollider), attackDelay);
 
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swordSwing);
@@ -285,7 +302,20 @@ public class PlayerController : MonoBehaviour
             attackCount = 0;
         }
     }
-
+    void SetHitCollider()
+    {
+        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        hitCollider.radius = 0.04f;
+        hitCollider.height = attackDistance;
+        hitCollider.direction = 1;
+        hitCollider.center = new Vector3(0, attackDistance/2, 0);
+    }
+    void ActiveHitCollider()
+    {
+        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        hitCollider.enabled = !hitCollider.enabled;
+    }
+   
     void ResetAttack()
     {
         attacking = false;
