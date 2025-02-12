@@ -6,6 +6,7 @@ public class AttackManager : MonoBehaviour
     [Header("Player Property")]
     public GameObject player;
     public GameObject weapon;
+    [Range(1f, 1.2f)]
     public float jumpHeight;
     public float moveSpeed;
     
@@ -27,6 +28,7 @@ public class AttackManager : MonoBehaviour
         playerControl = player.GetComponent<PlayerController>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
         ResetPlayerAttackAnimation();
+        ResetPlayerProperty();
 
     }
 

@@ -9,30 +9,31 @@ public class EnemySpawner : MonoBehaviour
     public int enemyPoolCapacity;
     public Transform[] spawnPosition;
 
-    private List<GameObject> enemyPool;
-    private List<GameObject> enemyWaitingSpawn;
+    private List<GameObject> enemyPool = new List<GameObject>();
+    private List<GameObject> enemyWaitingSpawn = new List<GameObject>();
 
-    private void Awake()
-    {
-        
-    }
     private void Start()
     {
-        //for (int i = 0; i < enemyPoolCapacity - 1; i++)
-        //{
-        //    int temp = Random.Range(0, enemies.Length);
-        //    enemyWaitingSpawn[i] = Instantiate(enemies[temp]);
-        //    enemyWaitingSpawn[i].transform.parent = transform;
-        //    enemyWaitingSpawn[i].gameObject.SetActive(false);
-        //}
-        ////InvokeRepeating(nameof(SpawnEnemy), 1f, 2f);
+
+        for (int i = 0; i < enemyPoolCapacity; i++)
+        {
+            int temp = Random.Range(0, enemies.Length);
+            GameObject enemy = Instantiate(enemies[temp], transform);
+
+            enemy.SetActive(false);
+            enemyWaitingSpawn.Add(enemy);
+            //enemyWaitingSpawn[i] = Instantiate(enemies[temp], transform);
+            //enemyWaitingSpawn[i].transform.parent = transform;
+            //enemyWaitingSpawn[i].gameObject.SetActive(false);
+        }
+        InvokeRepeating(nameof(SpawnEnemy), 1f, 2f);
     }
     
     private void SpawnEnemy()
     {
         if (enemyWaitingSpawn != null)
         {
-            int temp = Random.Range(0, enemyWaitingSpawn.Count -1);
+            int temp = Random.Range(0, enemyWaitingSpawn.Count);
             enemyPool.Add(enemyWaitingSpawn[temp]);
             ActiveEnemy(enemyWaitingSpawn[temp]);
             enemyWaitingSpawn.RemoveAt(temp);
