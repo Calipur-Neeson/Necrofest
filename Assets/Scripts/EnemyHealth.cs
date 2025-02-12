@@ -3,7 +3,14 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public float health = 100f;
+    //private EnemyPool enemypool;
+    private EnemySpawner spawner;
 
+    private void Start()
+    {
+        //enemypool = GetComponentInParent<EnemyPool>();
+        spawner = GetComponentInParent<EnemySpawner>();
+    }
     public void TakeDamage(float damage)
     {
         health -= damage;
@@ -18,6 +25,7 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         Debug.Log(gameObject.name + " Die");
-        Destroy(gameObject);
+        //enemypool.ReturnToPool(gameObject);
+        spawner.WaitingToSpawn(gameObject);
     }
 }
