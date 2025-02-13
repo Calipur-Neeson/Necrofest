@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private int initialHealth;
+    [SerializeField] private RectTransform healthContainer;
+    [SerializeField] private GameObject healthUIPrefab;
     private int currentHealth = 3;
     private int mixHealth = 3;
     
@@ -12,10 +14,15 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < heartBackground.Length; i++)
-        { heartBackground[i].SetActive(false); }
-        for (int i = 0;i < heartImage.Length; i++)
-        { heartImage[i].SetActive(false); }
+        //for (int i = 0; i < heartBackground.Length; i++)
+        //{ heartBackground[i].SetActive(false); }
+        //for (int i = 0;i < heartImage.Length; i++)
+        //{ heartImage[i].SetActive(false); }
+        // Setup the health UI
+        for (int i = 0; i < currentHealth; i++)
+        {
+            Instantiate(healthUIPrefab, healthContainer);
+        }
         IncreasePlayerHealth(0);
     }
     public void PlayerGetHurt()
