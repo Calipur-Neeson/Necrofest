@@ -1,17 +1,16 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int initialHealth;
     [SerializeField] private RectTransform healthContainer;
     [SerializeField] private GameObject healthUIPrefab;
-    private int currentHealth = 3;
-    private int mixHealth = 3;
-    
-    public GameObject[] heartBackground;
-    public GameObject[] heartImage;
+    public int currentHealth = 3;
+    private int maxHealth = 3;
 
+    private List<GameObject> list = new List<GameObject>();
+    private GameObject go;
     private void Start()
     {
         //for (int i = 0; i < heartBackground.Length; i++)
@@ -19,20 +18,24 @@ public class PlayerHealth : MonoBehaviour
         //for (int i = 0;i < heartImage.Length; i++)
         //{ heartImage[i].SetActive(false); }
         // Setup the health UI
-        for (int i = 0; i < currentHealth; i++)
+       
+        for (int i = 0; i < maxHealth; i++)
         {
-            Instantiate(healthUIPrefab, healthContainer);
+            go = Instantiate(healthUIPrefab, healthContainer);
+            list.Add(go.transform.GetChild(0).gameObject);
         }
-        IncreasePlayerHealth(0);
     }
     public void PlayerGetHurt()
     {
-       currentHealth--;
-       heartImage[currentHealth-1].SetActive(false);
-       if (currentHealth == 0)
-       {
-           PlayerDie();
-       }
+        currentHealth--;
+        if (currentHealth > 0)
+        {
+            list[currentHealth].SetActive(false);
+        }
+        else if (currentHealth == 0)
+        {
+            PlayerDie();
+        }
     
     }
     private void PlayerDie()
@@ -41,44 +44,41 @@ public class PlayerHealth : MonoBehaviour
         HealPlayer(3);
     }
     
-    private void HealPlayer(int heal)
+    public void HealPlayer(int heal)
     {
-        currentHealth += heal;
-        if (currentHealth <= mixHealth) { } 
-        else
+        if (currentHealth < maxHealth && currentHealth + heal <= maxHealth)
         {
-            currentHealth = mixHealth;
-        }
-        for (int i = 0; i < currentHealth; i++)
-        {
-            if (!heartImage[i].activeSelf)
+            int temp = 0;
+            while (temp < heal)
             {
-                heartImage[i].SetActive(true);
+                list[currentHealth+temp].SetActive(true);
+                temp++;
+            }
+            currentHealth += heal;
+        }
+        else if (currentHealth < maxHealth && currentHealth + heal > maxHealth)
+        {
+            for(int i = currentHealth-1;i < maxHealth;i++)
+            {
+                list[i].SetActive(true);
             }
         }
     }
-    public void IncreasePlayerHealth(int plus)
+    public void IncreasePlayerHealthLimit(int plus)
     {
         currentHealth += plus;
-        mixHealth += plus;
-        SetUI();
-    }
-
-    private void SetUI()
-    {
-        for (int i = 0; i < mixHealth; i++)
+        maxHealth += plus;
+        for (int i = 0; i < plus; i++)
         {
-            if (!heartBackground[i].activeSelf)
-            {
-                heartBackground[i].SetActive(true); 
-            }
-            
+            go = Instantiate(healthUIPrefab, healthContainer);
+            go.transform.GetChild(0).gameObject.SetActive(false);
+            list.Add(go.transform.GetChild(0).gameObject);
         }
         for (int i = 0; i < currentHealth; i++)
         {
-            if (!heartImage[i].activeSelf)
+            if(!list[i].activeSelf)
             {
-                heartImage[i].SetActive(true);
+                list[i].SetActive(true);
             }
         }
     }

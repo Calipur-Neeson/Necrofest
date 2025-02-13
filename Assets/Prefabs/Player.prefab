@@ -169,10 +169,10 @@ GameObject:
   - component: {fileID: 1788623314744564118}
   - component: {fileID: 2484499563464876031}
   - component: {fileID: 7280448448102866436}
-  - component: {fileID: 5349041907486406463}
+  - component: {fileID: 9082102702105612726}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,7 +378,7 @@ MonoBehaviour:
   hitCriticalChance: 20
   hitDamageIncreaseRate: 0
   hitCriticalDamageIncresseRate: 0
---- !u!114 &5349041907486406463
+--- !u!114 &9082102702105612726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -391,11 +391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialHealth: 0
-  heartBackground: []
-  heartImage:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  healthContainer: {fileID: 0}
+  healthUIPrefab: {fileID: 505138368826543679, guid: 3e79570e79231bc42afe8a0bda6c35dc, type: 3}
 --- !u!1 &1788623315372294390
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +611,7 @@ MonoBehaviour:
   - 4
   - 1
   animatorSpeeds:
-  - 0.6
+  - 0.7
   - 1
   weaponSpeed: 0
   weaponDelay: 0

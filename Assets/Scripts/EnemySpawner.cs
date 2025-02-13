@@ -5,7 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("EnemyPool")]
     public GameObject[] enemies;
-    [Range(5.0f, 20.0f)]
+    [Range(1.0f, 20.0f)]
     public int enemyPoolCapacity;
     public Transform[] spawnPosition;
 
