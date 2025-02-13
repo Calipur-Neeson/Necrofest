@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8909576731180419739}
   - component: {fileID: 4057555396552654768}
   - component: {fileID: 8208985280898923690}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HandPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 1788623314744564118}
   - component: {fileID: 2484499563464876031}
   - component: {fileID: 7280448448102866436}
+  - component: {fileID: 5349041907486406463}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -374,9 +375,27 @@ MonoBehaviour:
   moveSpeed: 5
   hitDamage: 10
   hitSpeed: 0
-  hitCriticalChance: 0
+  hitCriticalChance: 20
   hitDamageIncreaseRate: 0
   hitCriticalDamageIncresseRate: 0
+--- !u!114 &5349041907486406463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788623314744564116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9549ef111fb5635419186e6588ecc95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 0
+  heartBackground: []
+  heartImage:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1788623315372294390
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +605,7 @@ MonoBehaviour:
   - 1.5
   - 1
   speeds:
-  - 2
+  - 1.5
   - 1
   delays:
   - 0.6

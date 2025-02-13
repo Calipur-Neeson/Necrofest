@@ -33,10 +33,13 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemyWaitingSpawn != null)
         {
-            int temp = Random.Range(0, enemyWaitingSpawn.Count);
-            enemyPool.Add(enemyWaitingSpawn[temp]);
-            ActiveEnemy(enemyWaitingSpawn[temp]);
-            enemyWaitingSpawn.RemoveAt(temp);
+            if (enemyWaitingSpawn.Count != 0)
+            {
+                int temp = Random.Range(0, enemyWaitingSpawn.Count);
+                enemyPool.Add(enemyWaitingSpawn[temp]);
+                ActiveEnemy(enemyWaitingSpawn[temp]);
+                enemyWaitingSpawn.RemoveAt(temp);
+            }
         }
     }
     private void ActiveEnemy(GameObject gb)

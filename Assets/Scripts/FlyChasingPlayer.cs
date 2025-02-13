@@ -14,9 +14,12 @@ public class FlyChasingPlayer : MonoBehaviour
 
     private LayerMask groundLayer;
     private float additionalHeight = 0f;
+    private Transform playerPos;
 
     private void Start()
     {
+        GameObject player = FindFirstObjectByType<PlayerController>().gameObject;
+        playerPos = player.transform;
         groundLayer = LayerMask.GetMask("Ground");
     }
     void Update()
