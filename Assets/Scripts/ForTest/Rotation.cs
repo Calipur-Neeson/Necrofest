@@ -4,8 +4,13 @@ public class Rotation : MonoBehaviour
 {
     public Transform target; 
     public float speed = 50f; 
-    public Vector3 axis = Vector3.up; 
+    public Vector3 axis = Vector3.up;
 
+    private PlayerHealth health;
+    private void Start()
+    {
+        GameObject player = GameObject.Find("Player");
+    }
     void Update()
     {
         if (target != null)

@@ -9,6 +9,9 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth = 3;
     private int maxHealth = 3;
 
+    public int blockChance = 0;
+    public bool ifBlock;
+
     private List<GameObject> list = new List<GameObject>();
     private GameObject go;
     private void Start()
@@ -27,16 +30,21 @@ public class PlayerHealth : MonoBehaviour
     }
     public void PlayerGetHurt()
     {
-        currentHealth--;
-        if (currentHealth > 0)
+        int i = Random.Range(0, 100);
+        if (i >= blockChance)
         {
-            list[currentHealth].SetActive(false);
+            ifBlock = false;
+            currentHealth--;
+            if (currentHealth > 0)
+            {
+                list[currentHealth].SetActive(false);
+            }
+            else if (currentHealth == 0)
+            {
+                PlayerDie();
+            }
         }
-        else if (currentHealth == 0)
-        {
-            PlayerDie();
-        }
-    
+        else { ifBlock = true; }
     }
     private void PlayerDie()
     {

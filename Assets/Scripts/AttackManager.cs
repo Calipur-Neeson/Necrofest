@@ -44,6 +44,7 @@ public class AttackManager : MonoBehaviour
     {
         playerControl.jumpHeight = jumpHeight;
         playerControl.moveSpeed = moveSpeed;
+        playerControl.moveSpeed_temp = moveSpeed;
 
     }
     public void CalculateHitDamage()

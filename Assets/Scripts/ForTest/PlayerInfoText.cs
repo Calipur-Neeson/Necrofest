@@ -24,6 +24,6 @@ public class PlayerInfoText : MonoBehaviour
 
     private void UpdateText()
     {
-        textbox.text = $"Player HP: {playerHealth.currentHealth}\nMove Speed: {playerController.moveSpeed}\nJump Height: {attackManager.jumpHeight}\n================\nWeapon Damage: {playerController.attackDamage}\nDamage Increase: {attackManager.hitDamageIncreaseRate}%\nCritical Chance: {attackManager.hitCriticalChance}%\nCritical Damage Increase: {attackManager.hitCriticalDamageIncresseRate}%\n*Actual Damage: {attackManager.hitDamage}"; 
+        textbox.text = $"Player HP: {playerHealth.currentHealth}\nMove Speed: {playerController.moveSpeed}\nJump Height: {attackManager.jumpHeight}\n================\nWeapon Damage: {playerController.attackDamage}\nDamage Increase: {attackManager.hitDamageIncreaseRate}%\nCritical Chance: {attackManager.hitCriticalChance}%\nCritical Damage Increase: {attackManager.hitCriticalDamageIncresseRate}%\n*Actual Damage: {attackManager.hitDamage}\nBlockChance: {playerHealth.blockChance}%\nIs Blocked: {playerHealth.ifBlock}"; 
     }
 }

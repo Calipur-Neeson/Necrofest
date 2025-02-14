@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 1.2f;
     
     [Header("Dash")]
-    public float dashSpeed = 10.0f;
+    public float dashSpeed = 20.0f;
     public float dashEnergyDrainRate = 10.0f;
     public float maxDashEnergy = 100.0f;
     public float dashEnergyCost = 60.0f;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     float currentDashEnergy;
 
     [Header("Run")]
-    public float runSpeed = 20.0f;
+    public float runSpeed = 10.0f;
     public float maxRunEnergy = 100.0f;
     public float runEnergyDrainRate = 5.0f;
     public float runEnergyRegenRate = 5.0f;
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     float xRotation = 0f;
     int jumpCount = 0;
-    float moveSpeed_temp = 0f;
+    public float moveSpeed_temp = 0f;
 
     void Awake()
     { 
@@ -152,6 +152,7 @@ public class PlayerController : MonoBehaviour
         {
             if (currentDashEnergy > dashEnergyCost)
             {
+                dashSpeed = moveSpeed_temp * 4;
                 moveSpeed = dashSpeed;
                 
                 currentDashEnergy -= dashEnergyCost;
@@ -178,7 +179,8 @@ public class PlayerController : MonoBehaviour
         isRun = true;
         if (currentRunEnergy > 1.0f)
         {
-            moveSpeed = runSpeed;
+            runSpeed = moveSpeed_temp * 2;
+            moveSpeed =runSpeed;
             currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
             runSlider.value = currentRunEnergy;
         }

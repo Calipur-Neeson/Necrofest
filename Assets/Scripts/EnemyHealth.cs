@@ -14,7 +14,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        Debug.Log(gameObject.name + " get " + damage + " damage£¬Remaining HP: " + health);
+        //Debug.Log(gameObject.name + " get " + damage + " damage£¬Remaining HP: " + health);
 
         if (health <= 0)
         {
