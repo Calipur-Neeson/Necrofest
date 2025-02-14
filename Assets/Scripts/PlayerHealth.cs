@@ -6,8 +6,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private RectTransform healthContainer;
     [SerializeField] private GameObject healthUIPrefab;
-    public int currentHealth = 3;
-    private int maxHealth = 3;
+    [SerializeField] private int maxHealth = 3;
+    [HideInInspector] public int currentHealth = 3;
 
     public int blockChance = 0;
     public bool ifBlock;
@@ -16,12 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private GameObject go;
     private void Start()
     {
-        //for (int i = 0; i < heartBackground.Length; i++)
-        //{ heartBackground[i].SetActive(false); }
-        //for (int i = 0;i < heartImage.Length; i++)
-        //{ heartImage[i].SetActive(false); }
-        // Setup the health UI
-       
+        currentHealth = maxHealth;
         for (int i = 0; i < maxHealth; i++)
         {
             go = Instantiate(healthUIPrefab, healthContainer);
@@ -35,42 +30,37 @@ public class PlayerHealth : MonoBehaviour
         {
             ifBlock = false;
             currentHealth--;
-            if (currentHealth > 0)
-            {
-                list[currentHealth].SetActive(false);
-            }
-            else if (currentHealth == 0)
+            if(currentHealth <= 0)
             {
                 PlayerDie();
             }
+            UpdateHealthBar();
         }
         else { ifBlock = true; }
     }
+
+    private void UpdateHealthBar()
+    {
+        for(int i = 0; i < maxHealth;i++)
+        {
+            list[i].SetActive(false);
+        }
+        for (int i = 0; i < currentHealth; i++)
+        {
+            list[i].gameObject.SetActive(true);
+        }
+    }
+
     private void PlayerDie()
     {
-        //gameObject.SetActive(false);
-        HealPlayer(3);
+        HealPlayer(maxHealth - 1);
     }
     
     public void HealPlayer(int heal)
     {
-        if (currentHealth < maxHealth && currentHealth + heal <= maxHealth)
-        {
-            int temp = 0;
-            while (temp < heal)
-            {
-                list[currentHealth+temp].SetActive(true);
-                temp++;
-            }
-            currentHealth += heal;
-        }
-        else if (currentHealth < maxHealth && currentHealth + heal > maxHealth)
-        {
-            for(int i = currentHealth-1;i < maxHealth;i++)
-            {
-                list[i].SetActive(true);
-            }
-        }
+        currentHealth += heal;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        UpdateHealthBar();
     }
     public void IncreasePlayerHealthLimit(int plus)
     {
@@ -82,12 +72,6 @@ public class PlayerHealth : MonoBehaviour
             go.transform.GetChild(0).gameObject.SetActive(false);
             list.Add(go.transform.GetChild(0).gameObject);
         }
-        for (int i = 0; i < currentHealth; i++)
-        {
-            if(!list[i].activeSelf)
-            {
-                list[i].SetActive(true);
-            }
-        }
+        UpdateHealthBar();
     }
 }

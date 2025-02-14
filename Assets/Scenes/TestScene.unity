@@ -7533,7 +7533,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 5989372171575328886, guid: b72681b6e1b513443baccf65a5719336, type: 3}
   - {fileID: 5989372171575328886, guid: 3e7afe54f62ab144da436d14ea3b8016, type: 3}
-  enemyPoolCapacity: 1
+  enemyPoolCapacity: 7
   spawnPosition:
   - {fileID: 1126989133}
   - {fileID: 286641076}
@@ -9669,6 +9669,10 @@ PrefabInstance:
     - target: {fileID: 7280448448102866436, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: hitCriticalChance
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: maxHealth
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: healthContainer
