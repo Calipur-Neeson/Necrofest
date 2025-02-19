@@ -393,7 +393,5 @@ public class CardEffect : MonoBehaviour
                 break;
             }
         }
-    
-    
     }
 }
