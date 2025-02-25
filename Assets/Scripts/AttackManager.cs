@@ -17,6 +17,9 @@ public class AttackManager : MonoBehaviour
     public float hitCriticalChance;
     public float hitDamageIncreaseRate;
     public float hitCriticalDamageIncresseRate;
+
+    public float attackDistanceMultiplier { get; set; } = 1f;
+    public float attackDamageMultiplier { get; set; } = 1f;
     
     private float hitNormalDamage;
     private float hitCriticalDamage;
@@ -28,20 +31,22 @@ public class AttackManager : MonoBehaviour
         playerControl = player.GetComponent<PlayerController>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
         ResetPlayerAttackAnimation();
-        ResetPlayerProperty();
+        //ResetPlayerProperty();
 
     }
 
     public void ResetPlayerAttackAnimation()
     {
-        playerControl.attackDistance = switchWeapon.weaponDistance;
+        playerControl = player.GetComponent<PlayerController>();
+        playerControl.attackDistance = switchWeapon.weaponDistance * attackDistanceMultiplier;
         playerControl.attackDelay = switchWeapon.weaponDelay;
         playerControl.attackSpeed = switchWeapon.weaponSpeed;
-        playerControl.attackDamage = switchWeapon.weaponDamage;
+        playerControl.attackDamage = switchWeapon.weaponDamage * attackDamageMultiplier;
         playerControl.animator.speed = switchWeapon.attackAnimationSpeed;
     }
     public void ResetPlayerProperty()
     {
+        playerControl = player.GetComponent<PlayerController>();
         playerControl.jumpHeight = jumpHeight;
         playerControl.moveSpeed = moveSpeed;
         playerControl.moveSpeed_temp = moveSpeed;

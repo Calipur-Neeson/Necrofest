@@ -3,13 +3,13 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public float health = 100f;
-    //private EnemyPool enemypool;
     private EnemySpawner spawner;
+    private EnemyKillTracker tracker;
 
     private void Start()
     {
-        //enemypool = GetComponentInParent<EnemyPool>();
         spawner = GetComponentInParent<EnemySpawner>();
+        tracker = FindObjectOfType<EnemyKillTracker>();
     }
     public void TakeDamage(float damage)
     {
@@ -25,7 +25,13 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         Debug.Log(gameObject.name + " Die");
-        //enemypool.ReturnToPool(gameObject);
         spawner.WaitingToSpawn(gameObject);
+    }
+    private void OnDisable()
+    {
+        if (tracker != null && gameObject.activeInHierarchy == false)
+        {
+            tracker.OnEnemyKilled(); 
+        }
     }
 }

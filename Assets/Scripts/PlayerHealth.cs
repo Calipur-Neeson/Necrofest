@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private RectTransform healthContainer;
     [SerializeField] private GameObject healthUIPrefab;
-    [SerializeField] private int maxHealth = 3;
+    [HideInInspector] public int maxHealth = 3;
     [HideInInspector] public int currentHealth = 3;
 
     public int blockChance = 0;
@@ -15,6 +15,15 @@ public class PlayerHealth : MonoBehaviour
     private List<GameObject> list = new List<GameObject>();
     private GameObject go;
     private void Start()
+    {
+        //currentHealth = maxHealth;
+        //for (int i = 0; i < maxHealth; i++)
+        //{
+        //    go = Instantiate(healthUIPrefab, healthContainer);
+        //    list.Add(go.transform.GetChild(0).gameObject);
+        //}
+    }
+    public void IniHealth()
     {
         currentHealth = maxHealth;
         for (int i = 0; i < maxHealth; i++)
@@ -39,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
         else { ifBlock = true; }
     }
 
-    private void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         for(int i = 0; i < maxHealth;i++)
         {
