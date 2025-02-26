@@ -11,8 +11,8 @@ public class CardEffect : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        weapon = GameObject.FindObjectOfType<SwitchWeapon>().gameObject;
-        player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        weapon = FindFirstObjectByType<SwitchWeapon>().gameObject;
+        player = FindFirstObjectByType<PlayerController>().gameObject;
 
         playerhealth = player.GetComponent<PlayerHealth>();
         attackManager = player.GetComponent<AttackManager>();
@@ -114,6 +114,7 @@ public class CardEffect : MonoBehaviour
             // Rare cards
             case "Quickdraw":
             {
+                    gameObject.AddComponent<EnemyKillTracker>();
                     //Increase range damage after melee kill.
                     /*
                      event(enemyKilledMelee)
@@ -124,10 +125,8 @@ public class CardEffect : MonoBehaviour
                         }
                      }
                      */
-
-                    //TODO: Check the enemy be killed
-                    Invoke(nameof(UpdateAttackRange), 5f);
-                break;
+                    //Invoke(nameof(UpdateAttackRange), 5f);
+                    break;
             }
             case "Chain Swings":
             {

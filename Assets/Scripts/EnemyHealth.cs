@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     private void Start()
     {
         spawner = GetComponentInParent<EnemySpawner>();
-        tracker = FindObjectOfType<EnemyKillTracker>();
+        tracker = FindFirstObjectByType<EnemyKillTracker>();
     }
     public void TakeDamage(float damage)
     {
