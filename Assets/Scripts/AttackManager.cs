@@ -13,11 +13,14 @@ public class AttackManager : MonoBehaviour
     [Header("Attack Property")]
     public float hitDamage;
     public float hitSpeed;
+
     [Range(0f, 100f)] 
     public float hitCriticalChance;
     public float hitDamageIncreaseRate;
     public float hitCriticalDamageIncresseRate;
 
+    [Header("Range Attack Property")]
+    public float rangeDamage;
     public float attackDistanceMultiplier { get; set; } = 1f;
     public float attackDamageMultiplier { get; set; } = 1f;
     
@@ -32,7 +35,6 @@ public class AttackManager : MonoBehaviour
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
         ResetPlayerAttackAnimation();
         //ResetPlayerProperty();
-
     }
 
     public void ResetPlayerAttackAnimation()

@@ -71,8 +71,10 @@ public class PlayerController : MonoBehaviour
         runSlider.value = maxRunEnergy;
         currentRunEnergy = maxRunEnergy;
 
-        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
         hitCollider.enabled = false;
+        MeshCollider gunCollider = bullet.GetComponentInChildren<MeshCollider>();
+        gunCollider.enabled = false;
     }
 
     void Update()
@@ -82,7 +84,11 @@ public class PlayerController : MonoBehaviour
         // Repeat Inputs
         if(input.Attack.IsPressed())
         { Attack(); }
-        
+
+        RangeStartCoolingDown();
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        { ShotGun(); }
+
         SetAnimations();
         MoveInput(input.Movement.ReadValue<Vector2>());
     }
@@ -260,14 +266,14 @@ public class PlayerController : MonoBehaviour
     // ATTACKING BEHAVIOUR //
     // ------------------- //
 
-    [Header("Attacking")]
+    [Header("MeleeAttacking")]
     public float attackDistance = 3f;
     public float attackDelay = 0.4f;
     public float attackSpeed = 1f;
     public float attackDamage = 1;
     public LayerMask attackLayer;
     public LayerMask enemyLayer;
-    public GameObject handPosition;
+    public GameObject rightHandPosition;
 
     public GameObject hitEffect;
     public AudioClip swordSwing;
@@ -277,7 +283,57 @@ public class PlayerController : MonoBehaviour
     bool readyToAttack = true;
     int attackCount;
 
-    public void Attack()
+    [Header("RangeAttacking")]
+    public Image rangeCoolDownImage;
+    public float rangeCoolDownTime = 6f;
+    public AudioClip gunSound;
+    public ParticleSystem explosion;
+    public ParticleSystem sparks;
+    public GameObject bullet;
+    private float rangeCurrentTime = 6f;
+    private bool isRangeCooling = false;
+
+    private void ShotGun()
+    {
+        if (!isRangeCooling)
+        {
+            isRangeCooling = true;
+            animator.Play("GunShot",1,0f);
+            Invoke(nameof(PlayeGunAudio), 0.1f);
+            Invoke(nameof(SetGunCollider), 0.1f);
+            Invoke(nameof(SetGunCollider), 0.2f);
+            rangeCoolDownImage.fillAmount=1f;
+        }  
+    }
+    private void SetGunCollider()
+    {
+        MeshCollider gunCollider = bullet.GetComponentInChildren<MeshCollider>();
+        gunCollider.enabled = !gunCollider.enabled;
+    }
+
+    private void PlayeGunAudio()
+    {
+        audioSource.PlayOneShot(gunSound);
+        explosion.Play();
+        sparks.Play();
+        ParticleSystem bulletEffect = bullet.GetComponent<ParticleSystem>();
+        bulletEffect.Play();
+    }
+    private void RangeStartCoolingDown()
+    {
+        if (isRangeCooling)
+        {
+            rangeCurrentTime -= Time.deltaTime;
+            rangeCoolDownImage.fillAmount = rangeCurrentTime / rangeCoolDownTime;
+            if (rangeCurrentTime <= 0f)
+            {
+                isRangeCooling = false;
+                rangeCurrentTime = rangeCoolDownTime;
+            }
+        }
+    }
+
+    private void Attack()
     {
         if(!readyToAttack || attacking) return;
 
@@ -292,8 +348,7 @@ public class PlayerController : MonoBehaviour
 
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swordSwing);
-
-        if(attackCount == 0)
+        if (attackCount == 0)
         {
             ChangeAnimationState(ATTACK1);
             attackCount++;
@@ -306,7 +361,7 @@ public class PlayerController : MonoBehaviour
     }
     void SetHitCollider()
     {
-        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
         hitCollider.radius = 0.04f;
         hitCollider.height = attackDistance;
         hitCollider.direction = 1;
@@ -314,7 +369,7 @@ public class PlayerController : MonoBehaviour
     }
     void ActiveHitCollider()
     {
-        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
         hitCollider.enabled = !hitCollider.enabled;
     }
    

@@ -7,12 +7,14 @@ public class CardEffect : MonoBehaviour
     private AttackManager attackManager;
     private GameObject weapon;
     private SwitchWeapon switchWeapon;
+    private GameObject weaponTrigger;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         weapon = FindFirstObjectByType<SwitchWeapon>().gameObject;
         player = FindFirstObjectByType<PlayerController>().gameObject;
+        weaponTrigger = FindFirstObjectByType<WeaponTrigger>().gameObject;
 
         playerhealth = player.GetComponent<PlayerHealth>();
         attackManager = player.GetComponent<AttackManager>();
@@ -130,7 +132,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Chain Swings":
             {
-
+                    weaponTrigger.AddComponent<ChainSwings>();
                     //Chained melee hits deal extra dmg
 
                     //EnableChainSwings();
@@ -147,7 +149,6 @@ public class CardEffect : MonoBehaviour
                         }
                     }
                      */
-                    Invoke(nameof(UpdateAttackDamage), 3f);
                 break;
             }
             case "Skirmisher":

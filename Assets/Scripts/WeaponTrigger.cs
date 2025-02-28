@@ -3,11 +3,12 @@ using UnityEngine;
 public class WeaponTrigger : MonoBehaviour
 {
     
-    public GameObject player;
+    private GameObject player;
     private AttackManager attackManager;
 
     private void Start()
     {
+        player = FindFirstObjectByType<PlayerController>().gameObject;
         attackManager = player.GetComponent<AttackManager>();
     }
     private void OnTriggerEnter(Collider other)
