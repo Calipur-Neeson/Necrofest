@@ -8,6 +8,7 @@ public class CardEffect : MonoBehaviour
     private GameObject weapon;
     private SwitchWeapon switchWeapon;
     private GameObject weaponTrigger;
+    private PlayerController playerController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -19,6 +20,7 @@ public class CardEffect : MonoBehaviour
         playerhealth = player.GetComponent<PlayerHealth>();
         attackManager = player.GetComponent<AttackManager>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
+        playerController = player.GetComponent<PlayerController>();
 
         if (player != null )
         {
@@ -153,18 +155,19 @@ public class CardEffect : MonoBehaviour
             }
             case "Skirmisher":
             {
-                //After ranged attack next melee extra dmg
-                //EnableSkirmisher();
-                /*
-                public void Skirmisher()
-                {
-                 event(PlayerAttackRange)
+                    playerController.isSkirmisher = true;
+                    //After ranged attack next melee extra dmg
+                    //EnableSkirmisher();
+                    /*
+                    public void Skirmisher()
                     {
-                        NextPlayerMeleeDamageIncrease (20%)
+                     event(PlayerAttackRange)
+                        {
+                            NextPlayerMeleeDamageIncrease (20%)
+                        }
                     }
-                }
-                 */
-                break;
+                     */
+                    break;
             }
 
             case "Blood Tribute":

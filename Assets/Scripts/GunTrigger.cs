@@ -20,7 +20,7 @@ public class GunTrigger : MonoBehaviour
             {
                 attackManager.CalculateHitDamage();
                 float damage = attackManager.rangeDamage;
-                enemyHealth.TakeDamage(damage);
+                enemyHealth.TakeDamage(damage,"Gun");
             }
         }
     }

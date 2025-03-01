@@ -10,9 +10,9 @@ public class Gamemanager : MonoBehaviour
         cardEffect.TriggerEffect("Mobility");
         cardEffect.TriggerEffect("Strength");
 
+        cardEffect.TriggerEffect("Skirmisher");
+        cardEffect.TriggerEffect("Quickdraw");
         cardEffect.TriggerEffect("Chain Swings");
-        //cardEffect.TriggerEffect("Strong Legs");
-        //cardEffect.TriggerEffect("Critical Block!");
     }
 
 }

@@ -17,28 +17,29 @@ public class EnemyKillTracker : MonoBehaviour
 
         attackManager = player.GetComponent<AttackManager>();
     }
-    public void OnEnemyKilled()
+    public void OnEnemyKilled(string weaponType)
     {
-        isKilled = true;
-        if (!isIncreased)
+        if (weaponType == "Melee")
         {
-            attackManager.attackDistanceMultiplier *= 1.2f;
-            attackManager.ResetPlayerAttackAnimation();
-            isIncreased = true;
+            isKilled = true;
+            if (!isIncreased)
+            {
+                attackManager.rangeDamage *= 1.2f;
+                isIncreased = true;
+            }
+            if (resetCoroutine != null)
+            {
+                StopCoroutine(resetCoroutine);
+            }
+            resetCoroutine = StartCoroutine(ResetKillStatus());
         }
-        if (resetCoroutine != null)
-        {
-            StopCoroutine(resetCoroutine);
-        }
-        resetCoroutine = StartCoroutine(ResetKillStatus());
     }
 
     private IEnumerator ResetKillStatus()
     {
         yield return new WaitForSeconds(resetTime);
         isKilled = false;
-        attackManager.attackDistanceMultiplier /= 1.2f;
-        attackManager.ResetPlayerAttackAnimation();
+        attackManager.rangeDamage /= 1.2f;
         isIncreased = false;
     }
 }

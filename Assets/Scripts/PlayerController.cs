@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     PlayerInput.MainActions input;
 
+    private AttackManager attackManager;
+
     CharacterController controller;
     public Animator animator;
     AudioSource audioSource;
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        attackManager = GetComponent<AttackManager>();
 
         playerInput = new PlayerInput();
         input = playerInput.Main;
@@ -292,6 +296,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bullet;
     private float rangeCurrentTime = 6f;
     private bool isRangeCooling = false;
+    [HideInInspector]public bool isSkirmisher = false ;
+    private bool isAfterShoting = false;
 
     private void ShotGun()
     {
@@ -299,10 +305,11 @@ public class PlayerController : MonoBehaviour
         {
             isRangeCooling = true;
             animator.Play("GunShot",1,0f);
-            Invoke(nameof(PlayeGunAudio), 0.1f);
+            Invoke(nameof(PlayGunAudio), 0.1f);
             Invoke(nameof(SetGunCollider), 0.1f);
             Invoke(nameof(SetGunCollider), 0.2f);
             rangeCoolDownImage.fillAmount=1f;
+            IncreaseNextMelee();
         }  
     }
     private void SetGunCollider()
@@ -311,7 +318,7 @@ public class PlayerController : MonoBehaviour
         gunCollider.enabled = !gunCollider.enabled;
     }
 
-    private void PlayeGunAudio()
+    private void PlayGunAudio()
     {
         audioSource.PlayOneShot(gunSound);
         explosion.Play();
@@ -332,7 +339,24 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    private void IncreaseNextMelee()
+    {       
+        if (isSkirmisher)
+        {
+            isAfterShoting=true;
+            attackManager.attackDamageMultiplier *= 1.2f;
+            attackManager.ResetPlayerAttackAnimation(); 
+        }     
+    }
+    private void ResetNextMelee()
+    {
+        if (isAfterShoting)
+        {
+            isAfterShoting = false;
+            attackManager.attackDamageMultiplier /= 1.2f;
+            attackManager.ResetPlayerAttackAnimation();
+        }
+    }
     private void Attack()
     {
         if(!readyToAttack || attacking) return;
@@ -358,6 +382,7 @@ public class PlayerController : MonoBehaviour
             ChangeAnimationState(ATTACK2);
             attackCount = 0;
         }
+        Invoke(nameof(ResetNextMelee), attackDelay);
     }
     void SetHitCollider()
     {

@@ -21,7 +21,7 @@ public class WeaponTrigger : MonoBehaviour
             {
                 attackManager.CalculateHitDamage();
                 float damage = attackManager.hitDamage;
-                enemyHealth.TakeDamage(damage);
+                enemyHealth.TakeDamage(damage,"Melee");
             }
         }
     }

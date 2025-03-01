@@ -36,7 +36,7 @@ public class AttackManager : MonoBehaviour
         ResetPlayerAttackAnimation();
         //ResetPlayerProperty();
     }
-
+ 
     public void ResetPlayerAttackAnimation()
     {
         playerControl = player.GetComponent<PlayerController>();
@@ -56,7 +56,7 @@ public class AttackManager : MonoBehaviour
     }
     public void CalculateHitDamage()
     {
-        hitNormalDamage = switchWeapon.weaponDamage * (1 + hitDamageIncreaseRate / 100);
+        hitNormalDamage = playerControl.attackDamage * (1 + hitDamageIncreaseRate / 100);
         hitCriticalDamage = hitNormalDamage * 2 * (1 + hitCriticalDamageIncresseRate / 100);
         int i = Random.Range(0, 100);
         if (i < 0 + hitCriticalChance)
