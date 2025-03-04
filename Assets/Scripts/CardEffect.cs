@@ -172,6 +172,7 @@ public class CardEffect : MonoBehaviour
 
             case "Blood Tribute":
             {
+                    playerhealth.isBloodTribute = true;
                 //Deal extra damage after getting hit
                 //EnableBloodTribute();
                 /*

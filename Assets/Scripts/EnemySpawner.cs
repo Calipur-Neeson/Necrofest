@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] enemies;
     [Range(1.0f, 20.0f)]
     public int enemyPoolCapacity;
+    [Range(2.0f, 10.0f)]
+    public float intervalTime;
     public Transform[] spawnPosition;
 
     private List<GameObject> enemyPool = new List<GameObject>();
@@ -22,11 +24,8 @@ public class EnemySpawner : MonoBehaviour
 
             enemy.SetActive(false);
             enemyWaitingSpawn.Add(enemy);
-            //enemyWaitingSpawn[i] = Instantiate(enemies[temp], transform);
-            //enemyWaitingSpawn[i].transform.parent = transform;
-            //enemyWaitingSpawn[i].gameObject.SetActive(false);
         }
-        InvokeRepeating(nameof(SpawnEnemy), 1f, 2f);
+        InvokeRepeating(nameof(SpawnEnemy), 1f, intervalTime);
     }
     
     private void SpawnEnemy()

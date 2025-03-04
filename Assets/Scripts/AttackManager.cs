@@ -23,6 +23,7 @@ public class AttackManager : MonoBehaviour
     public float rangeDamage;
     public float attackDistanceMultiplier { get; set; } = 1f;
     public float attackDamageMultiplier { get; set; } = 1f;
+    public float rangeDamageMultiplier { get; set; } = 1f;
     
     private float hitNormalDamage;
     private float hitCriticalDamage;

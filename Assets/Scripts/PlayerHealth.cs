@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,11 @@ public class PlayerHealth : MonoBehaviour
 
     private List<GameObject> list = new List<GameObject>();
     private GameObject go;
+    [HideInInspector] public bool isBloodTribute = false;
+    private bool isIncreased = false;
+    private Coroutine resetBloodTribute;
+    private GameObject player;
+    private AttackManager attackManager;
     private void Start()
     {
         //currentHealth = maxHealth;
@@ -22,6 +28,8 @@ public class PlayerHealth : MonoBehaviour
         //    go = Instantiate(healthUIPrefab, healthContainer);
         //    list.Add(go.transform.GetChild(0).gameObject);
         //}
+        player = FindFirstObjectByType<PlayerController>().gameObject;
+        attackManager = player.GetComponent<AttackManager>();
     }
     public void IniHealth()
     {
@@ -39,6 +47,21 @@ public class PlayerHealth : MonoBehaviour
         {
             ifBlock = false;
             currentHealth--;
+            if (isBloodTribute)
+            {
+                if (!isIncreased)
+                {
+                    attackManager.attackDamageMultiplier *= 1.3f;
+                    attackManager.ResetPlayerAttackAnimation();
+                    attackManager.rangeDamage *= 1.3f;
+                    isIncreased = true;
+                }
+                if (resetBloodTribute != null)
+                {
+                    StopCoroutine(resetBloodTribute);
+                }
+                resetBloodTribute = StartCoroutine(IncreaseDamage());
+            }
             if(currentHealth <= 0)
             {
                 PlayerDie();
@@ -82,5 +105,14 @@ public class PlayerHealth : MonoBehaviour
             list.Add(go.transform.GetChild(0).gameObject);
         }
         UpdateHealthBar();
+    }
+
+    private IEnumerator IncreaseDamage()
+    {
+        yield return new WaitForSeconds(3f);
+        isIncreased = false;
+        attackManager.attackDamageMultiplier /= 1.3f;
+        attackManager.ResetPlayerAttackAnimation();
+        attackManager.rangeDamage /= 1.3f;
     }
 }

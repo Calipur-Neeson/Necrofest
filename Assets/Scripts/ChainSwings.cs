@@ -30,11 +30,11 @@ public class ChainSwings : MonoBehaviour
             {
                 StopCoroutine(resetCoroutine);
             }
-            resetCoroutine = StartCoroutine(IncreaseDamage());
+            resetCoroutine = StartCoroutine(IncreaseMeleeDamage());
         }
     }
 
-    private IEnumerator IncreaseDamage()
+    private IEnumerator IncreaseMeleeDamage()
     {
         yield return new WaitForSeconds(3f);
         isChainSwings = false;
