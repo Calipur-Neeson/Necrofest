@@ -240,8 +240,8 @@ public class CardEffect : MonoBehaviour
             }
             case "Multitude Tap":
             {
-                //Increase range attack charges per cooldown
-                //playerRangeChargeIncrease (+1)
+                    playerController.shotNum++; //Increase range attack charges per cooldown
+                                                //playerRangeChargeIncrease (+1)
                 break;
             }
             case "Speed Daemon":

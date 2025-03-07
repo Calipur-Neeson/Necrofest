@@ -14,6 +14,7 @@ public class Gamemanager : MonoBehaviour
         cardEffect.TriggerEffect("Eagle");
         cardEffect.TriggerEffect("Swoop In");
         cardEffect.TriggerEffect("Skirmisher");
+        cardEffect.TriggerEffect("Multitude Tap");
     }
 
 }

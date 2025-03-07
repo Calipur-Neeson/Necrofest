@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -66,6 +67,8 @@ public class PlayerController : MonoBehaviour
         input = playerInput.Main;
         AssignInputs();
 
+        rangeCoolDownImage.fillAmount = 0f;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
@@ -93,6 +96,7 @@ public class PlayerController : MonoBehaviour
         if(input.Attack.IsPressed())
         { Attack(); }
 
+        bulletNumBox.text = $"{shotNum - currentShotNum}";
         RangeStartCoolingDown();
         if(Input.GetKeyDown(KeyCode.Mouse1))
         { ShotGun(); }
@@ -343,17 +347,27 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isSkirmisher = false ;
     private bool isAfterShoting = false;
 
+    public TextMeshProUGUI bulletNumBox;
+    public int shotNum { get; set;} = 1;
+    private int currentShotNum = 0;
+
     private void ShotGun()
     {
-        if (!isRangeCooling)
+        if (!isRangeCooling & currentShotNum < shotNum)
         {
-            isRangeCooling = true;
+            //isRangeCooling = true;
             animator.Play("GunShot",1,0f);
             Invoke(nameof(PlayGunAudio), 0.1f);
             Invoke(nameof(SetGunCollider), 0.1f);
             Invoke(nameof(SetGunCollider), 0.2f);
-            rangeCoolDownImage.fillAmount=1f;
+            currentShotNum++;
+
             IncreaseNextMelee();
+            if (currentShotNum == shotNum) 
+            { 
+                rangeCoolDownImage.fillAmount = 1f;
+                isRangeCooling=true; 
+            }
         }  
     }
     private void SetGunCollider()
@@ -372,7 +386,7 @@ public class PlayerController : MonoBehaviour
     }
     private void RangeStartCoolingDown()
     {
-        if (isRangeCooling)
+        if (isRangeCooling & currentShotNum == shotNum)
         {
             rangeCurrentTime -= Time.deltaTime;
             rangeCoolDownImage.fillAmount = rangeCurrentTime / rangeCoolDownTime;
@@ -380,6 +394,7 @@ public class PlayerController : MonoBehaviour
             {
                 isRangeCooling = false;
                 rangeCurrentTime = rangeCoolDownTime;
+                currentShotNum = 0;
             }
         }
     }
