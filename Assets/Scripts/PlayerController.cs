@@ -50,6 +50,10 @@ public class PlayerController : MonoBehaviour
     int jumpCount = 0;
     public float moveSpeed_temp = 0f;
 
+    [HideInInspector]public bool isEagle = false;
+    [HideInInspector]public bool isSwoopIn = false;
+    private bool isSwoopIned;
+    private Coroutine resetSwoopIn;
     void Awake()
     { 
         controller = GetComponent<CharacterController>();
@@ -95,6 +99,8 @@ public class PlayerController : MonoBehaviour
 
         SetAnimations();
         MoveInput(input.Movement.ReadValue<Vector2>());
+
+        EagleEffect();
     }
 
     //void FixedUpdate()
@@ -166,9 +172,31 @@ public class PlayerController : MonoBehaviour
                 moveSpeed = dashSpeed;
                 
                 currentDashEnergy -= dashEnergyCost;
+                if (isSwoopIn)
+                {
+                    if (!isSwoopIned)
+                    {
+                        attackManager.attackDamageMultiplier += 0.1f;
+                        attackManager.rangeDamageMultiplier += 0.1f;
+                        attackManager.ResetPlayerAttackAnimation();
+                        isSwoopIned = true;
+                    }
+                    if (resetSwoopIn != null)
+                    {
+                        StopCoroutine(resetSwoopIn);
+                    }
+                    resetSwoopIn = StartCoroutine(IncreaseDamage());
+                }
             }
-        }
-        
+        }      
+    }
+    private IEnumerator IncreaseDamage()
+    {
+        yield return new WaitForSeconds(3f);
+        isSwoopIned = false;
+        attackManager.attackDamageMultiplier -= 0.1f;
+        attackManager.rangeDamageMultiplier -= 0.1f;
+        attackManager.ResetPlayerAttackAnimation();
     }
     private void InitialMoveSpeed()
     {
@@ -218,12 +246,28 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-            jumpCount++;
+            jumpCount++;           
         }
         else if (!isGrounded && jumpCount > 0)
         {
             _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
             jumpCount = 0;
+        }
+    }
+
+    private void EagleEffect()
+    {
+        if (isEagle)
+        {
+            if (!isGrounded)
+            {
+                attackManager.eagleMultiplier = 0.15f;
+            }
+            else
+            {
+                attackManager.eagleMultiplier = 0f;
+            }
+            attackManager.ResetPlayerAttackAnimation();            
         }
     }
 
@@ -344,7 +388,7 @@ public class PlayerController : MonoBehaviour
         if (isSkirmisher)
         {
             isAfterShoting=true;
-            attackManager.attackDamageMultiplier *= 1.2f;
+            attackManager.attackDamageMultiplier += 0.2f;
             attackManager.ResetPlayerAttackAnimation(); 
         }     
     }
@@ -353,7 +397,7 @@ public class PlayerController : MonoBehaviour
         if (isAfterShoting)
         {
             isAfterShoting = false;
-            attackManager.attackDamageMultiplier /= 1.2f;
+            attackManager.attackDamageMultiplier -= 0.2f;
             attackManager.ResetPlayerAttackAnimation();
         }
     }

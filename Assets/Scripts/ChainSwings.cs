@@ -22,7 +22,7 @@ public class ChainSwings : MonoBehaviour
             isChainSwings = true;
             if (!isIncreased)
             {
-                attackManager.attackDamageMultiplier *= 1.1f;
+                attackManager.attackDamageMultiplier += 0.1f;
                 attackManager.ResetPlayerAttackAnimation();
                 isIncreased = true;
             }
@@ -39,7 +39,7 @@ public class ChainSwings : MonoBehaviour
         yield return new WaitForSeconds(3f);
         isChainSwings = false;
         isIncreased = false;
-        attackManager.attackDamageMultiplier /= 1.1f;
+        attackManager.attackDamageMultiplier -= 0.1f;
         attackManager.ResetPlayerAttackAnimation();
     }
 }

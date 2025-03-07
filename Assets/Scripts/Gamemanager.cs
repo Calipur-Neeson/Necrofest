@@ -11,8 +11,9 @@ public class Gamemanager : MonoBehaviour
         cardEffect.TriggerEffect("Strength");
 
         cardEffect.TriggerEffect("Blood Tribute");
-        //cardEffect.TriggerEffect("Quickdraw");
-        //cardEffect.TriggerEffect("Chain Swings");
+        cardEffect.TriggerEffect("Eagle");
+        cardEffect.TriggerEffect("Swoop In");
+        cardEffect.TriggerEffect("Skirmisher");
     }
 
 }

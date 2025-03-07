@@ -51,9 +51,9 @@ public class PlayerHealth : MonoBehaviour
             {
                 if (!isIncreased)
                 {
-                    attackManager.attackDamageMultiplier *= 1.3f;
+                    attackManager.attackDamageMultiplier += 0.3f;
+                    attackManager.rangeDamageMultiplier += 0.3f;
                     attackManager.ResetPlayerAttackAnimation();
-                    attackManager.rangeDamage *= 1.3f;
                     isIncreased = true;
                 }
                 if (resetBloodTribute != null)
@@ -111,8 +111,8 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         isIncreased = false;
-        attackManager.attackDamageMultiplier /= 1.3f;
+        attackManager.attackDamageMultiplier -= 0.3f;
+        attackManager.rangeDamageMultiplier -= 0.3f;
         attackManager.ResetPlayerAttackAnimation();
-        attackManager.rangeDamage /= 1.3f;
     }
 }

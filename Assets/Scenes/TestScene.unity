@@ -7676,7 +7676,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 7699723569312877257, guid: eef5c969e93424c488c77d9c9f374a22, type: 3}
   enemyPoolCapacity: 1
-  intervalTime: 0
+  intervalTime: 2
   spawnPosition:
   - {fileID: 476272335}
 --- !u!4 &476272335
@@ -7771,8 +7771,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 5989372171575328886, guid: b72681b6e1b513443baccf65a5719336, type: 3}
-  enemyPoolCapacity: 5
-  intervalTime: 0
+  enemyPoolCapacity: 1
+  intervalTime: 2
   spawnPosition:
   - {fileID: 490400439}
 --- !u!1 &512820409
@@ -9355,7 +9355,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 5989372171575328886, guid: 3e7afe54f62ab144da436d14ea3b8016, type: 3}
   enemyPoolCapacity: 1
-  intervalTime: 0
+  intervalTime: 2
   spawnPosition:
   - {fileID: 1023303389}
 --- !u!4 &1023303389
@@ -10017,7 +10017,7 @@ PrefabInstance:
       objectReference: {fileID: 75127220}
     - target: {fileID: 5802611058064484328, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_VersionIndex
-      value: 4342
+      value: 4348
       objectReference: {fileID: 0}
     - target: {fileID: 5802611058064484328, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_Tangents.Array.data[0].x

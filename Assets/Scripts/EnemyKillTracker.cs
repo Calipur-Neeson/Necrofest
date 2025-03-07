@@ -24,7 +24,8 @@ public class EnemyKillTracker : MonoBehaviour
             isKilled = true;
             if (!isIncreased)
             {
-                attackManager.rangeDamage *= 1.2f;
+                attackManager.rangeDamageMultiplier += 0.2f;
+                attackManager.ResetPlayerAttackAnimation();
                 isIncreased = true;
             }
             if (resetCoroutine != null)
@@ -39,7 +40,8 @@ public class EnemyKillTracker : MonoBehaviour
     {
         yield return new WaitForSeconds(resetTime);
         isKilled = false;
-        attackManager.rangeDamage /= 1.2f;
+        attackManager.rangeDamageMultiplier -= 0.2f;
+        attackManager.ResetPlayerAttackAnimation();
         isIncreased = false;
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class CardEffect : MonoBehaviour
 {
     private GameObject player;
-    private PlayerHealth playerhealth;
+    private PlayerHealth playerHealth;
     private AttackManager attackManager;
     private GameObject weapon;
     private SwitchWeapon switchWeapon;
@@ -17,7 +17,7 @@ public class CardEffect : MonoBehaviour
         player = FindFirstObjectByType<PlayerController>().gameObject;
         weaponTrigger = FindFirstObjectByType<WeaponTrigger>().gameObject;
 
-        playerhealth = player.GetComponent<PlayerHealth>();
+        playerHealth = player.GetComponent<PlayerHealth>();
         attackManager = player.GetComponent<AttackManager>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
         playerController = player.GetComponent<PlayerController>();
@@ -52,8 +52,8 @@ public class CardEffect : MonoBehaviour
             //Base cards
             case "Vitality":
             {
-                    playerhealth.maxHealth = 3;               
-                    playerhealth.IniHealth();    //base card player hp (3)
+                    playerHealth.maxHealth = 3;               
+                    playerHealth.IniHealth();    //base card player hp (3)
                     break;               
             }
             case "Mobility":
@@ -99,7 +99,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Critical Block!":
             {
-                    playerhealth.blockChance += 1;//playerBlockChanceIncrease (1%)
+                    playerHealth.blockChance += 1;//playerBlockChanceIncrease (1%)
                     break;
             }
             case "Quick Swings":
@@ -172,7 +172,7 @@ public class CardEffect : MonoBehaviour
 
             case "Blood Tribute":
             {
-                    playerhealth.isBloodTribute = true;
+                    playerHealth.isBloodTribute = true;
                 //Deal extra damage after getting hit
                 //EnableBloodTribute();
                 /*
@@ -192,6 +192,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Eagle":
             {
+                    playerController.isEagle = true;
                 //Extra damage while in air
                 //EnableEagle();
                 /*
@@ -207,6 +208,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Swoop In":
             {
+                    playerController.isSwoopIn = true;
                 //Extra damage after dash
                 //EnableSwoopIn();
                 /*
@@ -226,15 +228,15 @@ public class CardEffect : MonoBehaviour
             }
             case "Crunchy Crits":
             {
-                //Increases critical damage
-                //playerCriticalDamageIncrease (20%)
+                    attackManager.hitCriticalDamageIncresseRate += 20;//Increases critical damage
+                                                                    //playerCriticalDamageIncrease (20%)
                 break;
             }
             case "Increased Vitality":
             {
-                //Increase player health
-                //playerHealthIncrease
-                break;
+                    playerHealth.IncreasePlayerHealthLimit(1);//Increase player health
+                                                              //playerHealthIncrease
+                    break;
             }
             case "Multitude Tap":
             {

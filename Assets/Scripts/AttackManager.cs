@@ -21,9 +21,11 @@ public class AttackManager : MonoBehaviour
 
     [Header("Range Attack Property")]
     public float rangeDamage;
+    private float tempRangeDamage;
     public float attackDistanceMultiplier { get; set; } = 1f;
     public float attackDamageMultiplier { get; set; } = 1f;
     public float rangeDamageMultiplier { get; set; } = 1f;
+    public float eagleMultiplier { get; set; } = 0f;
     
     private float hitNormalDamage;
     private float hitCriticalDamage;
@@ -32,6 +34,7 @@ public class AttackManager : MonoBehaviour
 
     private void Start()
     {
+        tempRangeDamage = rangeDamage;
         playerControl = player.GetComponent<PlayerController>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
         ResetPlayerAttackAnimation();
@@ -44,8 +47,9 @@ public class AttackManager : MonoBehaviour
         playerControl.attackDistance = switchWeapon.weaponDistance * attackDistanceMultiplier;
         playerControl.attackDelay = switchWeapon.weaponDelay;
         playerControl.attackSpeed = switchWeapon.weaponSpeed;
-        playerControl.attackDamage = switchWeapon.weaponDamage * attackDamageMultiplier;
+        playerControl.attackDamage = switchWeapon.weaponDamage * (attackDamageMultiplier + eagleMultiplier);
         playerControl.animator.speed = switchWeapon.attackAnimationSpeed;
+        rangeDamage = tempRangeDamage * (rangeDamageMultiplier + eagleMultiplier);
     }
     public void ResetPlayerProperty()
     {
