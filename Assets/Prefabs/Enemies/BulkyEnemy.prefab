@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a1ab62bd2829840bb92229ab10db49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 4
+  enemyHealth: 5
 --- !u!54 &4343927771377319604
 Rigidbody:
   m_ObjectHideFlags: 0

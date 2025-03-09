@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float health = 100f;
+    public float enemyHealth = 100f;
+    private float health;
     private EnemySpawner spawner;
     private EnemyKillTracker tracker;
 
@@ -10,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
+        health = enemyHealth;
         spawner = GetComponentInParent<EnemySpawner>();
         tracker = FindFirstObjectByType<EnemyKillTracker>();
     }
@@ -18,7 +20,7 @@ public class EnemyHealth : MonoBehaviour
         health -= damage;
         Debug.Log(gameObject.name + " get " + damage + " damage£¬Remaining HP: " + health);
 
-        if (health <= 0)
+        if (health < 1e-6f)
         {
             lastDamageSource = weaponType;
             Die();
@@ -36,5 +38,10 @@ public class EnemyHealth : MonoBehaviour
         {
             tracker.OnEnemyKilled(lastDamageSource); 
         }
+    }
+
+    public void RestEnemyHealth()
+    {
+        health = enemyHealth;
     }
 }

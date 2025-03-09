@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> enemyPool = new List<GameObject>();
     private List<GameObject> enemyWaitingSpawn = new List<GameObject>();
 
+    private EnemyHealth eh;
+
     private void Start()
     {
 
@@ -45,6 +47,8 @@ public class EnemySpawner : MonoBehaviour
     {
         int temp = Random.Range(0, spawnPosition.Length);
         gb.transform.position = spawnPosition[temp].position;
+        eh = gb.GetComponent<EnemyHealth>();
+        eh.RestEnemyHealth();
         gb.SetActive(true);
     }
 
