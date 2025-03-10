@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isSwoopIn = false;
     private bool isSwoopIned;
     private Coroutine resetSwoopIn;
+
+    [HideInInspector] public bool isSpeedDaemon = false;
     void Awake()
     { 
         controller = GetComponent<CharacterController>();
@@ -104,7 +106,7 @@ public class PlayerController : MonoBehaviour
         SetAnimations();
         MoveInput(input.Movement.ReadValue<Vector2>());
 
-        EagleEffect();
+        EagleEffect();              
     }
 
     //void FixedUpdate()
@@ -143,6 +145,13 @@ public class PlayerController : MonoBehaviour
         if(isGrounded && _PlayerVelocity.y < 0)
             _PlayerVelocity.y = -2f;
         controller.Move(_PlayerVelocity * Time.deltaTime);
+        float currentMoveSpeed = transform.TransformDirection(moveDirection).magnitude * moveSpeed;
+        if (isSpeedDaemon)
+        {
+            if (currentMoveSpeed != 0) { attackManager.speedDaemonMultiplier = (currentMoveSpeed - 5) / 0.5f * 0.05f; }
+            else { attackManager.speedDaemonMultiplier = 0; }
+            attackManager.ResetPlayerAttackAnimation();
+        }    
     }
 
     void LookInput(Vector3 input)

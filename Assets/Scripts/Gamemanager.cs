@@ -10,11 +10,12 @@ public class Gamemanager : MonoBehaviour
         cardEffect.TriggerEffect("Mobility");
         cardEffect.TriggerEffect("Strength");
 
-        cardEffect.TriggerEffect("Blood Tribute");
-        cardEffect.TriggerEffect("Eagle");
-        cardEffect.TriggerEffect("Swoop In");
-        cardEffect.TriggerEffect("Skirmisher");
-        cardEffect.TriggerEffect("Multitude Tap");
+        //cardEffect.TriggerEffect("Blood Tribute");
+        //cardEffect.TriggerEffect("Eagle");
+        //cardEffect.TriggerEffect("Swoop In");
+        //cardEffect.TriggerEffect("Skirmisher");
+        //cardEffect.TriggerEffect("Multitude Tap");
+        cardEffect.TriggerEffect("Speed Daemon");
     }
 
 }

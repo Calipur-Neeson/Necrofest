@@ -22,10 +22,13 @@ public class AttackManager : MonoBehaviour
     [Header("Range Attack Property")]
     public float rangeDamage;
     private float tempRangeDamage;
+    public float moveSpeedMultiplier { get; set; } = 1f;
+    public float jumpMultiplier { get; set; } = 1f;
     public float attackDistanceMultiplier { get; set; } = 1f;
     public float attackDamageMultiplier { get; set; } = 1f;
     public float rangeDamageMultiplier { get; set; } = 1f;
     public float eagleMultiplier { get; set; } = 0f;
+    public float speedDaemonMultiplier { get; set; } = 0f;
     
     private float hitNormalDamage;
     private float hitCriticalDamage;
@@ -47,16 +50,16 @@ public class AttackManager : MonoBehaviour
         playerControl.attackDistance = switchWeapon.weaponDistance * attackDistanceMultiplier;
         playerControl.attackDelay = switchWeapon.weaponDelay;
         playerControl.attackSpeed = switchWeapon.weaponSpeed;
-        playerControl.attackDamage = switchWeapon.weaponDamage * (attackDamageMultiplier + eagleMultiplier);
+        playerControl.attackDamage = switchWeapon.weaponDamage * (attackDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
         playerControl.animator.speed = switchWeapon.attackAnimationSpeed;
-        rangeDamage = tempRangeDamage * (rangeDamageMultiplier + eagleMultiplier);
+        rangeDamage = tempRangeDamage * (rangeDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
     }
     public void ResetPlayerProperty()
     {
         playerControl = player.GetComponent<PlayerController>();
-        playerControl.jumpHeight = jumpHeight;
-        playerControl.moveSpeed = moveSpeed;
-        playerControl.moveSpeed_temp = moveSpeed;
+        playerControl.jumpHeight = jumpHeight * jumpMultiplier;
+        playerControl.moveSpeed = moveSpeed * moveSpeedMultiplier;
+        playerControl.moveSpeed_temp = moveSpeed * moveSpeedMultiplier;
 
     }
     public void CalculateHitDamage()

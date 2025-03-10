@@ -75,7 +75,7 @@ public class CardEffect : MonoBehaviour
             {
 
                     attackManager.hitDamageIncreaseRate += 1;//(increase damage)//playerMovementSpeedIncrease(1%)
-                    attackManager.moveSpeed *= 1.01f;
+                    attackManager.moveSpeedMultiplier += 0.01f;
                     attackManager.ResetPlayerProperty(); //playerSpeedIncrease (1%)
                     switchWeapon.UpLevelWeapon(0.01f);
                     attackManager.ResetPlayerAttackAnimation();//playerAttackSpeedIncrease (1%)
@@ -88,7 +88,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Increased Mobility":
             {
-                    attackManager.moveSpeed *= 1.05f;
+                    attackManager.moveSpeedMultiplier += 0.05f;
                     attackManager.ResetPlayerProperty();//playerSpeedIncrease (5%)
                     break;
             }
@@ -110,7 +110,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Strong Legs":
             {
-                    attackManager.jumpHeight *= 1.05f;
+                    attackManager.jumpMultiplier += 0.05f;
                     attackManager.ResetPlayerProperty();//playerJumpHeightIncrease (5%)
                     break;
             }
@@ -246,6 +246,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Speed Daemon":
             {
+                    playerController.isSpeedDaemon = true;
                 //Increase damage based on movement speed
                 //EnableSpeedDaemon();
                 /*

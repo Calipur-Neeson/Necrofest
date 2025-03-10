@@ -10157,7 +10157,7 @@ PrefabInstance:
       objectReference: {fileID: 75127220}
     - target: {fileID: 5802611058064484328, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_VersionIndex
-      value: 4357
+      value: 4369
       objectReference: {fileID: 0}
     - target: {fileID: 5802611058064484328, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
