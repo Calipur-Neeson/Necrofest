@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour
     private Coroutine resetSwoopIn;
 
     [HideInInspector] public bool isSpeedDaemon = false;
+
+    [HideInInspector]public bool isDivineDash = false;
     void Awake()
     { 
         controller = GetComponent<CharacterController>();
@@ -200,6 +202,16 @@ public class PlayerController : MonoBehaviour
                     }
                     resetSwoopIn = StartCoroutine(IncreaseDamage());
                 }
+
+                if (isDivineDash)
+                {
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
+                    for (int i = 0; i < enemies.Length; i++)
+                    {
+                        CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
+                        cc.enabled = false;
+                    }
+                }
             }
         }      
     }
@@ -214,6 +226,15 @@ public class PlayerController : MonoBehaviour
     private void InitialMoveSpeed()
     {
         moveSpeed = moveSpeed_temp;
+        if (isDivineDash)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
+                cc.enabled = true;
+            }
+        }
     }
 
     private void RegenDashEnergy()

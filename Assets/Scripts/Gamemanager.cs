@@ -15,7 +15,9 @@ public class Gamemanager : MonoBehaviour
         //cardEffect.TriggerEffect("Swoop In");
         //cardEffect.TriggerEffect("Skirmisher");
         //cardEffect.TriggerEffect("Multitude Tap");
-        cardEffect.TriggerEffect("Speed Daemon");
+        //cardEffect.TriggerEffect("Speed Daemon");
+        //cardEffect.TriggerEffect("Divine Dash");
+        cardEffect.TriggerEffect("Payback");
     }
 
 }

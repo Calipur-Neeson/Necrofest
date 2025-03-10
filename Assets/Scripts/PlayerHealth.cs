@@ -20,6 +20,10 @@ public class PlayerHealth : MonoBehaviour
     private Coroutine resetBloodTribute;
     private GameObject player;
     private AttackManager attackManager;
+
+    [HideInInspector] public bool isPayBack;
+    private SphereCollider sphere;
+    private bool isHurted = false;
     private void Start()
     {
         //currentHealth = maxHealth;
@@ -30,6 +34,41 @@ public class PlayerHealth : MonoBehaviour
         //}
         player = FindFirstObjectByType<PlayerController>().gameObject;
         attackManager = player.GetComponent<AttackManager>();
+        sphere = player.AddComponent<SphereCollider>();
+        sphere.center = new Vector3 (0, 1, 0);
+        sphere.radius = 0f;
+        sphere.isTrigger = true;
+        sphere.enabled = false;
+    }
+
+    private void Update()
+    {
+        if (isPayBack)
+        {
+            if (isHurted)
+            {
+                sphere.enabled = true;
+                sphere.radius += 5.0f * Time.deltaTime;
+                if (sphere.radius > 4.0f)
+                {
+                    isHurted = false ;
+                    sphere.enabled = false ;
+                    sphere.radius = 0f;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(100.0f, "");
+            }
+        }
     }
     public void IniHealth()
     {
@@ -45,7 +84,7 @@ public class PlayerHealth : MonoBehaviour
         int i = Random.Range(0, 100);
         if (i >= blockChance)
         {
-            ifBlock = false;
+            ifBlock = false;           
             currentHealth--;
             if (isBloodTribute)
             {
@@ -67,6 +106,11 @@ public class PlayerHealth : MonoBehaviour
                 PlayerDie();
             }
             UpdateHealthBar();
+
+            if (isPayBack)
+            {
+                isHurted = true;
+            }
         }
         else { ifBlock = true; }
     }

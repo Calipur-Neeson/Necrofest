@@ -263,6 +263,7 @@ public class CardEffect : MonoBehaviour
             //Epic upgrades
             case "Divine Dash":
             {
+                    playerController.isDivineDash = true;
                 //Immunity frames on dash
                 //EnableDivinieDash();
                 /*
@@ -280,6 +281,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Payback":
             {
+                    playerHealth.isPayBack = true;
                 //Deal big aoe dmg after being hit (100dmg)
                 //EnablePayback();
                 //Add a sphere trigger collider for player.
