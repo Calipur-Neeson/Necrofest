@@ -35,6 +35,12 @@ public class AttackManager : MonoBehaviour
     private SwitchWeapon switchWeapon;
     private PlayerController playerControl;
 
+    public string weaponName;
+    public float damage;
+    public float speed;
+    public float distance;
+    public float delay;
+    public float animatorSpeed;
     private void Start()
     {
         tempRangeDamage = rangeDamage;
