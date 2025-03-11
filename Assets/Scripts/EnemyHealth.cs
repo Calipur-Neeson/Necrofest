@@ -18,7 +18,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float damage, string weaponType)
     {
         health -= damage;
-        Debug.Log(gameObject.name + " get " + damage + " damage£¬Remaining HP: " + health);
+        Debug.Log(gameObject.name + " get " + damage + "by " +weaponType + " damage£¬Remaining HP: " + health);
 
         if (health < 1e-6f)
         {

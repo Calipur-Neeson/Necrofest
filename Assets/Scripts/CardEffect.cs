@@ -301,6 +301,8 @@ public class CardEffect : MonoBehaviour
             }
             case "Ricochet":
             {
+                    GunTrigger gunTrigger = FindAnyObjectByType<GunTrigger>();
+                    gunTrigger.isRicochet = true;
                 //Range attack bounces to nearby 2 enemies in 2m range
                 //EnableRicochet();
                 /*

@@ -59,6 +59,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isSpeedDaemon = false;
 
     [HideInInspector]public bool isDivineDash = false;
+
+    private SphereCollider shotCollider;
+    private void Start()
+    {
+        shotCollider = bullet.GetComponentInChildren<SphereCollider>();
+        shotCollider.enabled = false;
+    }
     void Awake()
     { 
         controller = GetComponent<CharacterController>();
@@ -88,8 +95,6 @@ public class PlayerController : MonoBehaviour
 
         CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
         hitCollider.enabled = false;
-        MeshCollider gunCollider = bullet.GetComponentInChildren<MeshCollider>();
-        gunCollider.enabled = false;
     }
 
     void Update()
@@ -108,7 +113,13 @@ public class PlayerController : MonoBehaviour
         SetAnimations();
         MoveInput(input.Movement.ReadValue<Vector2>());
 
-        EagleEffect();              
+        EagleEffect();
+
+        if (isShoting)
+        {
+            shotCollider.center += new Vector3(0, 0, 1) * 80.0f * Time.deltaTime;
+            shotCollider.radius += 5f * Time.deltaTime;
+        }
     }
 
     //void FixedUpdate()
@@ -377,6 +388,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]public bool isSkirmisher = false ;
     private bool isAfterShoting = false;
 
+    private bool isShoting = false;
+
     public TextMeshProUGUI bulletNumBox;
     public int shotNum { get; set;} = 1;
     private int currentShotNum = 0;
@@ -385,11 +398,10 @@ public class PlayerController : MonoBehaviour
     {
         if (!isRangeCooling & currentShotNum < shotNum)
         {
-            //isRangeCooling = true;
             animator.Play("GunShot",1,0f);
             Invoke(nameof(PlayGunAudio), 0.1f);
-            Invoke(nameof(SetGunCollider), 0.1f);
-            Invoke(nameof(SetGunCollider), 0.2f);
+            Invoke(nameof(ActiveGunCollider), 0.1f);
+            Invoke(nameof(ResetGunCollider), 0.4f);
             currentShotNum++;
 
             IncreaseNextMelee();
@@ -400,10 +412,17 @@ public class PlayerController : MonoBehaviour
             }
         }  
     }
-    private void SetGunCollider()
+    private void ActiveGunCollider()
     {
-        MeshCollider gunCollider = bullet.GetComponentInChildren<MeshCollider>();
-        gunCollider.enabled = !gunCollider.enabled;
+        isShoting = true;
+        shotCollider.enabled = true;
+    }
+    private void ResetGunCollider()
+    {
+        shotCollider.enabled = false;
+        isShoting = false;
+        shotCollider.center = Vector3.zero;
+        shotCollider.radius = 0.1f;
     }
 
     private void PlayGunAudio()
