@@ -260,16 +260,21 @@ public class PlayerController : MonoBehaviour
     void FastMove()
     {
         isRun = true;
-        if (currentRunEnergy > 1.0f)
+        Vector2 inputVector = new Vector2();
+        inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
+        if (inputVector.x != 0 || inputVector.y != 0)
         {
-            runSpeed = moveSpeed_temp * 2;
-            moveSpeed =runSpeed;
-            currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
-            runSlider.value = currentRunEnergy;
-        }
-        else
-        {
-            moveSpeed = moveSpeed_temp;
+            if (currentRunEnergy > 1.0f)
+            {
+                runSpeed = moveSpeed_temp * 2;
+                moveSpeed = runSpeed;
+                currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
+                runSlider.value = currentRunEnergy;
+            }
+            else
+            {
+                moveSpeed = moveSpeed_temp;
+            }
         }
     }
 
