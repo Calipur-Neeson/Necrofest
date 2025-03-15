@@ -9,6 +9,7 @@ public class CardEffect : MonoBehaviour
     private SwitchWeapon switchWeapon;
     private GameObject weaponTrigger;
     private PlayerController playerController;
+    private EnemyKillTracker enemyKillTracker;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -21,6 +22,7 @@ public class CardEffect : MonoBehaviour
         attackManager = player.GetComponent<AttackManager>();
         switchWeapon = weapon.GetComponent<SwitchWeapon>();
         playerController = player.GetComponent<PlayerController>();
+        enemyKillTracker = GetComponent<EnemyKillTracker>();
 
         if (player != null )
         {
@@ -30,18 +32,6 @@ public class CardEffect : MonoBehaviour
         {
             Debug.Log("Find Weapon");
         }
-    }
-
-    private void UpdateAttackRange()
-    {
-        attackManager.attackDistanceMultiplier *= 1.2f;
-        attackManager.ResetPlayerAttackAnimation();
-    }
-
-    private void UpdateAttackDamage()
-    {
-        attackManager.attackDamageMultiplier *= 1.1f;
-        attackManager.ResetPlayerAttackAnimation();
     }
 
 
@@ -118,7 +108,7 @@ public class CardEffect : MonoBehaviour
             // Rare cards
             case "Quickdraw":
             {
-                    gameObject.AddComponent<EnemyKillTracker>();
+                    enemyKillTracker.isQuickdraw = true;
                     //Increase range damage after melee kill.
                     /*
                      event(enemyKilledMelee)
@@ -328,6 +318,10 @@ public class CardEffect : MonoBehaviour
             }
             case "Blood and Pain":
             {
+                    playerHealth.DecreasePlayerHealthLimit();
+                    attackManager.attackDamageMultiplier += 0.25f;
+                    attackManager.rangeDamageMultiplier += 0.25f;
+                    attackManager.ResetPlayerAttackAnimation();
                 //Take one damage for extra damage
                 //EnableBNP();
                 /*
@@ -341,6 +335,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Mercy Kill":
             {
+                    enemyKillTracker.isMercy = true;
                 //Execute enemies on low hp
                 //EnableMercyKill(); 
                 //mercy kill is enabled on enemy script
@@ -356,6 +351,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Deaths Door":
             {
+                    playerHealth.isDeathsDoor = true;
                 //Deal extra damage when hp is 1
                 //EnableDeathsDoor();
                 /*

@@ -24,6 +24,9 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector] public bool isPayBack;
     private SphereCollider sphere;
     private bool isHurted = false;
+
+    [HideInInspector] public bool isDeathsDoor;
+    private bool isDeathsDoored;
     private void Start()
     {
         //currentHealth = maxHealth;
@@ -55,6 +58,23 @@ public class PlayerHealth : MonoBehaviour
                     sphere.enabled = false ;
                     sphere.radius = 0f;
                 }
+            }
+        }
+        if (isDeathsDoor )
+        {
+            if (currentHealth == 1 & !isDeathsDoored)
+            {
+                attackManager.attackDamageMultiplier += 1.0f;
+                attackManager.rangeDamageMultiplier += 1.0f;
+                attackManager.ResetPlayerAttackAnimation();
+                isDeathsDoored = true;
+            }
+            else if (currentHealth != 1 & isDeathsDoored)
+            {
+                attackManager.attackDamageMultiplier -= 1.0f;
+                attackManager.rangeDamageMultiplier -= 1.0f;
+                attackManager.ResetPlayerAttackAnimation();
+                isDeathsDoored = false;
             }
         }
     }
@@ -151,6 +171,18 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
+    public void DecreasePlayerHealthLimit()
+    {
+        if (maxHealth > 1)
+        {
+            GameObject lastHealthUI = list[list.Count - 1];
+            list.RemoveAt(list.Count - 1);
+            Destroy(lastHealthUI.transform.parent.gameObject);
+        }
+        currentHealth -= 1;
+        maxHealth -= 1;
+        UpdateHealthBar();
+    }
     private IEnumerator IncreaseDamage()
     {
         yield return new WaitForSeconds(3f);

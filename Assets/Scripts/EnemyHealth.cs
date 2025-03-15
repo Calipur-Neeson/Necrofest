@@ -25,6 +25,15 @@ public class EnemyHealth : MonoBehaviour
             lastDamageSource = weaponType;
             Die();
         }
+        if (tracker.isMercy)
+        {
+            if (health < enemyHealth * 0.1f)
+            {
+                lastDamageSource = weaponType;
+                Die();
+                Debug.Log("Killed by Mercy~~~");
+            }
+        }
     }
 
     void Die()
