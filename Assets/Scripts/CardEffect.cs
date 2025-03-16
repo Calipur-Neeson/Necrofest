@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardEffect : MonoBehaviour
@@ -366,6 +367,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Death Cheat":
             {
+                    playerHealth.isDeathCheat = true;
                 //Negate first death set back to 1 hp, remove card
                 //EnableDeathCheat();
                 /*
@@ -383,6 +385,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Critical Chain":
             {
+                    attackManager.isCriticalChain = true;
                 //Increase crit chance after critting till next crit
                 //EnableCriticalChain();
                 /*
@@ -408,22 +411,29 @@ public class CardEffect : MonoBehaviour
             }
             case "Deadly Entrance":
             {
-                //Increase damage for 10 sec after entering room
-                //EnableDeadlyEntrance
-                /*
-                Public Void DeadlyEntrance()
-                {
-                    onTriggerEnter(roomEnterTrigger)
+                    List<GameObject> inDoorArea = new List<GameObject>();
+                    InDoorTracker[] inDoorTrackers = FindObjectsByType<InDoorTracker>(FindObjectsSortMode.None);
+                    foreach (InDoorTracker area in inDoorTrackers)
                     {
-                        while (Time.time >= Time.time + 10)
-                            playerDamageIncrease(); (double dmg)
+                        area.GetComponent<BoxCollider>().enabled = true;
                     }
-                }
-                 */
-                break;
+                    //Increase damage for 10 sec after entering room
+                    //EnableDeadlyEntrance
+                    /*
+                    Public Void DeadlyEntrance()
+                    {
+                        onTriggerEnter(roomEnterTrigger)
+                        {
+                            while (Time.time >= Time.time + 10)
+                                playerDamageIncrease(); (double dmg)
+                        }
+                    }
+                     */
+                    break;
             }
             case "Parry":
             {
+                    playerHealth.isParry = true;
                 //Deal damage when block triggers
                 //EnableParry();
                 /*

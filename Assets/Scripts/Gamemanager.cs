@@ -21,8 +21,12 @@ public class Gamemanager : MonoBehaviour
         //cardEffect.TriggerEffect("Payback");
         //cardEffect.TriggerEffect("Ricochet");
         //cardEffect.TriggerEffect("Blood and Pain");
-        cardEffect.TriggerEffect("Mercy Kill");
-        cardEffect.TriggerEffect("Deaths Door");
+        //cardEffect.TriggerEffect("Mercy Kill");
+        //cardEffect.TriggerEffect("Deaths Door");
+        //cardEffect.TriggerEffect("Death Cheat");
+        //cardEffect.TriggerEffect("Critical Chain");
+        //cardEffect.TriggerEffect("Deadly Entrance");
+        cardEffect.TriggerEffect("Parry");
     }
 
 }

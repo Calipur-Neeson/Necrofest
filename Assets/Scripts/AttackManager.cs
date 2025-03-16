@@ -35,6 +35,9 @@ public class AttackManager : MonoBehaviour
     private SwitchWeapon switchWeapon;
     private PlayerController playerControl;
 
+    [HideInInspector] public bool isCriticalChain;
+    private bool isLastAttackCritical;
+    private float temp_CriticalChance;
     private void Start()
     {
         tempRangeDamage = rangeDamage;
@@ -67,9 +70,22 @@ public class AttackManager : MonoBehaviour
         hitNormalDamage = playerControl.attackDamage * (1 + hitDamageIncreaseRate / 100);
         hitCriticalDamage = hitNormalDamage * 2 * (1 + hitCriticalDamageIncresseRate / 100);
         int i = Random.Range(0, 100);
-        if (i < 0 + hitCriticalChance)
+        if (i < hitCriticalChance)
         {
             hitDamage = hitCriticalDamage;
+            if (isCriticalChain)
+            {
+                if(!isLastAttackCritical)
+                {
+                    hitCriticalChance *= 2;
+                    isLastAttackCritical = true;
+                }
+                else
+                {
+                    hitCriticalChance /= 2; 
+                    isLastAttackCritical = false;
+                }
+            }
         }
         else { hitDamage = hitNormalDamage; }
     }
