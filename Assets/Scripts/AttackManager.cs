@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class AttackManager : MonoBehaviour
 {
+    public static AttackManager instance;
     [Header("Player Property")]
     public GameObject player;
     public GameObject weapon;
@@ -41,6 +42,16 @@ public class AttackManager : MonoBehaviour
     public float distance;
     public float delay;
     public float animatorSpeed;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
     private void Start()
     {
         tempRangeDamage = rangeDamage;
@@ -73,10 +84,12 @@ public class AttackManager : MonoBehaviour
         hitNormalDamage = playerControl.attackDamage * (1 + hitDamageIncreaseRate / 100);
         hitCriticalDamage = hitNormalDamage * 2 * (1 + hitCriticalDamageIncresseRate / 100);
         int i = Random.Range(0, 100);
-        if (i < 0 + hitCriticalChance)
-        {
-            hitDamage = hitCriticalDamage;
-        }
-        else { hitDamage = hitNormalDamage; }
+        hitDamage = (i < hitCriticalChance) ? hitCriticalChance : hitNormalDamage;
+        //if (i < hitCriticalChance)
+        //{
+        //    hitDamage = hitCriticalDamage;
+        //}
+        //else { hitDamage = hitNormalDamage; }
     }
+
 }

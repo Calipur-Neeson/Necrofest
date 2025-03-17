@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+[CreateAssetMenu(fileName = "Weapon Data", menuName = "Scriptable Objectsz/Weapon Data")]
+public class WeaponData : ScriptableObject
 {
     public string weaponName;
     public float damage;
