@@ -1,6 +1,6 @@
 using UnityEngine;
 
- public interface IMeleeWeapon
+ internal interface IMeleeWeapon
 {
-    void SwitchWeapon();
+    public void EquipInRightHand();
 }

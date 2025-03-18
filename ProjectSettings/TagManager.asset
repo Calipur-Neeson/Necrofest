@@ -18,8 +18,8 @@ TagManager:
   - Weapon
   - Ground
   - EnemyWeapon
-  - 
-  - 
+  - MeleeWeapon
+  - RangeWeapon
   - 
   - 
   - 
