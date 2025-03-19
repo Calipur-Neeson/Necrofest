@@ -26,8 +26,10 @@ public class RayTrackWeapon : MonoBehaviour
             textFindingWeapon.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
-                BaseWeapon baseWeapon = hit.collider.gameObject.GetComponent<BaseWeapon>();
-                baseWeapon.EquipInRightHand();
+                //BaseWeapon baseWeapon = hit.collider.gameObject.GetComponent<BaseWeapon>();
+                //baseWeapon.EquipInRightHand();
+                IMeleeWeapon meleeWeapon = hit.collider.gameObject.GetComponent<IMeleeWeapon>();
+                meleeWeapon.EquipInRightHand();
             }
         }
         else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2f, maskR))

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Sword : BaseWeapon
+public class Sword : BaseWeapon , IMeleeWeapon
 {
     public override void DealDamage()
     {
@@ -12,6 +12,7 @@ public class Sword : BaseWeapon
         throw new System.NotImplementedException();
     }
 
+
     public override void Switch()
     {
         throw new System.NotImplementedException();
@@ -20,6 +21,18 @@ public class Sword : BaseWeapon
     public override void UnEquip()
     {
         throw new System.NotImplementedException();
+    }
+    public void EquipInRightHand()
+    {
+        GameObject rightHand = GameObject.FindFirstObjectByType<_rightHandPosition>().gameObject;
+        transform.SetParent(rightHand.transform);
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.localRotation = Quaternion.Euler(0, 0, 80);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
     }
 
 }
