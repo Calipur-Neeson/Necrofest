@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &713720815440002095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 785090688825144450}
+  - component: {fileID: 6024322030112560559}
+  m_Layer: 0
+  m_Name: RightHandWeaponPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &785090688825144450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713720815440002095}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0.124, z: -0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6690441524901233972}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &6024322030112560559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713720815440002095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76107ca38849b74c840c89b9965e861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1037833777714491778
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,7 +2346,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4378
+  m_VersionIndex: 4384
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2465,6 +2509,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textFindingWeapon: {fileID: 0}
+--- !u!1 &8400060264736559146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3543851099272557882}
+  - component: {fileID: 1831074602550617569}
+  m_Layer: 0
+  m_Name: LeftHandWeaponPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3543851099272557882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400060264736559146}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0.115, z: -0.038}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7710052297150715996}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 90}
+--- !u!114 &1831074602550617569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400060264736559146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63141828c6a8524b8dfef6ad9d457c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9031375603999556333
 GameObject:
   m_ObjectHideFlags: 0
@@ -9032,12 +9120,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7278403625272354573, guid: c0093a41c6e486543ae98bb8975aa84e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7973204882206210231}
+    - targetCorrespondingSourceObject: {fileID: 7278403625272354573, guid: c0093a41c6e486543ae98bb8975aa84e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3543851099272557882}
     - targetCorrespondingSourceObject: {fileID: 5991114755486431845, guid: c0093a41c6e486543ae98bb8975aa84e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8909576731180419739}
     - targetCorrespondingSourceObject: {fileID: 5991114755486431845, guid: c0093a41c6e486543ae98bb8975aa84e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1888825047812773064}
+    - targetCorrespondingSourceObject: {fileID: 5991114755486431845, guid: c0093a41c6e486543ae98bb8975aa84e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 785090688825144450}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0093a41c6e486543ae98bb8975aa84e, type: 3}
 --- !u!4 &610017036870949050 stripped

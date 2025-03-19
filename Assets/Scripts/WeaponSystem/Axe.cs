@@ -7,21 +7,6 @@ public class Axe : BaseWeapon , IMeleeWeapon
         throw new System.NotImplementedException();
     }
 
-    public override void Equip()
-    {
-        throw new System.NotImplementedException();
-    }
-    public override void UnEquip()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    
-
-    public override void Switch()
-    {
-        throw new System.NotImplementedException();
-    }
 
     public void EquipInRightHand()
     {

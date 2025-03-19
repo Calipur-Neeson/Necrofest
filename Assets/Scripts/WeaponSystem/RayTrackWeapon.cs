@@ -28,6 +28,13 @@ public class RayTrackWeapon : MonoBehaviour
             {
                 //BaseWeapon baseWeapon = hit.collider.gameObject.GetComponent<BaseWeapon>();
                 //baseWeapon.EquipInRightHand();
+                GameObject rightHand = GameObject.FindFirstObjectByType<_rightHandPosition>().gameObject;
+                if (rightHand.transform.childCount > 0)
+                {
+                    BaseWeapon baseWeapon = rightHand.transform.GetChild(0).GetComponent<BaseWeapon>();
+                    baseWeapon.Drop();
+                }
+
                 IMeleeWeapon meleeWeapon = hit.collider.gameObject.GetComponent<IMeleeWeapon>();
                 meleeWeapon.EquipInRightHand();
             }
@@ -38,8 +45,14 @@ public class RayTrackWeapon : MonoBehaviour
             textFindingWeapon.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
-                BaseWeapon baseWeapon = hit.collider.gameObject.GetComponent<BaseWeapon>();
-                baseWeapon.EquipInLeftHand();
+                GameObject leftHand = GameObject.FindFirstObjectByType<_leftHandPosition>().gameObject;
+                if (leftHand.transform.childCount > 0)
+                {
+                    BaseWeapon baseWeapon = leftHand.transform.GetChild(0).GetComponent<BaseWeapon>();
+                    baseWeapon.Drop();
+                }
+                IRangeWeapon rangeWeapon = hit.collider.gameObject.GetComponent<IRangeWeapon>();
+                rangeWeapon.EquipInLeftHand();
             }
         }
         else { textFindingWeapon.SetActive(false); }
