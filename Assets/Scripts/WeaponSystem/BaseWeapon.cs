@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    [SerializeField] private WeaponData weaponData;
+    [HideInInspector] public WeaponData weaponData;
     private AttackManager attackManager;
 
     protected virtual void start()

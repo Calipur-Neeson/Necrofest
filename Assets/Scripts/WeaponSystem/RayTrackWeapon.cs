@@ -20,10 +20,16 @@ public class RayTrackWeapon : MonoBehaviour
     {
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 2f, Color.green);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2f, maskM))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3.0f, maskM))
         {
             //Debug.Log("Press F to pick up weapon");
             textFindingWeapon.SetActive(true);
+
+            GameObject weaponPickupUI = hit.collider.gameObject.transform.GetChild(0).gameObject;
+            WeaponPickupUI wui = weaponPickupUI.GetComponent<WeaponPickupUI>();
+            wui.GetCurrentWeaponInfo();
+            weaponPickupUI.SetActive(true);
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 //BaseWeapon baseWeapon = hit.collider.gameObject.GetComponent<BaseWeapon>();
@@ -55,6 +61,14 @@ public class RayTrackWeapon : MonoBehaviour
                 rangeWeapon.EquipInLeftHand();
             }
         }
-        else { textFindingWeapon.SetActive(false); }
+        else 
+        { 
+            textFindingWeapon.SetActive(false);
+            WeaponPickupUI[] weaponUi = FindObjectsByType<WeaponPickupUI>(FindObjectsSortMode.None);
+            foreach (var wu in weaponUi)
+            {
+                wu.gameObject.SetActive(false);
+            }
+        }
     }
 }
