@@ -19,6 +19,7 @@ public class Sword : BaseWeapon , IMeleeWeapon
         {
             Destroy(rb);
         }
+        base.SendMeleeInfo();
     }
 
 }

@@ -5,7 +5,7 @@ public class CardEffect : MonoBehaviour
     private GameObject player;
     private PlayerHealth playerHealth;
     private AttackManager attackManager;
-    private GameObject weapon;
+
     private SwitchWeapon switchWeapon;
     private GameObject weaponTrigger;
     private PlayerController playerController;
@@ -13,23 +13,20 @@ public class CardEffect : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        weapon = FindFirstObjectByType<SwitchWeapon>().gameObject;
+
         player = FindFirstObjectByType<PlayerController>().gameObject;
         weaponTrigger = FindFirstObjectByType<WeaponTrigger>().gameObject;
 
         playerHealth = player.GetComponent<PlayerHealth>();
         attackManager = player.GetComponent<AttackManager>();
-        switchWeapon = weapon.GetComponent<SwitchWeapon>();
+
         playerController = player.GetComponent<PlayerController>();
 
         if (player != null )
         {
             Debug.Log("Find Player");
         }
-        if (weapon != null)
-        {
-            Debug.Log("Find Weapon");
-        }
+        
     }
 
     private void UpdateAttackRange()

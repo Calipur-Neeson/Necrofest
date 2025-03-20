@@ -18,6 +18,7 @@ public class Hammer : BaseWeapon, IMeleeWeapon
         {
             Destroy(rb);
         }
+        base.SendMeleeInfo();
     }
 
 }

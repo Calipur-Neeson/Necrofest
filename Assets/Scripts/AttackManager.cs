@@ -6,7 +6,7 @@ public class AttackManager : MonoBehaviour
     public static AttackManager instance;
     [Header("Player Property")]
     public GameObject player;
-    public GameObject weapon;
+
     [Range(1f, 1.2f)]
     public float jumpHeight;
     public float moveSpeed;
@@ -33,7 +33,6 @@ public class AttackManager : MonoBehaviour
     
     private float hitNormalDamage;
     private float hitCriticalDamage;
-    private SwitchWeapon switchWeapon;
     private PlayerController playerControl;
 
     public string weaponName;
@@ -56,7 +55,6 @@ public class AttackManager : MonoBehaviour
     {
         tempRangeDamage = rangeDamage;
         playerControl = player.GetComponent<PlayerController>();
-        switchWeapon = weapon.GetComponent<SwitchWeapon>();
         ResetPlayerAttackAnimation();
         //ResetPlayerProperty();
     }
@@ -64,11 +62,11 @@ public class AttackManager : MonoBehaviour
     public void ResetPlayerAttackAnimation()
     {
         playerControl = player.GetComponent<PlayerController>();
-        playerControl.attackDistance = switchWeapon.weaponDistance * attackDistanceMultiplier;
-        playerControl.attackDelay = switchWeapon.weaponDelay;
-        playerControl.attackSpeed = switchWeapon.weaponSpeed;
-        playerControl.attackDamage = switchWeapon.weaponDamage * (attackDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
-        playerControl.animator.speed = switchWeapon.attackAnimationSpeed;
+        playerControl.attackDistance = distance * attackDistanceMultiplier;
+        playerControl.attackDelay = delay;
+        playerControl.attackSpeed = speed;
+        playerControl.attackDamage = damage * (attackDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
+        playerControl.animator.speed = animatorSpeed;
         rangeDamage = tempRangeDamage * (rangeDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
     }
     public void ResetPlayerProperty()

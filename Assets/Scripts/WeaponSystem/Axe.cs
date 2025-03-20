@@ -19,5 +19,6 @@ public class Axe : BaseWeapon , IMeleeWeapon
         {
             Destroy(rb);
         }
+        base.SendMeleeInfo();
     }
 }

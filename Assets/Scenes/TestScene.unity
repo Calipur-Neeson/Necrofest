@@ -10225,13 +10225,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 75127220}
+    - target: {fileID: 3859934149509002274, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5802611058064484328, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 75127220}
     - target: {fileID: 5802611058064484328, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: m_VersionIndex
-      value: 4387
+      value: 4390
       objectReference: {fileID: 0}
     - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: healthContainer
@@ -11907,8 +11911,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 5, y: 0.01, z: 5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 818543982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
