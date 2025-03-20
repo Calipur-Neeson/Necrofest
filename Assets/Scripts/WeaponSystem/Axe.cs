@@ -19,6 +19,7 @@ public class Axe : BaseWeapon , IMeleeWeapon
         {
             Destroy(rb);
         }
+        GetComponent<MeshCollider>().enabled = false;
         base.SendMeleeInfo();
     }
 }

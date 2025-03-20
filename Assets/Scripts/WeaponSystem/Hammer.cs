@@ -18,6 +18,7 @@ public class Hammer : BaseWeapon, IMeleeWeapon
         {
             Destroy(rb);
         }
+        GetComponent<MeshCollider>().enabled = false;
         base.SendMeleeInfo();
     }
 

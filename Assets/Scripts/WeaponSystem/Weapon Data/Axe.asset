@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Axe
   damage: 120
-  speed: 0.8
+  speed: 1.2
   distance: 2
-  delay: 0.6
+  delay: 0.8
   animatorSpeed: 0.8

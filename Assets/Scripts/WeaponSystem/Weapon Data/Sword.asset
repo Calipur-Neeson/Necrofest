@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Sword
   damage: 100
-  speed: 1
+  speed: 0.7
   distance: 1.6
   delay: 0.4
   animatorSpeed: 1

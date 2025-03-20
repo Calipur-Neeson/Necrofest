@@ -86,8 +86,8 @@ public class PlayerController : MonoBehaviour
         runSlider.value = maxRunEnergy;
         currentRunEnergy = maxRunEnergy;
 
-        CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
-        hitCollider.enabled = false;
+        
+
         MeshCollider gunCollider = bullet.GetComponentInChildren<MeshCollider>();
         gunCollider.enabled = false;
     }
@@ -355,7 +355,7 @@ public class PlayerController : MonoBehaviour
     public float attackDamage = 1;
     public LayerMask attackLayer;
     public LayerMask enemyLayer;
-    public GameObject rightHandPosition;
+
 
     public GameObject hitEffect;
     public AudioClip swordSwing;
@@ -475,15 +475,31 @@ public class PlayerController : MonoBehaviour
     }
     void SetHitCollider()
     {
-        CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
+        GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
+        GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
+        CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
         hitCollider.radius = 0.04f;
         hitCollider.height = attackDistance;
-        hitCollider.direction = 1;
-        hitCollider.center = new Vector3(0, attackDistance/2, 0);
+        hitCollider.direction = 2;
+        if(currentMeleeWeapon.GetComponent<Sword>() != null)
+        {
+            hitCollider.center = new Vector3(0,0, attackDistance/2);
+        }
+        if(currentMeleeWeapon.GetComponent<Axe>() != null)
+        {
+            hitCollider.center = new Vector3(0,0, attackDistance/2 - 0.85f);
+        }
+        if(currentMeleeWeapon.GetComponent<Hammer>() != null)
+        {
+            hitCollider.center = new Vector3(0,0, attackDistance/2 - 0.8f);
+        }
+
     }
     void ActiveHitCollider()
     {
-        CapsuleCollider hitCollider = rightHandPosition.GetComponent<CapsuleCollider>();
+        GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
+        GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
+        CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
         hitCollider.enabled = !hitCollider.enabled;
     }
    

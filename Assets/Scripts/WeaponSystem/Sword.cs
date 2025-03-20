@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class Sword : BaseWeapon , IMeleeWeapon
 {
+    [SerializeField]private bool isInitialWeapon;
+    private void Start()
+    {
+        if (isInitialWeapon)
+        {
+            EquipInRightHand();
+        }
+    }
     public override void DealDamage()
     {
         throw new System.NotImplementedException();
@@ -19,6 +27,7 @@ public class Sword : BaseWeapon , IMeleeWeapon
         {
             Destroy(rb);
         }
+        GetComponent<MeshCollider>().enabled = false;
         base.SendMeleeInfo();
     }
 
