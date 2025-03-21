@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         if (isShoting)
         {
             shotCollider.center += new Vector3(0, 0, 1) * 80.0f * Time.deltaTime;
-            shotCollider.radius += 5f * Time.deltaTime;
+            shotCollider.radius += 6f * Time.deltaTime;
         }
     }
 

@@ -23,7 +23,7 @@ public class RayTrackWeapon : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 3.0f, maskM))
         {
             //Debug.Log("Press F to pick up weapon");
-            textFindingWeapon.SetActive(true);
+            //textFindingWeapon.SetActive(true);
 
             GameObject weaponPickupUI = hit.collider.gameObject.transform.GetChild(0).gameObject;
             WeaponPickupUI wui = weaponPickupUI.GetComponent<WeaponPickupUI>();
@@ -48,7 +48,7 @@ public class RayTrackWeapon : MonoBehaviour
         else if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 2f, maskR))
         {
             //Debug.Log("Press F to pick up weapon");
-            textFindingWeapon.SetActive(true);
+            //textFindingWeapon.SetActive(true);
             if (Input.GetKeyDown(KeyCode.F))
             {
                 GameObject leftHand = GameObject.FindFirstObjectByType<_leftHandPosition>().gameObject;
