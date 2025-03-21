@@ -93,13 +93,6 @@ public class PlayerController : MonoBehaviour
         runSlider.value = maxRunEnergy;
         currentRunEnergy = maxRunEnergy;
 
-
-        
-
-        MeshCollider gunCollider = bullet.GetComponentInChildren<MeshCollider>();
-        gunCollider.enabled = false;
- 
-
     }
 
     void Update()
