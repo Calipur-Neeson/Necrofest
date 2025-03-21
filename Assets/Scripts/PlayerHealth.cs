@@ -24,6 +24,13 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector] public bool isPayBack;
     private SphereCollider sphere;
     private bool isHurted = false;
+
+    [HideInInspector] public bool isDeathsDoor;
+    private bool isDeathsDoored;
+
+    [HideInInspector] public bool isDeathCheat;
+
+    [HideInInspector] public bool isParry;
     private void Start()
     {
         //currentHealth = maxHealth;
@@ -57,6 +64,23 @@ public class PlayerHealth : MonoBehaviour
                 }
             }
         }
+        if (isDeathsDoor )
+        {
+            if (currentHealth == 1 & !isDeathsDoored)
+            {
+                attackManager.attackDamageMultiplier += 1.0f;
+                attackManager.rangeDamageMultiplier += 1.0f;
+                attackManager.ResetPlayerAttackAnimation();
+                isDeathsDoored = true;
+            }
+            else if (currentHealth != 1 & isDeathsDoored)
+            {
+                attackManager.attackDamageMultiplier -= 1.0f;
+                attackManager.rangeDamageMultiplier -= 1.0f;
+                attackManager.ResetPlayerAttackAnimation();
+                isDeathsDoored = false;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -79,7 +103,7 @@ public class PlayerHealth : MonoBehaviour
             list.Add(go.transform.GetChild(0).gameObject);
         }
     }
-    public void PlayerGetHurt()
+    public void PlayerGetHurt(GameObject enemyObject)
     {
         int i = Random.Range(0, 100);
         if (i >= blockChance)
@@ -112,7 +136,15 @@ public class PlayerHealth : MonoBehaviour
                 isHurted = true;
             }
         }
-        else { ifBlock = true; }
+        else 
+        { 
+            ifBlock = true;
+            if (isParry)
+            {
+                attackManager.CalculateHitDamage();
+                enemyObject.GetComponent<EnemyHealth>().TakeDamage(attackManager.hitDamage,"Parry");               
+            }
+        }
     }
 
     public void UpdateHealthBar()
@@ -129,7 +161,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void PlayerDie()
     {
-        HealPlayer(maxHealth - 1);
+        if (isDeathCheat)
+        {
+            Debug.Log("Death Cheat!");
+            HealPlayer(1);
+            isDeathCheat = false;
+        }
+        else
+        {
+            //Die
+            Debug.Log("You are dead");
+            HealPlayer(maxHealth - 1);
+        }
+        
     }
     
     public void HealPlayer(int heal)
@@ -151,6 +195,18 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
+    public void DecreasePlayerHealthLimit()
+    {
+        if (maxHealth > 1)
+        {
+            GameObject lastHealthUI = list[list.Count - 1];
+            list.RemoveAt(list.Count - 1);
+            Destroy(lastHealthUI.transform.parent.gameObject);
+        }
+        currentHealth -= 1;
+        maxHealth -= 1;
+        UpdateHealthBar();
+    }
     private IEnumerator IncreaseDamage()
     {
         yield return new WaitForSeconds(3f);

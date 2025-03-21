@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardEffect : MonoBehaviour
@@ -9,6 +10,7 @@ public class CardEffect : MonoBehaviour
     private SwitchWeapon switchWeapon;
     private GameObject weaponTrigger;
     private PlayerController playerController;
+    private EnemyKillTracker enemyKillTracker;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -21,24 +23,13 @@ public class CardEffect : MonoBehaviour
         attackManager = player.GetComponent<AttackManager>();
 
         playerController = player.GetComponent<PlayerController>();
+        enemyKillTracker = GetComponent<EnemyKillTracker>();
 
         if (player != null )
         {
             Debug.Log("Find Player");
         }
         
-    }
-
-    private void UpdateAttackRange()
-    {
-        attackManager.attackDistanceMultiplier *= 1.2f;
-        attackManager.ResetPlayerAttackAnimation();
-    }
-
-    private void UpdateAttackDamage()
-    {
-        attackManager.attackDamageMultiplier *= 1.1f;
-        attackManager.ResetPlayerAttackAnimation();
     }
 
 
@@ -115,7 +106,7 @@ public class CardEffect : MonoBehaviour
             // Rare cards
             case "Quickdraw":
             {
-                    gameObject.AddComponent<EnemyKillTracker>();
+                    enemyKillTracker.isQuickdraw = true;
                     //Increase range damage after melee kill.
                     /*
                      event(enemyKilledMelee)
@@ -298,6 +289,8 @@ public class CardEffect : MonoBehaviour
             }
             case "Ricochet":
             {
+                    GunTrigger gunTrigger = FindAnyObjectByType<GunTrigger>();
+                    gunTrigger.isRicochet = true;
                 //Range attack bounces to nearby 2 enemies in 2m range
                 //EnableRicochet();
                 /*
@@ -323,6 +316,10 @@ public class CardEffect : MonoBehaviour
             }
             case "Blood and Pain":
             {
+                    playerHealth.DecreasePlayerHealthLimit();
+                    attackManager.attackDamageMultiplier += 0.25f;
+                    attackManager.rangeDamageMultiplier += 0.25f;
+                    attackManager.ResetPlayerAttackAnimation();
                 //Take one damage for extra damage
                 //EnableBNP();
                 /*
@@ -336,6 +333,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Mercy Kill":
             {
+                    enemyKillTracker.isMercy = true;
                 //Execute enemies on low hp
                 //EnableMercyKill(); 
                 //mercy kill is enabled on enemy script
@@ -351,6 +349,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Deaths Door":
             {
+                    playerHealth.isDeathsDoor = true;
                 //Deal extra damage when hp is 1
                 //EnableDeathsDoor();
                 /*
@@ -365,6 +364,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Death Cheat":
             {
+                    playerHealth.isDeathCheat = true;
                 //Negate first death set back to 1 hp, remove card
                 //EnableDeathCheat();
                 /*
@@ -382,6 +382,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Critical Chain":
             {
+                    attackManager.isCriticalChain = true;
                 //Increase crit chance after critting till next crit
                 //EnableCriticalChain();
                 /*
@@ -407,22 +408,29 @@ public class CardEffect : MonoBehaviour
             }
             case "Deadly Entrance":
             {
-                //Increase damage for 10 sec after entering room
-                //EnableDeadlyEntrance
-                /*
-                Public Void DeadlyEntrance()
-                {
-                    onTriggerEnter(roomEnterTrigger)
+                    List<GameObject> inDoorArea = new List<GameObject>();
+                    InDoorTracker[] inDoorTrackers = FindObjectsByType<InDoorTracker>(FindObjectsSortMode.None);
+                    foreach (InDoorTracker area in inDoorTrackers)
                     {
-                        while (Time.time >= Time.time + 10)
-                            playerDamageIncrease(); (double dmg)
+                        area.GetComponent<BoxCollider>().enabled = true;
                     }
-                }
-                 */
-                break;
+                    //Increase damage for 10 sec after entering room
+                    //EnableDeadlyEntrance
+                    /*
+                    Public Void DeadlyEntrance()
+                    {
+                        onTriggerEnter(roomEnterTrigger)
+                        {
+                            while (Time.time >= Time.time + 10)
+                                playerDamageIncrease(); (double dmg)
+                        }
+                    }
+                     */
+                    break;
             }
             case "Parry":
             {
+                    playerHealth.isParry = true;
                 //Deal damage when block triggers
                 //EnableParry();
                 /*

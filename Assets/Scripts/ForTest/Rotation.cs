@@ -6,16 +6,17 @@ public class Rotation : MonoBehaviour
     public float speed = 50f; 
     public Vector3 axis = Vector3.up;
 
-    private PlayerHealth health;
+    private GameObject enemy;
     private void Start()
     {
         GameObject player = GameObject.Find("Player");
+        enemy = transform.GetChild(0).gameObject;
     }
     void Update()
     {
         if (target != null)
         {
-            transform.RotateAround(target.position, axis, speed * Time.deltaTime);
+            enemy.transform.RotateAround(target.position, axis, speed * Time.deltaTime);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -24,7 +25,7 @@ public class Rotation : MonoBehaviour
         {
             Debug.Log("hit");
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            playerHealth.PlayerGetHurt();
+            playerHealth.PlayerGetHurt(this.gameObject);
         }   
     }
 }

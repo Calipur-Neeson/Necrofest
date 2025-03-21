@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5516410437040106379}
   - component: {fileID: 4601367732504946029}
   - component: {fileID: 7315282697921061331}
-  - component: {fileID: 2750054851160203307}
   m_Layer: 9
   m_Name: EnemyWeapon
   m_TagString: EnemyWeapon
@@ -111,21 +110,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2750054851160203307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4289447585922702639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 124f0226dd965184da4a919d5132bb8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 4129357224143878839}
-  speed: 300
-  axis: {x: 0, y: 1, z: 0}
 --- !u!1 &5989372171575328886
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +125,7 @@ GameObject:
   - component: {fileID: 6719660693978072870}
   - component: {fileID: -4296819041617003891}
   - component: {fileID: 9121505741634287542}
+  - component: {fileID: 87381035947123100}
   m_Layer: 6
   m_Name: BriskEnemy
   m_TagString: Enemy
@@ -294,3 +279,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   detectionRange: 100
+--- !u!114 &87381035947123100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5989372171575328886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124f0226dd965184da4a919d5132bb8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 4129357224143878839}
+  speed: 300
+  axis: {x: 0, y: 1, z: 0}

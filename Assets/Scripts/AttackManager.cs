@@ -35,6 +35,7 @@ public class AttackManager : MonoBehaviour
     private float hitCriticalDamage;
     private PlayerController playerControl;
 
+
     public string weaponName;
     public float damage;
     public float speed;
@@ -51,6 +52,11 @@ public class AttackManager : MonoBehaviour
         }
         instance = this;
     }
+
+    [HideInInspector] public bool isCriticalChain;
+    private bool isLastAttackCritical;
+    private float temp_CriticalChance;
+
     private void Start()
     {
         tempRangeDamage = rangeDamage;
@@ -82,12 +88,33 @@ public class AttackManager : MonoBehaviour
         hitNormalDamage = playerControl.attackDamage * (1 + hitDamageIncreaseRate / 100);
         hitCriticalDamage = hitNormalDamage * 2 * (1 + hitCriticalDamageIncresseRate / 100);
         int i = Random.Range(0, 100);
+
         hitDamage = (i < hitCriticalChance) ? hitCriticalChance : hitNormalDamage;
         //if (i < hitCriticalChance)
         //{
         //    hitDamage = hitCriticalDamage;
         //}
         //else { hitDamage = hitNormalDamage; }
+
+        if (i < hitCriticalChance)
+        {
+            hitDamage = hitCriticalDamage;
+            if (isCriticalChain)
+            {
+                if(!isLastAttackCritical)
+                {
+                    hitCriticalChance *= 2;
+                    isLastAttackCritical = true;
+                }
+                else
+                {
+                    hitCriticalChance /= 2; 
+                    isLastAttackCritical = false;
+                }
+            }
+        }
+        else { hitDamage = hitNormalDamage; }
+
     }
 
 }

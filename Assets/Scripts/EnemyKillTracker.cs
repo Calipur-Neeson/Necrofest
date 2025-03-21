@@ -11,6 +11,8 @@ public class EnemyKillTracker : MonoBehaviour
     private GameObject player;
     private AttackManager attackManager;
 
+    [HideInInspector] public bool isQuickdraw;
+    [HideInInspector] public bool isMercy;
     private void Start()
     {
         player = FindFirstObjectByType<PlayerController>().gameObject;
@@ -19,20 +21,23 @@ public class EnemyKillTracker : MonoBehaviour
     }
     public void OnEnemyKilled(string weaponType)
     {
-        if (weaponType == "Melee")
+        if (isQuickdraw)
         {
-            isKilled = true;
-            if (!isIncreased)
+            if (weaponType == "Melee")
             {
-                attackManager.rangeDamageMultiplier += 0.2f;
-                attackManager.ResetPlayerAttackAnimation();
-                isIncreased = true;
+                isKilled = true;
+                if (!isIncreased)
+                {
+                    attackManager.rangeDamageMultiplier += 0.2f;
+                    attackManager.ResetPlayerAttackAnimation();
+                    isIncreased = true;
+                }
+                if (resetCoroutine != null)
+                {
+                    StopCoroutine(resetCoroutine);
+                }
+                resetCoroutine = StartCoroutine(ResetKillStatus());
             }
-            if (resetCoroutine != null)
-            {
-                StopCoroutine(resetCoroutine);
-            }
-            resetCoroutine = StartCoroutine(ResetKillStatus());
         }
     }
 

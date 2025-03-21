@@ -10,6 +10,7 @@ public class Gamemanager : MonoBehaviour
         cardEffect.TriggerEffect("Mobility");
         cardEffect.TriggerEffect("Strength");
 
+        //cardEffect.TriggerEffect("Quickdraw");
         //cardEffect.TriggerEffect("Blood Tribute");
         //cardEffect.TriggerEffect("Eagle");
         //cardEffect.TriggerEffect("Swoop In");
@@ -18,6 +19,16 @@ public class Gamemanager : MonoBehaviour
         //cardEffect.TriggerEffect("Speed Daemon");
         //cardEffect.TriggerEffect("Divine Dash");
         //cardEffect.TriggerEffect("Payback");
+
+        //cardEffect.TriggerEffect("Ricochet");
+        //cardEffect.TriggerEffect("Blood and Pain");
+        //cardEffect.TriggerEffect("Mercy Kill");
+        //cardEffect.TriggerEffect("Deaths Door");
+        //cardEffect.TriggerEffect("Death Cheat");
+        //cardEffect.TriggerEffect("Critical Chain");
+        //cardEffect.TriggerEffect("Deadly Entrance");
+        //cardEffect.TriggerEffect("Parry");
+
     }
 
 }
