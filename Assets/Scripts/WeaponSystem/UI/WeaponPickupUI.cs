@@ -24,12 +24,13 @@ public class WeaponPickupUI : MonoBehaviour
     public Sprite hammer;
 
     private Transform player;
+    private BaseWeapon weapon;
 
     void Start()
     {
         player = Camera.main.transform; 
         gameObject.SetActive(false); 
-        BaseWeapon weapon = GetComponentInParent<BaseWeapon>();
+        weapon = GetComponentInParent<BaseWeapon>();
         newWeaponName.text = weapon.weaponData.weaponName;
         newWeaponDamage.text = weapon.weaponData.damage.ToString();
         newWeaponSpeed.text = (2.0f - weapon.weaponData.speed).ToString();
@@ -40,6 +41,7 @@ public class WeaponPickupUI : MonoBehaviour
     void Update()
     {
         //transform.LookAt(transform.position + (transform.position - player.position));
+        transform.position = weapon.gameObject.transform.position + Vector3.up * 0.5f;
         transform.LookAt(Camera.main.transform);
         transform.Rotate(0, 180, 0);
     }
