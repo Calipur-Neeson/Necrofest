@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3799671276036071866}
   - component: {fileID: 295567758425669138}
   - component: {fileID: 2122507083207255447}
-  - component: {fileID: 258207437427383685}
   - component: {fileID: 7075732293504332228}
   - component: {fileID: 3364028858507066099}
   - component: {fileID: 2705397863971075981}
+  - component: {fileID: -2490810488919418876}
   m_Layer: 10
   m_Name: Sword
   m_TagString: Weapon
@@ -106,28 +106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: c0d5fc2d74aae834786ec6219d21ff6b, type: 2}
   isInitialWeapon: 1
---- !u!64 &258207437427383685
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018749107727331704}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300006, guid: 8431fb15d36cb5f41867bd725b7af496, type: 3}
 --- !u!54 &7075732293504332228
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,6 +168,27 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.4}
+--- !u!65 &-2490810488919418876
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018749107727331704}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1950704, y: 0.041667037, z: 1.4266917}
+  m_Center: {x: 0, y: -0.0000000027939677, z: 0.5038633}
 --- !u!1001 &5377082466981301804
 PrefabInstance:
   m_ObjectHideFlags: 0

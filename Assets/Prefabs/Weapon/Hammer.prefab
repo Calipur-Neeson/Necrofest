@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2236879026027657488}
   - component: {fileID: 83753475511419885}
   - component: {fileID: 6070557514767023755}
-  - component: {fileID: 5569361616108627406}
   - component: {fileID: 6524025859883320310}
   - component: {fileID: 3729576084473907720}
+  - component: {fileID: 1722813703508084568}
   m_Layer: 10
   m_Name: Hammer
   m_TagString: Weapon
@@ -132,28 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 65597b953b12a0446aacd4e94e849496, type: 2}
---- !u!64 &5569361616108627406
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065360285270501874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: d09035dd3e2379540a73c04dd2fffbc9, type: 3}
 --- !u!114 &6524025859883320310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +167,27 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.1}
+--- !u!65 &1722813703508084568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065360285270501874}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.33341545, y: 0.061065063, z: 1.4615588}
+  m_Center: {x: -0.00000027567148, y: 0.0000000018626451, z: 0.015684813}
 --- !u!1001 &1859421089341377776
 PrefabInstance:
   m_ObjectHideFlags: 0

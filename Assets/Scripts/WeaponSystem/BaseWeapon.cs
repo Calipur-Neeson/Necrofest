@@ -14,7 +14,7 @@ public abstract class BaseWeapon : MonoBehaviour
     {
         transform.SetParent(null);
         gameObject.AddComponent<Rigidbody>();
-        GetComponent<MeshCollider>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
     }
 
     public virtual void SendMeleeInfo()

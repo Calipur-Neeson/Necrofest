@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6229741775296437839}
   - component: {fileID: 2109516496770388947}
   - component: {fileID: 5240989504550950289}
-  - component: {fileID: 1418650174319397567}
   - component: {fileID: 2383832259661019297}
+  - component: {fileID: -3407441135755949700}
   m_Layer: 11
   m_Name: Gun_Musket
   m_TagString: Weapon
@@ -139,8 +139,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!64 &1418650174319397567
-MeshCollider:
+--- !u!114 &2383832259661019297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2473904450799215409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd18780514bf354fb1b04a837a74970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponData: {fileID: 0}
+--- !u!65 &-3407441135755949700
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -157,20 +170,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: b9b7f814120cc114688b5c66fb600bb9, type: 3}
---- !u!114 &2383832259661019297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2473904450799215409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fd18780514bf354fb1b04a837a74970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.09000823, y: 0.30431652, z: 0.43916732}
+  m_Center: {x: 0.0061324667, y: 0.07082169, z: 0.14085022}
