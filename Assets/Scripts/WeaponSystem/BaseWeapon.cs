@@ -9,7 +9,6 @@ public abstract class BaseWeapon : MonoBehaviour
     {
         attackManager = FindFirstObjectByType<AttackManager>();
     }
-    public abstract void DealDamage();
     public virtual void Drop()
     {
         transform.SetParent(null);

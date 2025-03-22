@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class Axe : BaseWeapon , IMeleeWeapon
 {
-    public override void DealDamage()
-    {
-        throw new System.NotImplementedException();
-    }
-
-
     public void EquipInRightHand()
     {
         GameObject rightHand = GameObject.FindFirstObjectByType<_rightHandPosition>().gameObject;

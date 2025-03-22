@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class Hammer : BaseWeapon, IMeleeWeapon
 {
-    public override void DealDamage()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void EquipInRightHand()
     {
         GameObject rightHand = GameObject.FindFirstObjectByType<_rightHandPosition>().gameObject;

@@ -10,12 +10,6 @@ public class Sword : BaseWeapon , IMeleeWeapon
             EquipInRightHand();
         }
     }
-    public override void DealDamage()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    
     public void EquipInRightHand()
     {
         GameObject rightHand = GameObject.FindFirstObjectByType<_rightHandPosition>().gameObject;

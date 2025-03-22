@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class Gun : BaseWeapon , IRangeWeapon
 {
-    public override void DealDamage()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void EquipInLeftHand()
     {
         GameObject leftHand = GameObject.FindFirstObjectByType<_leftHandPosition>().gameObject;
