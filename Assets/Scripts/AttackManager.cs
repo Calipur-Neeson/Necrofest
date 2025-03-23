@@ -22,7 +22,7 @@ public class AttackManager : MonoBehaviour
 
     [Header("Range Attack Property")]
     public float rangeDamage = 90.0f;
-    private float tempRangeDamage = 90.0f;
+    [HideInInspector] public float tempRangeDamage = 90.0f;
     public float moveSpeedMultiplier { get; set; } = 1f;
     public float jumpMultiplier { get; set; } = 1f;
     public float attackDistanceMultiplier { get; set; } = 1f;

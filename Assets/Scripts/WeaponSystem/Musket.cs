@@ -1,0 +1,19 @@
+using UnityEngine;
+
+public class Musket : BaseWeapon, IRangeWeapon
+{
+    public void EquipInLeftHand()
+    {
+        GameObject leftHand = GameObject.FindFirstObjectByType<_leftHandPosition>().gameObject;
+        transform.SetParent(leftHand.transform);
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
+        GetComponent<BoxCollider>().enabled = false;
+        base.SendRangeWeaponInfo();
+    }
+}

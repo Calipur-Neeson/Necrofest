@@ -7,13 +7,13 @@ public class RayTrackWeapon : MonoBehaviour
     private LayerMask maskR;
     private Vector3 directionV;
 
-    public GameObject textFindingWeapon;
+    //public GameObject textFindingWeapon;
     private void Start()
     {
         maskM = LayerMask.GetMask("MeleeWeapon");
         maskR = LayerMask.GetMask("RangeWeapon");
         directionV = new Vector3(0,0,1.0f);
-        textFindingWeapon.SetActive(false);
+        //textFindingWeapon.SetActive(false);
     }
 
     private void Update()
@@ -49,6 +49,11 @@ public class RayTrackWeapon : MonoBehaviour
         {
             //Debug.Log("Press F to pick up weapon");
             //textFindingWeapon.SetActive(true);
+            GameObject weaponPickupUI = hit.collider.gameObject.transform.GetChild(0).gameObject;
+            RangeWeaponPickupUI wui = weaponPickupUI.GetComponent<RangeWeaponPickupUI>();
+            wui.GetCurrentWeaponInfo();
+            weaponPickupUI.SetActive(true);
+
             if (Input.GetKeyDown(KeyCode.F))
             {
                 GameObject leftHand = GameObject.FindFirstObjectByType<_leftHandPosition>().gameObject;
@@ -63,9 +68,14 @@ public class RayTrackWeapon : MonoBehaviour
         }
         else 
         { 
-            textFindingWeapon.SetActive(false);
+            //textFindingWeapon.SetActive(false);
             WeaponPickupUI[] weaponUi = FindObjectsByType<WeaponPickupUI>(FindObjectsSortMode.None);
             foreach (var wu in weaponUi)
+            {
+                wu.gameObject.SetActive(false);
+            }
+            RangeWeaponPickupUI[] rangeweaponUi = FindObjectsByType<RangeWeaponPickupUI>(FindObjectsSortMode.None);
+            foreach (var wu in rangeweaponUi)
             {
                 wu.gameObject.SetActive(false);
             }

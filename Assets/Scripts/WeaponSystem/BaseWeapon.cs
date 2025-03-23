@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    [HideInInspector] public WeaponData weaponData;
+    public WeaponData weaponData;
     private AttackManager attackManager;
 
     protected virtual void start()
@@ -25,6 +25,13 @@ public abstract class BaseWeapon : MonoBehaviour
         attackManager.distance = weaponData.distance;
         attackManager.delay = weaponData.delay;
         attackManager.animatorSpeed = weaponData.animatorSpeed;
+        attackManager.ResetPlayerAttackAnimation();
+    }
+
+    public virtual void SendRangeWeaponInfo()
+    {
+        attackManager = FindFirstObjectByType<AttackManager>();
+        attackManager.tempRangeDamage = weaponData.damage;
         attackManager.ResetPlayerAttackAnimation();
     }
 }
