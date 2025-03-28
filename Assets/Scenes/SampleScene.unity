@@ -604,11 +604,11 @@ PrefabInstance:
     - target: {fileID: 481995042327841608, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: runSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2076013258}
     - target: {fileID: 481995042327841608, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: dashSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 749412388}
     - target: {fileID: 481995042327841608, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: dashCooldown
       value: 5
