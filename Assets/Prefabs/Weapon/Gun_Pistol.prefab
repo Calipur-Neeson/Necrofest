@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8551565737590654081}
   - component: {fileID: 1498752138907299567}
   - component: {fileID: 3585156105682372814}
-  - component: {fileID: 6818770567261316313}
   - component: {fileID: 2389091506959769014}
   - component: {fileID: 7559097524561982445}
   m_Layer: 11
@@ -113,33 +112,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!54 &6818770567261316313
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700975890868761212}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!65 &2389091506959769014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -174,6 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 4e36a9b062a1ede41a86f4bbef7d048b, type: 2}
+  isInHand: 0
+  floatHeight: 0.2
+  floatSpeed: 0.5
+  rotationSpeed: 50
   isInitialWeapon: 1
 --- !u!1001 &2126215383959577906
 PrefabInstance:
@@ -249,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2270907944723332822, guid: d62871770b99c624db7bde9789198588, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0025
+      value: 0.00125
       objectReference: {fileID: 0}
     - target: {fileID: 2270907944723332822, guid: d62871770b99c624db7bde9789198588, type: 3}
       propertyPath: m_LocalScale.y

@@ -12,6 +12,7 @@ public class Sword : BaseWeapon , IMeleeWeapon
     }
     public void EquipInRightHand()
     {
+        isInHand = true;
         GameObject rightHand = GameObject.FindFirstObjectByType<_rightHandPosition>().gameObject;
         transform.SetParent(rightHand.transform);
         transform.localPosition = new Vector3(0, 0, 0);
@@ -23,6 +24,23 @@ public class Sword : BaseWeapon , IMeleeWeapon
         }
         GetComponent<BoxCollider>().enabled = false;
         base.SendMeleeInfo();
+    }
+    public override void Drop()
+    {
+        base.Drop();
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
+        isInHand = false;
+    }
+    private void Update()
+    {
+        if (!isInHand)
+        {
+            HangingThere();
+        }
     }
 
 }

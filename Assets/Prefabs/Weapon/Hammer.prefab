@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4427861830598130557}
   - component: {fileID: 6243680038822412853}
   - component: {fileID: 2236879026027657488}
-  - component: {fileID: 83753475511419885}
   - component: {fileID: 6070557514767023755}
   - component: {fileID: 6524025859883320310}
   - component: {fileID: 3729576084473907720}
@@ -92,33 +91,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &83753475511419885
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065360285270501874}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!114 &6070557514767023755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +104,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 65597b953b12a0446aacd4e94e849496, type: 2}
+  isInHand: 0
+  floatHeight: 0.2
+  floatSpeed: 0.5
+  rotationSpeed: 1
 --- !u!114 &6524025859883320310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +205,18 @@ PrefabInstance:
       value: 335
       objectReference: {fileID: 0}
     - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -262,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.02
+      value: 0.556
       objectReference: {fileID: 0}
     - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

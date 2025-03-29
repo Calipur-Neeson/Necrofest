@@ -41,7 +41,7 @@ public class RangeWeaponPickupUI : MonoBehaviour
     void Update()
     {
         //transform.LookAt(transform.position + (transform.position - player.position));
-        transform.position = weapon.gameObject.transform.position + Vector3.up * 0.5f;
+        transform.position = weapon.gameObject.transform.position;
         transform.LookAt(Camera.main.transform);
         transform.Rotate(0, 180, 0);
     }

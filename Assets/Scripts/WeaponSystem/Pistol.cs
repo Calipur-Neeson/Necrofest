@@ -12,6 +12,7 @@ public class Pistol : BaseWeapon, IRangeWeapon
     }
     public void EquipInLeftHand()
     {
+        isInHand = true;
         GameObject leftHand = GameObject.FindFirstObjectByType<_leftHandPosition>().gameObject;
         transform.SetParent(leftHand.transform);
         transform.localPosition = new Vector3(0, 0, 0);
@@ -23,5 +24,23 @@ public class Pistol : BaseWeapon, IRangeWeapon
         }
         GetComponent<BoxCollider>().enabled = false;
         base.SendRangeWeaponInfo();
+    }
+    public override void Drop()
+    {
+        base.Drop();
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Destroy(rb);
+        }
+        isInHand = false;
+    }
+    private void Update()
+    {
+        if (!isInHand)
+        {
+            HangingThere();
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+        }
     }
 }

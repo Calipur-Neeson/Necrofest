@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2926225048173466625}
   - component: {fileID: 1606126224981537452}
   - component: {fileID: 644865687911551534}
-  - component: {fileID: 883271338729438750}
   - component: {fileID: 3408437154961204280}
   - component: {fileID: 3545251759873738783}
   - component: {fileID: 8680293271707220311}
@@ -105,33 +104,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: b979ebaff41ea3349a1edc189a98a6b2, type: 2}
---- !u!54 &883271338729438750
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2565505895829859467}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  isInHand: 0
+  floatHeight: 0.2
+  floatSpeed: 0.5
+  rotationSpeed: 1
 --- !u!114 &3408437154961204280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +205,18 @@ PrefabInstance:
       value: 335
       objectReference: {fileID: 0}
     - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -262,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.02
+      value: 0.556
       objectReference: {fileID: 0}
     - target: {fileID: 1248244873984075145, guid: f45888dbc2b811149860db08b4b072e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

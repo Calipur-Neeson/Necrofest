@@ -5,15 +5,25 @@ public abstract class BaseWeapon : MonoBehaviour
     public WeaponData weaponData;
     private AttackManager attackManager;
 
+    public bool isInHand;
+    public float floatHeight = 0.2f;
+    public float floatSpeed = 0.50f;
+    public float rotationSpeed = 50.0f;
+
     protected virtual void start()
     {
-        attackManager = FindFirstObjectByType<AttackManager>();
+        attackManager = FindFirstObjectByType<AttackManager>();     
     }
     public virtual void Drop()
     {
         transform.SetParent(null);
-        gameObject.AddComponent<Rigidbody>();
         GetComponent<BoxCollider>().enabled = true;
+        transform.rotation = Quaternion.LookRotation(Vector3.up, Vector3.right);
+    }
+    public virtual void HangingThere()
+    {
+        float newY = 1 + Mathf.Sin(Time.time * floatSpeed) * floatHeight;
+        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
     public virtual void SendMeleeInfo()
