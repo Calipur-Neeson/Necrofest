@@ -9995,58 +9995,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.083
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.056
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.5209003
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.46697778
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.5419349
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.46572658
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -82.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 100.286
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543851099272557882, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -9.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 6302147477478475162, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: healthContainer
       value: 
       objectReference: {fileID: 411537371}
-    - target: {fileID: 9208486187622465997, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
-      propertyPath: textFindingWeapon
-      value: 
-      objectReference: {fileID: 1341858854}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
