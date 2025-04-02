@@ -8,51 +8,18 @@ public class GraveSingleRoom : MonoBehaviour
 
 
     private Terrain terrain;
-    private void Start()
+    private void Awake()
     {
         terrain = GetComponent<Terrain>();
-        GenerateHill();
         RandomizeTexture();
         RandomizeObjects();
     }
     private void OnEnable()
     {
-        GenerateHill();
         RandomizeTexture();
         RandomizeObjects();
     }
 
-    void GenerateHill()
-    {
-        int width = terrain.terrainData.heightmapResolution;
-        int height = terrain.terrainData.heightmapResolution;
-        Debug.Log(width);
-
-        float[,] heights = terrain.terrainData.GetHeights(0, 0, width, height);
-        int hillX = Random.Range(50, width - 50); 
-        int hillY = Random.Range(50, height - 50);
-        int hillSize = Random.Range(20, 50); 
-        float hillHeight = Random.Range(1f, 5f);
-        for (int x = -hillSize; x < hillSize; x++)
-        {
-            for (int y = -hillSize; y < hillSize; y++)
-            {
-                int px = hillX + x;
-                int py = hillY + y;
-
-                if (px >= 0 && px < width && py >= 0 && py < height)
-                {
-                    float distance = Mathf.Sqrt(x * x + y * y) / hillSize;
-                    float strength = Mathf.Clamp01(1 - distance); 
-                    float noise = Mathf.PerlinNoise(px * 0.1f, py * 0.1f) * strength; 
-
-                    heights[px, py] += noise * hillHeight; 
-                }
-            }
-        }
-
-        terrain.terrainData.SetHeights(0, 0, heights);
-    }
 
     void RandomizeTexture()
     {
@@ -61,7 +28,7 @@ public class GraveSingleRoom : MonoBehaviour
         {
             selectedLayers[i] = terrainLayers[Random.Range(0, terrainLayers.Length)];
         }
-        terrain.terrainData.terrainLayers = selectedLayers;
+        terrain.terrainData.terrainLayers[0] = selectedLayers[0];
     }
     void RandomizeObjects()
     {

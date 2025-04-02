@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Controller")]
     public float moveSpeed = 5;
-    public float gravity = -9.8f;
+    public float gravity = -25f;
     public float jumpHeight = 1.2f;
     
     [Header("Dash")]
