@@ -7,8 +7,9 @@ public class RoomSpawner : MonoBehaviour
 {
     public RoomController roomTemplate;
     public int roomCount;
+    public LevelController levelController;
 
-    private float gridSize = 50;
+    private float gridSize = 65;
     enum Direction
     {
         Down = 1,
@@ -17,7 +18,7 @@ public class RoomSpawner : MonoBehaviour
         Right = 4,
     }
 
-    private int mapSize = 5;
+    private int mapSize = 4;
     private int[,] grid;
     private int startPointX;
     private int startPointY;
@@ -40,7 +41,6 @@ public class RoomSpawner : MonoBehaviour
         InvokeRepeating(nameof(InstantiateRoom), 0.5f, 0.5f);
             //Invoke(nameof(InstantiateRoom), 0.2f);
             //InstantiateRoom();
-        
 
     }
 
@@ -67,7 +67,7 @@ public class RoomSpawner : MonoBehaviour
             {
                 dirs.Add(Direction.Right);
             }
-        Debug.Log(dirs.Count);
+
         if (dirs.Count == 0)
         {
             runSpawner = false;
@@ -77,8 +77,7 @@ public class RoomSpawner : MonoBehaviour
             return;
         }
         int ran = Random.Range(0, dirs.Count);
-        Debug.Log(ran);
-        Debug.Log(dirs[ran]);
+
         currentRoomController.OpenGate((int)dirs[ran]);
         switch (dirs[ran])
         {

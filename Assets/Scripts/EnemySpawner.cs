@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     public int enemyPoolCapacity;
     [Range(2.0f, 10.0f)]
     public float intervalTime;
-    public Transform[] spawnPosition;
+    public List<Vector3> spawnPosition = new();
 
     private List<GameObject> enemyPool = new List<GameObject>();
     private List<GameObject> enemyWaitingSpawn = new List<GameObject>();
@@ -45,8 +45,8 @@ public class EnemySpawner : MonoBehaviour
     }
     private void ActiveEnemy(GameObject gb)
     {
-        int temp = Random.Range(0, spawnPosition.Length);
-        gb.transform.position = spawnPosition[temp].position;
+        int temp = Random.Range(0, spawnPosition.Count);
+        gb.transform.position = spawnPosition[temp];
         eh = gb.GetComponent<EnemyHealth>();
         eh.RestEnemyHealth();
         gb.SetActive(true);

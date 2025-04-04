@@ -39,7 +39,8 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         //Debug.Log(gameObject.name + " Die");
-        spawner.WaitingToSpawn(gameObject);
+        //spawner.WaitingToSpawn(gameObject);
+        gameObject.SetActive(false);
     }
     private void OnDisable()
     {
