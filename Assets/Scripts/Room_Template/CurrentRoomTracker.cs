@@ -18,8 +18,9 @@ public class CurrentRoomTracker : MonoBehaviour
             {
                 LevelController.instance.currentRoom = roomController;
             }
-        }
         enemyspawner.transform.SetParent(transform, false);
+        roomController.isPlayerInRoom = true;
+        }
     }
 
 

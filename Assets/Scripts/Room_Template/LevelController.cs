@@ -1,19 +1,20 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class LevelController : MonoBehaviour
 {
-    private PlayerController player;
-    [Header("enemyspawner")]
-    [SerializeField]private EnemySpawner enemyspawner;
+    [Header("enemyspawner")]   
+    [SerializeField]private EnemySpawner enemySpawner;
     public int spawnPoints;
+
 
     public RoomController currentRoom;
 
     public UnityAction onAllEnemiesInRoomDie;
-    public UnityAction PlayerEnterRoom;
+    public UnityAction onPlayerEnterRoom;
 
     public static LevelController instance;
 
@@ -24,20 +25,35 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        player = FindFirstObjectByType<PlayerController>();
+        
+        //NewSpawnPoints();
+        onPlayerEnterRoom += NewSpawnPoints;
+
+    }
+    void NewSpawnPoints()
+    {
+        enemySpawner.spawnPosition.Clear();
         for (int i = 0; i < spawnPoints; i++)
         {
-            float x = Random.Range(5f, 45f);
-            float z = Random.Range(5f, 45f);
-            enemyspawner.spawnPosition.Add(new Vector3(x,2.2f,z));
+            enemySpawner.spawnPosition.Add(currentRoom.spawnerPoints[i].transform);
         }
     }
-
     private void Update()
     {
-        if (!currentRoom.isAllEnemiesDie)
+        if (!currentRoom.isAllEnemiesDie && currentRoom.isPlayerInRoom)
         {
-
+            onPlayerEnterRoom.Invoke();
+            enemySpawner.StartTOSpawn();
+            currentRoom.isPlayerInRoom = false;
+        }
+        if (currentRoom.isAllEnemiesDie && !currentRoom.isReadyToGo)
+        {
+            onAllEnemiesInRoomDie.Invoke();
+            currentRoom.isReadyToGo = true;
+        }
+        if (!currentRoom.isAllEnemiesDie && !currentRoom.isPlayerInRoom)
+        { 
+            currentRoom.CloseAllGates();
         }
     }
 }

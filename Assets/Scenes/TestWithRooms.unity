@@ -586,7 +586,7 @@ MonoBehaviour:
   - {fileID: 5989372171575328886, guid: b72681b6e1b513443baccf65a5719336, type: 3}
   - {fileID: 5989372171575328886, guid: 3e7afe54f62ab144da436d14ea3b8016, type: 3}
   - {fileID: 7699723569312877257, guid: eef5c969e93424c488c77d9c9f374a22, type: 3}
-  enemyPoolCapacity: 10
+  enemyPoolCapacity: 4
   intervalTime: 4
   spawnPosition: []
 --- !u!1 &483527324
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0beaa13e99d9854f96782033648f22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyspawner: {fileID: 380564179}
+  enemySpawner: {fileID: 380564179}
   spawnPoints: 2
   currentRoom: {fileID: 0}
 --- !u!1 &919994948 stripped
@@ -2258,10 +2258,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TerrainGroup_0
       objectReference: {fileID: 0}
-    - target: {fileID: 8802904732420814869, guid: b37d770f586ad4243bb0c5a91c2105b4, type: 3}
-      propertyPath: enemyspawner
-      value: 
-      objectReference: {fileID: 380564179}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

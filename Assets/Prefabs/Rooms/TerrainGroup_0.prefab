@@ -862,6 +862,12 @@ MonoBehaviour:
   - {fileID: 7361579755727708839}
   terrainCollider: {fileID: 7573732523801571210}
   isAllEnemiesDie: 0
+  isPlayerInRoom: 0
+  isReadyToGo: 0
+  willOpenGates: []
+  enemiesInRoom: []
+  point: {fileID: 2579397611603924012, guid: eecc9deaf26fcf8418b1fd952c1b3975, type: 3}
+  spawnerPoints: []
 --- !u!65 &823792018716246675
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -881,8 +887,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 50, y: 9.716779, z: 50}
-  m_Center: {x: 25, y: 4.3583894, z: 25}
+  m_Size: {x: 47.964092, y: 9.716779, z: 47.919052}
+  m_Center: {x: 24.951525, y: 4.3583894, z: 24.99039}
 --- !u!114 &8802904732420814869
 MonoBehaviour:
   m_ObjectHideFlags: 0
