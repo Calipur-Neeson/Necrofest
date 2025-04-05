@@ -11,7 +11,9 @@ public class LevelController : MonoBehaviour
     public int spawnPoints;
 
     public RoomController currentRoom;
+
     public UnityAction onAllEnemiesInRoomDie;
+    public UnityAction PlayerEnterRoom;
 
     public static LevelController instance;
 
@@ -31,4 +33,11 @@ public class LevelController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!currentRoom.isAllEnemiesDie)
+        {
+
+        }
+    }
 }
