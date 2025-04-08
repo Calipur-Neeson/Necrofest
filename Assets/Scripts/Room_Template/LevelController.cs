@@ -18,6 +18,10 @@ public class LevelController : MonoBehaviour
 
     public static LevelController instance;
 
+    private int numOfCards = 0;
+    private int numOfRoom = 3;
+
+    [HideInInspector]public bool isBossDie;
     private void Awake()
     {
         if(instance == null) instance = this;
@@ -50,10 +54,22 @@ public class LevelController : MonoBehaviour
         {
             onAllEnemiesInRoomDie.Invoke();
             currentRoom.isReadyToGo = true;
+            numOfRoom--;
+            if (numOfRoom == 0) 
+            {
+                numOfRoom = 3;
+                numOfCards++;
+                Debug.Log($"You get a new card, now you have {numOfCards} cards");
+            }
         }
         if (!currentRoom.isAllEnemiesDie && !currentRoom.isPlayerInRoom)
         { 
             currentRoom.CloseAllGates();
+        }
+
+        if (isBossDie)
+        {
+            Debug.Log("You win!! ready to next level!!");
         }
     }
 }

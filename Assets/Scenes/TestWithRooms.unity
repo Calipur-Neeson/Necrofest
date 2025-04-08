@@ -851,6 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomTemplate: {fileID: 4651653851618183217, guid: b37d770f586ad4243bb0c5a91c2105b4, type: 3}
+  bossRoom: {fileID: 2308183776513487688, guid: 2e7fe94f5d36a524fa336612fdc89e56, type: 3}
   roomCount: 100
   levelController: {fileID: 0}
   currentRoomController: {fileID: 975748536}
@@ -869,6 +870,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 380564179}
   spawnPoints: 2
   currentRoom: {fileID: 0}
+  isBossDie: 0
 --- !u!1 &919994948 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1788623314744564116, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}

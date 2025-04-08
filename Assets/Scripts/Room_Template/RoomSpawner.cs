@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class RoomSpawner : MonoBehaviour
 {
     public RoomController roomTemplate;
+    public RoomController bossRoom;
     public int roomCount;
     public LevelController levelController;
 
@@ -22,6 +23,7 @@ public class RoomSpawner : MonoBehaviour
     private int[,] grid;
     private int startPointX;
     private int startPointY;
+    private int ran;
 
     private Vector3 position;
     private bool runSpawner = true;
@@ -73,10 +75,28 @@ public class RoomSpawner : MonoBehaviour
             runSpawner = false;
             Debug.Log("Finish spawning");
             CancelInvoke(nameof(InstantiateRoom));
+            Destroy(currentRoomController);
+            currentRoomController = Instantiate(bossRoom, new Vector3(gridSize * (startPointX - (int)mapSize / 2), 0, gridSize * (startPointY - (int)mapSize / 2)), Quaternion.identity);
+            switch (ran)
+            {
+                case 1:
+                    currentRoomController.OpenGate((int)Direction.Up);
+                    break;
+                case 2:
+                    currentRoomController.OpenGate((int)Direction.Down);
+                    break;
+                case 3:
+                    currentRoomController.OpenGate((int)Direction.Right);
+                    break;
+                case 4:
+                    currentRoomController.OpenGate((int)(Direction.Left));
+                    break;
+            }
+
             FillUpRooms();
             return;
         }
-        int ran = Random.Range(0, dirs.Count);
+        ran = Random.Range(0, dirs.Count);
 
         currentRoomController.OpenGate((int)dirs[ran]);
         switch (dirs[ran])
