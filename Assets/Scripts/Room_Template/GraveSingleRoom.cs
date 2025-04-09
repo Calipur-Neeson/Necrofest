@@ -11,12 +11,12 @@ public class GraveSingleRoom : MonoBehaviour
     private void Awake()
     {
         terrain = GetComponent<Terrain>();
-        RandomizeTexture();
+        //RandomizeTexture();
         RandomizeObjects();
     }
     private void OnEnable()
     {
-        RandomizeTexture();
+        //RandomizeTexture();
         RandomizeObjects();
     }
 

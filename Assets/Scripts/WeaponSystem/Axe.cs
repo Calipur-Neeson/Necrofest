@@ -27,7 +27,7 @@ public class Axe : BaseWeapon , IMeleeWeapon
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Destroy(rb);
+            rb.freezeRotation = true;
         }
         isInHand = false;
     }

@@ -12,7 +12,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
     protected virtual void start()
     {
-        attackManager = FindFirstObjectByType<AttackManager>();     
+        attackManager = FindFirstObjectByType<AttackManager>(); 
     }
     public virtual void Drop()
     {
