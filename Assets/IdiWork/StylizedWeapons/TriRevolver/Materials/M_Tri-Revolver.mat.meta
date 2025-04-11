@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 08bc8d68ad6ed244eaa09dd7e8e18118
+labels:
+- IdiWork
+- Tri-Revolver
+timeCreated: 1524211523
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 117055
+  packageName: Stylized Tri-Revolver
+  packageVersion: 1.0
+  assetPath: Assets/IdiWork/StylizedWeapons/TriRevolver/Materials/M_Tri-Revolver.mat
+  uploadId: 248461

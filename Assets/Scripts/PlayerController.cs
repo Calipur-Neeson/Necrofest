@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,17 +11,19 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     PlayerInput.MainActions input;
 
+    private AttackManager attackManager;
+
     CharacterController controller;
     public Animator animator;
     AudioSource audioSource;
 
     [Header("Controller")]
     public float moveSpeed = 5;
-    public float gravity = -9.8f;
+    public float gravity = -25f;
     public float jumpHeight = 1.2f;
     
     [Header("Dash")]
-    public float dashSpeed = 10.0f;
+    public float dashSpeed = 20.0f;
     public float dashEnergyDrainRate = 10.0f;
     public float maxDashEnergy = 100.0f;
     public float dashEnergyCost = 60.0f;
@@ -28,7 +31,7 @@ public class PlayerController : MonoBehaviour
     float currentDashEnergy;
 
     [Header("Run")]
-    public float runSpeed = 20.0f;
+    public float runSpeed = 10.0f;
     public float maxRunEnergy = 100.0f;
     public float runEnergyDrainRate = 5.0f;
     public float runEnergyRegenRate = 5.0f;
@@ -46,17 +49,36 @@ public class PlayerController : MonoBehaviour
 
     float xRotation = 0f;
     int jumpCount = 0;
-    float moveSpeed_temp = 0f;
+    public float moveSpeed_temp = 0f;
 
+    [HideInInspector]public bool isEagle = false;
+    [HideInInspector]public bool isSwoopIn = false;
+    private bool isSwoopIned;
+    private Coroutine resetSwoopIn;
+
+    [HideInInspector] public bool isSpeedDaemon = false;
+
+    [HideInInspector]public bool isDivineDash = false;
+
+    private SphereCollider shotCollider;
+    private void Start()
+    {
+        shotCollider = bullet.GetComponentInChildren<SphereCollider>();
+        shotCollider.enabled = false;
+    }
     void Awake()
     { 
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
 
+        attackManager = GetComponent<AttackManager>();
+
         playerInput = new PlayerInput();
         input = playerInput.Main;
         AssignInputs();
+
+        rangeCoolDownImage.fillAmount = 0f;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -71,8 +93,6 @@ public class PlayerController : MonoBehaviour
         runSlider.value = maxRunEnergy;
         currentRunEnergy = maxRunEnergy;
 
-        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
-        hitCollider.enabled = false;
     }
 
     void Update()
@@ -82,9 +102,22 @@ public class PlayerController : MonoBehaviour
         // Repeat Inputs
         if(input.Attack.IsPressed())
         { Attack(); }
-        
+
+        bulletNumBox.text = $"{shotNum - currentShotNum}";
+        RangeStartCoolingDown();
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+        { ShotGun(); }
+
         SetAnimations();
         MoveInput(input.Movement.ReadValue<Vector2>());
+
+        EagleEffect();
+
+        if (isShoting)
+        {
+            shotCollider.center += new Vector3(0, 0, 1) * 80.0f * Time.deltaTime;
+            shotCollider.radius += 6f * Time.deltaTime;
+        }
     }
 
     //void FixedUpdate()
@@ -123,6 +156,13 @@ public class PlayerController : MonoBehaviour
         if(isGrounded && _PlayerVelocity.y < 0)
             _PlayerVelocity.y = -2f;
         controller.Move(_PlayerVelocity * Time.deltaTime);
+        float currentMoveSpeed = transform.TransformDirection(moveDirection).magnitude * moveSpeed;
+        if (isSpeedDaemon)
+        {
+            if (currentMoveSpeed != 0) { attackManager.speedDaemonMultiplier = (currentMoveSpeed - 5) / 0.5f * 0.05f; }
+            else { attackManager.speedDaemonMultiplier = 0; }
+            attackManager.ResetPlayerAttackAnimation();
+        }    
     }
 
     void LookInput(Vector3 input)
@@ -152,16 +192,58 @@ public class PlayerController : MonoBehaviour
         {
             if (currentDashEnergy > dashEnergyCost)
             {
+                dashSpeed = moveSpeed_temp * 4;
                 moveSpeed = dashSpeed;
                 
                 currentDashEnergy -= dashEnergyCost;
+                if (isSwoopIn)
+                {
+                    if (!isSwoopIned)
+                    {
+                        attackManager.attackDamageMultiplier += 0.1f;
+                        attackManager.rangeDamageMultiplier += 0.1f;
+                        attackManager.ResetPlayerAttackAnimation();
+                        isSwoopIned = true;
+                    }
+                    if (resetSwoopIn != null)
+                    {
+                        StopCoroutine(resetSwoopIn);
+                    }
+                    resetSwoopIn = StartCoroutine(IncreaseDamage());
+                }
+
+                if (isDivineDash)
+                {
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
+                    for (int i = 0; i < enemies.Length; i++)
+                    {
+                        CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
+                        cc.enabled = false;
+                    }
+                }
             }
-        }
-        
+        }      
+    }
+    private IEnumerator IncreaseDamage()
+    {
+        yield return new WaitForSeconds(3f);
+        isSwoopIned = false;
+        attackManager.attackDamageMultiplier -= 0.1f;
+        attackManager.rangeDamageMultiplier -= 0.1f;
+        attackManager.ResetPlayerAttackAnimation();
     }
     private void InitialMoveSpeed()
     {
         moveSpeed = moveSpeed_temp;
+        if (isDivineDash)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
+                cc.enabled = true;
+            }
+        }
     }
 
     private void RegenDashEnergy()
@@ -176,15 +258,21 @@ public class PlayerController : MonoBehaviour
     void FastMove()
     {
         isRun = true;
-        if (currentRunEnergy > 1.0f)
+        Vector2 inputVector = new Vector2();
+        inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
+        if (inputVector.x != 0 || inputVector.y != 0)
         {
-            moveSpeed = runSpeed;
-            currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
-            runSlider.value = currentRunEnergy;
-        }
-        else
-        {
-            moveSpeed = moveSpeed_temp;
+            if (currentRunEnergy > 1.0f)
+            {
+                runSpeed = moveSpeed_temp * 2;
+                moveSpeed = runSpeed;
+                currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
+                runSlider.value = currentRunEnergy;
+            }
+            else
+            {
+                moveSpeed = moveSpeed_temp;
+            }
         }
     }
 
@@ -206,12 +294,28 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-            jumpCount++;
+            jumpCount++;           
         }
         else if (!isGrounded && jumpCount > 0)
         {
             _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
             jumpCount = 0;
+        }
+    }
+
+    private void EagleEffect()
+    {
+        if (isEagle)
+        {
+            if (!isGrounded)
+            {
+                attackManager.eagleMultiplier = 0.15f;
+            }
+            else
+            {
+                attackManager.eagleMultiplier = 0f;
+            }
+            attackManager.ResetPlayerAttackAnimation();            
         }
     }
 
@@ -258,14 +362,14 @@ public class PlayerController : MonoBehaviour
     // ATTACKING BEHAVIOUR //
     // ------------------- //
 
-    [Header("Attacking")]
+    [Header("MeleeAttacking")]
     public float attackDistance = 3f;
     public float attackDelay = 0.4f;
     public float attackSpeed = 1f;
     public float attackDamage = 1;
     public LayerMask attackLayer;
     public LayerMask enemyLayer;
-    public GameObject handPosition;
+
 
     public GameObject hitEffect;
     public AudioClip swordSwing;
@@ -275,7 +379,96 @@ public class PlayerController : MonoBehaviour
     bool readyToAttack = true;
     int attackCount;
 
-    public void Attack()
+    [Header("RangeAttacking")]
+    public Image rangeCoolDownImage;
+    public float rangeCoolDownTime = 6f;
+    public AudioClip gunSound;
+    public ParticleSystem explosion;
+    public ParticleSystem sparks;
+    public GameObject bullet;
+    private float rangeCurrentTime = 6f;
+    private bool isRangeCooling = false;
+    [HideInInspector]public bool isSkirmisher = false ;
+    private bool isAfterShoting = false;
+
+    private bool isShoting = false;
+
+    public TextMeshProUGUI bulletNumBox;
+    public int shotNum { get; set;} = 1;
+    private int currentShotNum = 0;
+
+    private void ShotGun()
+    {
+        if (!isRangeCooling & currentShotNum < shotNum)
+        {
+            animator.Play("GunShot",1,0f);
+            Invoke(nameof(PlayGunAudio), 0.1f);
+            Invoke(nameof(ActiveGunCollider), 0.1f);
+            Invoke(nameof(ResetGunCollider), 0.4f);
+            currentShotNum++;
+
+            IncreaseNextMelee();
+            if (currentShotNum == shotNum) 
+            { 
+                rangeCoolDownImage.fillAmount = 1f;
+                isRangeCooling=true; 
+            }
+        }  
+    }
+    private void ActiveGunCollider()
+    {
+        isShoting = true;
+        shotCollider.enabled = true;
+    }
+    private void ResetGunCollider()
+    {
+        shotCollider.enabled = false;
+        isShoting = false;
+        shotCollider.center = Vector3.zero;
+        shotCollider.radius = 0.1f;
+    }
+
+    private void PlayGunAudio()
+    {
+        audioSource.PlayOneShot(gunSound);
+        explosion.Play();
+        sparks.Play();
+        ParticleSystem bulletEffect = bullet.GetComponent<ParticleSystem>();
+        bulletEffect.Play();
+    }
+    private void RangeStartCoolingDown()
+    {
+        if (isRangeCooling & currentShotNum == shotNum)
+        {
+            rangeCurrentTime -= Time.deltaTime;
+            rangeCoolDownImage.fillAmount = rangeCurrentTime / rangeCoolDownTime;
+            if (rangeCurrentTime <= 0f)
+            {
+                isRangeCooling = false;
+                rangeCurrentTime = rangeCoolDownTime;
+                currentShotNum = 0;
+            }
+        }
+    }
+    private void IncreaseNextMelee()
+    {       
+        if (isSkirmisher)
+        {
+            isAfterShoting=true;
+            attackManager.attackDamageMultiplier += 0.2f;
+            attackManager.ResetPlayerAttackAnimation(); 
+        }     
+    }
+    private void ResetNextMelee()
+    {
+        if (isAfterShoting)
+        {
+            isAfterShoting = false;
+            attackManager.attackDamageMultiplier -= 0.2f;
+            attackManager.ResetPlayerAttackAnimation();
+        }
+    }
+    private void Attack()
     {
         if(!readyToAttack || attacking) return;
 
@@ -290,8 +483,7 @@ public class PlayerController : MonoBehaviour
 
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swordSwing);
-
-        if(attackCount == 0)
+        if (attackCount == 0)
         {
             ChangeAnimationState(ATTACK1);
             attackCount++;
@@ -301,18 +493,35 @@ public class PlayerController : MonoBehaviour
             ChangeAnimationState(ATTACK2);
             attackCount = 0;
         }
+        Invoke(nameof(ResetNextMelee), attackDelay);
     }
     void SetHitCollider()
     {
-        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
+        GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
+        CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
         hitCollider.radius = 0.04f;
         hitCollider.height = attackDistance;
-        hitCollider.direction = 1;
-        hitCollider.center = new Vector3(0, attackDistance/2, 0);
+        hitCollider.direction = 2;
+        if(currentMeleeWeapon.GetComponent<Sword>() != null)
+        {
+            hitCollider.center = new Vector3(0,0, attackDistance/2);
+        }
+        if(currentMeleeWeapon.GetComponent<Axe>() != null)
+        {
+            hitCollider.center = new Vector3(0,0, attackDistance/2 - 0.85f);
+        }
+        if(currentMeleeWeapon.GetComponent<Hammer>() != null)
+        {
+            hitCollider.center = new Vector3(0,0, attackDistance/2 - 0.8f);
+        }
+
     }
     void ActiveHitCollider()
     {
-        CapsuleCollider hitCollider = handPosition.GetComponent<CapsuleCollider>();
+        GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
+        GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
+        CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
         hitCollider.enabled = !hitCollider.enabled;
     }
    

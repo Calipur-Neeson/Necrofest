@@ -73,4 +73,19 @@ public class SwitchWeapon : MonoBehaviour
         }
         weapons[0].SetActive(true);
     }
+
+    public void UpLevelWeapon(float rate)
+    {
+        for(int i = 0;i < weapons.Length;i++)
+        {
+            speeds[i] *= (1 - rate);
+            delays[i] *= (1 - rate);
+            animatorSpeeds[i] = (1 + rate);
+            if (weapons[i].activeSelf)
+            {
+                SetWeaponInfo(i);
+            }
+        }
+        
+    }
 }

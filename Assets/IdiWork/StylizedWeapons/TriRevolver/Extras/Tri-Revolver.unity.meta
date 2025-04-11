@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: b1ac8c9397861374ebdbd0f28a21d8dd
+labels:
+- IdiWork
+- Tri-Revolver
+timeCreated: 1524209819
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 117055
+  packageName: Stylized Tri-Revolver
+  packageVersion: 1.0
+  assetPath: Assets/IdiWork/StylizedWeapons/TriRevolver/Extras/Tri-Revolver.unity
+  uploadId: 248461
