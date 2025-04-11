@@ -1,8 +1,12 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    //public static SceneLoader instance;
+    public float health = 100;
+    [SerializeField] Animator transitionAnim;
     public void LoadMenu()
     {
         SceneManager.LoadScene("Menu");
@@ -10,10 +14,51 @@ public class SceneLoader : MonoBehaviour
     public void LoadGame()
     {
         SceneManager.LoadScene("SampleScene");
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void LoadSettings()
     {
         SceneManager.LoadScene("Settings");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    void Update()
+    {
+        if (health < 1)
+        {
+            Death();
+        }
+    }
+   /* private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }*/
+
+    public void Death()
+    {
+        StartCoroutine(LoadScene());
+    }
+
+    IEnumerator LoadScene()
+    {
+        transitionAnim.SetTrigger("End");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("DeathScreen");
+        transitionAnim.SetTrigger("Start");
     }
 }
