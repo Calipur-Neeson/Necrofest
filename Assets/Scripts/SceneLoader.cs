@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    //public static SceneLoader instance;
     public float health = 100;
     [SerializeField] Animator transitionAnim;
     public void LoadMenu()
@@ -36,18 +35,6 @@ public class SceneLoader : MonoBehaviour
             Death();
         }
     }
-   /* private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }*/
 
     public void Death()
     {
@@ -56,9 +43,10 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        transitionAnim.SetTrigger("End");
+        Time.timeScale = 1f;
+        transitionAnim.SetTrigger("Start");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("DeathScreen");
-        transitionAnim.SetTrigger("Start");
+        transitionAnim.SetTrigger("End");
     }
 }
