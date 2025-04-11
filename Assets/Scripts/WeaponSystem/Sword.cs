@@ -24,6 +24,7 @@ public class Sword : BaseWeapon , IMeleeWeapon
         }
         GetComponent<BoxCollider>().enabled = false;
         base.SendMeleeInfo();
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
     public override void Drop()
     {
@@ -34,6 +35,7 @@ public class Sword : BaseWeapon , IMeleeWeapon
             Destroy(rb);
         }
         isInHand = false;
+        gameObject.layer = LayerMask.NameToLayer("MeleeWeapon");
     }
     private void Update()
     {

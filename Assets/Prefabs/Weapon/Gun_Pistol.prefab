@@ -150,7 +150,7 @@ MonoBehaviour:
   floatHeight: 0.2
   floatSpeed: 0.5
   rotationSpeed: 50
-  isInitialWeapon: 1
+  isInitialWeapon: 0
 --- !u!1001 &2126215383959577906
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("TestWithRooms");
     }
 
     public void LoadSettings()

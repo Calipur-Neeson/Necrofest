@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -171,7 +172,8 @@ public class PlayerHealth : MonoBehaviour
         {
             //Die
             Debug.Log("You are dead");
-            HealPlayer(maxHealth - 1);
+            //HealPlayer(maxHealth - 1);
+            SceneManager.LoadScene("DeathScreen");
         }
         
     }
