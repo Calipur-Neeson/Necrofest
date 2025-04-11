@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -6,6 +8,10 @@ public class EnemyHealth : MonoBehaviour
     private float health;
     private EnemySpawner spawner;
     private EnemyKillTracker tracker;
+
+    [Header("DropIterm")]
+    [SerializeField] private int chanceToDrop;
+    public List<BaseWeapon> weapons;
 
     private string lastDamageSource;
 
@@ -40,7 +46,14 @@ public class EnemyHealth : MonoBehaviour
     {
         //Debug.Log(gameObject.name + " Die");
         spawner.WaitingToSpawn(gameObject);
+        Vector3 pos = transform.position ;
         //gameObject.SetActive(false);
+        int chance = Random.Range(0, 100);
+        if(chance<chanceToDrop)
+        {
+            int x = Random.Range(0, weapons.Count);
+            Instantiate(weapons[x], pos ,Quaternion.identity);
+        }
     }
     private void OnDisable()
     {

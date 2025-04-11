@@ -22,7 +22,7 @@ public abstract class BaseWeapon : MonoBehaviour
     }
     public virtual void HangingThere()
     {
-        float newY = 1 + Mathf.Sin(Time.time * floatSpeed) * floatHeight;
+        float newY = 2 + Mathf.Sin(Time.time * floatSpeed) * floatHeight;
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 

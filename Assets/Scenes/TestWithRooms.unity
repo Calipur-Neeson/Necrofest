@@ -587,7 +587,7 @@ MonoBehaviour:
   - {fileID: 5989372171575328886, guid: 3e7afe54f62ab144da436d14ea3b8016, type: 3}
   - {fileID: 7699723569312877257, guid: eef5c969e93424c488c77d9c9f374a22, type: 3}
   enemyPoolCapacity: 4
-  intervalTime: 4
+  intervalTime: 3
   spawnPosition: []
 --- !u!1 &483527324
 GameObject:
