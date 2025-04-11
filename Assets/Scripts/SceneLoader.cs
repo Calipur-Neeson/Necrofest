@@ -12,10 +12,13 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadGame()
     {
-        SceneManager.LoadScene("SampleScene");
+
+        //SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("TestWithRooms");
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
     }
 
     public void LoadSettings()

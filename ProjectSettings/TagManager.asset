@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - EnemyWeapon
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -14,10 +16,10 @@ TagManager:
   - UI
   - Enemy
   - Weapon
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - EnemyWeapon
+  - MeleeWeapon
+  - RangeWeapon
   - 
   - 
   - 
