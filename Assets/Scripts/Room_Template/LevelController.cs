@@ -21,6 +21,8 @@ public class LevelController : MonoBehaviour
     private int numOfCards = 0;
     private int numOfRoom = 3;
 
+    private MiniMapManager miniMapManager;
+
     [HideInInspector]public bool isBossDie;
     private void Awake()
     {
@@ -29,7 +31,7 @@ public class LevelController : MonoBehaviour
 
     private void Start()
     {
-        
+        miniMapManager = GetComponent<MiniMapManager>();
         //NewSpawnPoints();
         onPlayerEnterRoom += NewSpawnPoints;
 
@@ -53,6 +55,7 @@ public class LevelController : MonoBehaviour
         if (currentRoom.isAllEnemiesDie && !currentRoom.isReadyToGo)
         {
             onAllEnemiesInRoomDie.Invoke();
+            miniMapManager.VisitRoom(currentRoom.positionOfRoom);
             currentRoom.isReadyToGo = true;
             numOfRoom--;
             if (numOfRoom == 0) 

@@ -19,7 +19,7 @@ public class RoomSpawner : MonoBehaviour
         Right = 4,
     }
 
-    private int mapSize = 4;
+    [HideInInspector]public int mapSize = 4;
     private int[,] grid;
     private int startPointX;
     private int startPointY;
@@ -28,17 +28,19 @@ public class RoomSpawner : MonoBehaviour
     private Vector3 position;
     private bool runSpawner = true;
     [SerializeField] private RoomController currentRoomController;
+    private MiniMapManager miniMapManager;
     private void Start()
     {
         //gridSize = roomTemplate.GetRoomSize();
         grid = new int[mapSize, mapSize];
         startPointX = (int) (mapSize/2);
         startPointY = (int) (mapSize/2);
+        currentRoomController.positionOfRoom = new Vector2Int(startPointX, startPointY);
 
         position = new Vector3(0,0,0);
         grid[startPointX, startPointY] = 1;
 
-
+        miniMapManager = GetComponent<MiniMapManager>();
 
         InvokeRepeating(nameof(InstantiateRoom), 0.5f, 0.5f);
             //Invoke(nameof(InstantiateRoom), 0.2f);
@@ -77,6 +79,8 @@ public class RoomSpawner : MonoBehaviour
             CancelInvoke(nameof(InstantiateRoom));
             Destroy(currentRoomController);
             currentRoomController = Instantiate(bossRoom, new Vector3(gridSize * (startPointX - (int)mapSize / 2), 0, gridSize * (startPointY - (int)mapSize / 2)), Quaternion.identity);
+            currentRoomController.positionOfRoom = new Vector2Int(startPointX, startPointY);
+            miniMapManager.SetBossRoom(currentRoomController.positionOfRoom);
             switch (ran)
             {
                 case 1:
@@ -121,6 +125,7 @@ public class RoomSpawner : MonoBehaviour
         grid[startPointX, startPointY] = 1;
         currentRoomController = Instantiate(roomTemplate, new Vector3(gridSize * (startPointX - (int) mapSize/2), 0, gridSize * (startPointY - (int)mapSize / 2)), Quaternion.identity);
         currentRoomController.OpenRandomGate();
+        currentRoomController.positionOfRoom = new Vector2Int(startPointX, startPointY);
         switch (dirs[ran])
         {
             case Direction.Down:
@@ -146,7 +151,8 @@ public class RoomSpawner : MonoBehaviour
             {
                 if (grid[x, y] == 0)
                 {
-                    Instantiate(roomTemplate, new Vector3(gridSize * (x - (int)mapSize / 2), 0, gridSize * (y - (int)mapSize / 2)), Quaternion.identity);
+                    RoomController newRoom = Instantiate(roomTemplate, new Vector3(gridSize * (x - (int)mapSize / 2), 0, gridSize * (y - (int)mapSize / 2)), Quaternion.identity);
+                    newRoom.positionOfRoom = new Vector2Int(x, y);
                 }
             }
         }
