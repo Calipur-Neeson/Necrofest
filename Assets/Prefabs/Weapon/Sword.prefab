@@ -108,7 +108,7 @@ MonoBehaviour:
   floatHeight: 0.2
   floatSpeed: 0.5
   rotationSpeed: 1
-  isInitialWeapon: 1
+  isInitialWeapon: 0
 --- !u!114 &3364028858507066099
 MonoBehaviour:
   m_ObjectHideFlags: 0

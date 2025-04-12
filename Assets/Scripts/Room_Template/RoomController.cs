@@ -24,6 +24,8 @@ public class RoomController : MonoBehaviour
 
     [SerializeField] private GameObject point;
     public List<Transform> spawnerPoints = new();
+
+    public Vector2Int positionOfRoom;
     private void Start()
     {
         OpenRandomGate();
