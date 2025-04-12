@@ -8,20 +8,25 @@ public class PauseMenu : MonoBehaviour
 
      public bool isPaused;
 
+    public GameObject miniMap;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused && pauseMenu != null)
             {
-                Resume();
+                Resume();               
             }
             else
             {
                 Pause();
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            miniMap.SetActive(!miniMap.activeSelf);
+        }
     }
 
     public void Resume()

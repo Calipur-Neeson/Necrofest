@@ -50,6 +50,6 @@ public class SceneLoader : MonoBehaviour
         transitionAnim.SetTrigger("Start");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("DeathScreen");
-        transitionAnim.SetTrigger("End");
+        transitionAnim.SetTrigger("End"); 
     }
 }

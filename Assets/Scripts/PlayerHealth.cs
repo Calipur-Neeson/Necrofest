@@ -174,6 +174,8 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("You are dead");
             //HealPlayer(maxHealth - 1);
             SceneManager.LoadScene("DeathScreen");
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
         
     }
