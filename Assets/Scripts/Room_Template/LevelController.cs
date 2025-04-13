@@ -63,6 +63,7 @@ public class LevelController : MonoBehaviour
                 numOfRoom = 3;
                 numOfCards++;
                 Debug.Log($"You get a new card, now you have {numOfCards} cards");
+                CardSimpleManager.instance.GetACard();
             }
         }
         if (!currentRoom.isAllEnemiesDie && !currentRoom.isPlayerInRoom)

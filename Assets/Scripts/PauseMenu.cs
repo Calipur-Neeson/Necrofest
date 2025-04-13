@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
      public bool isPaused;
 
     public GameObject miniMap;
+    public GameObject PlayerInfo;
 
     private void Update()
     {
@@ -26,6 +27,10 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
         {
             miniMap.SetActive(!miniMap.activeSelf);
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            PlayerInfo.SetActive(!PlayerInfo.activeSelf);
         }
     }
 
