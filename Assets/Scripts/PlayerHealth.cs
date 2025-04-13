@@ -8,6 +8,14 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private RectTransform healthContainer;
     [SerializeField] private GameObject healthUIPrefab;
+    [SerializeField] private SceneLoader sceneLoader;
+    [SerializeField] private GameObject sceneTransition;     //        ----------------
+    [SerializeField] private GameObject gunSlider;
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject runEnergyBar;        //        Scene Transition
+    [SerializeField] private GameObject dashEnergybar;
+    [SerializeField] private GameObject minimap;
+    [SerializeField] private GameObject pauseMenu;           //        ----------------
     [HideInInspector] public int maxHealth = 3;
     [HideInInspector] public int currentHealth = 3;
 
@@ -173,9 +181,16 @@ public class PlayerHealth : MonoBehaviour
             //Die
             Debug.Log("You are dead");
             //HealPlayer(maxHealth - 1);
-            SceneManager.LoadScene("DeathScreen");
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            sceneTransition.SetActive(true);
+            gunSlider.SetActive(false);
+            healthBar.SetActive(false);
+            runEnergyBar.SetActive(false);
+            dashEnergybar.SetActive(false);
+            minimap.SetActive(false);
+            pauseMenu.SetActive(false);
+            sceneLoader.Death();
         }
         
     }

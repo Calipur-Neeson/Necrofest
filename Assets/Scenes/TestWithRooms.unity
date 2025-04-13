@@ -3472,9 +3472,41 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: minimap
+      value: 
+      objectReference: {fileID: 1376008327}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: gunSlider
+      value: 
+      objectReference: {fileID: 69394026}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 49638652}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 1325123195}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: sceneLoader
+      value: 
+      objectReference: {fileID: 1118395774}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: runEnergyBar
+      value: 
+      objectReference: {fileID: 258351974}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: dashEnergybar
+      value: 
+      objectReference: {fileID: 1149394145}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: healthContainer
       value: 
       objectReference: {fileID: 49638653}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: sceneTransition
+      value: 
+      objectReference: {fileID: 2047638553}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5713,7 +5745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c32382d7b98db9468ea75145129fb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   transitionAnim: {fileID: 2047638555}
 --- !u!1 &1125786431
 GameObject:
@@ -6635,7 +6666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c32382d7b98db9468ea75145129fb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
   transitionAnim: {fileID: 0}
 --- !u!114 &1325123197
 MonoBehaviour:
@@ -10361,7 +10391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1895547011
 RectTransform:
   m_ObjectHideFlags: 0
