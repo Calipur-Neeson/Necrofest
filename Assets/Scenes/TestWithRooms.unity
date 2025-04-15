@@ -6367,7 +6367,7 @@ GameObject:
   - component: {fileID: 1208240378}
   - component: {fileID: 1208240377}
   m_Layer: 5
-  m_Name: ContinueButton
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6507,9 +6507,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1118395773}
-        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
-        m_MethodName: Resume
+      - m_Target: {fileID: 756597211}
+        m_TargetAssemblyTypeName: CardSimpleManager, Assembly-CSharp
+        m_MethodName: BackToGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
