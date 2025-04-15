@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CardSimpleManager : MonoBehaviour
 {
@@ -39,7 +36,9 @@ public class CardSimpleManager : MonoBehaviour
         if (x <= 50)
         {
             int y = Random.Range(0, normalCards.Count);
-            card = Instantiate(normalCards[y], cardPanel.transform.parent);
+            card = Instantiate(normalCards[y], cardPanel.transform);
+            card.transform.SetAsFirstSibling();
+            
         }
         else if (x > 50 && x <= 85)
         {

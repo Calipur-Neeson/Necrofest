@@ -19,7 +19,7 @@ public class LevelController : MonoBehaviour
     public static LevelController instance;
 
     private int numOfCards = 0;
-    private int numOfRoom = 3;
+    private int numOfRoom = 1;
 
     private MiniMapManager miniMapManager;
 
@@ -60,7 +60,7 @@ public class LevelController : MonoBehaviour
             numOfRoom--;
             if (numOfRoom == 0) 
             {
-                numOfRoom = 3;
+                numOfRoom = 1;
                 numOfCards++;
                 Debug.Log($"You get a new card, now you have {numOfCards} cards");
                 CardSimpleManager.instance.GetACard();
