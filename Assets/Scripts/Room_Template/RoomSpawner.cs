@@ -77,6 +77,7 @@ public class RoomSpawner : MonoBehaviour
             runSpawner = false;
             Debug.Log("Finish spawning");
             CancelInvoke(nameof(InstantiateRoom));
+            currentRoomController.gameObject.SetActive(false);
             Destroy(currentRoomController);
             currentRoomController = Instantiate(bossRoom, new Vector3(gridSize * (startPointX - (int)mapSize / 2), 0, gridSize * (startPointY - (int)mapSize / 2)), Quaternion.identity);
             currentRoomController.positionOfRoom = new Vector2Int(startPointX, startPointY);
@@ -84,16 +85,16 @@ public class RoomSpawner : MonoBehaviour
             switch (ran)
             {
                 case 1:
-                    currentRoomController.OpenGate((int)Direction.Up);
+                    currentRoomController.OpenGate(1);
                     break;
                 case 2:
-                    currentRoomController.OpenGate((int)Direction.Down);
+                    currentRoomController.OpenGate(2);
                     break;
                 case 3:
-                    currentRoomController.OpenGate((int)Direction.Right);
+                    currentRoomController.OpenGate(3);
                     break;
                 case 4:
-                    currentRoomController.OpenGate((int)(Direction.Left));
+                    currentRoomController.OpenGate(4);
                     break;
             }
 

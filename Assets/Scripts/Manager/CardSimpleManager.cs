@@ -37,19 +37,19 @@ public class CardSimpleManager : MonoBehaviour
         {
             int y = Random.Range(0, normalCards.Count);
             card = Instantiate(normalCards[y], cardPanel.transform);
-            card.transform.SetAsFirstSibling();
+            //card.transform.SetAsFirstSibling();
             
         }
         else if (x > 50 && x <= 85)
         {
             int y = Random.Range(0, rareCards.Count);
-            card = Instantiate(rareCards[y], cardPanel.transform.parent);
+            card = Instantiate(rareCards[y], cardPanel.transform);
             rareCards.RemoveAt(y);
         }
         else
         {
             int y = Random.Range(0, epicCards.Count);
-            card = Instantiate(epicCards[y], cardPanel.transform.parent);
+            card = Instantiate(epicCards[y], cardPanel.transform);
             epicCards.RemoveAt(y);
         }
         card.transform.localPosition = Vector2.zero;

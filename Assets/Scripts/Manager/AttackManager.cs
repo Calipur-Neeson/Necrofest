@@ -7,7 +7,6 @@ public class AttackManager : MonoBehaviour
     [Header("Player Property")]
     public GameObject player;
 
-    [Range(1f, 1.2f)]
     public float jumpHeight;
     public float moveSpeed;
     
