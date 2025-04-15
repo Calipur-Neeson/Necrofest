@@ -12,10 +12,12 @@ public class CardEffect : MonoBehaviour
     private PlayerController playerController;
     private EnemyKillTracker enemyKillTracker;
 
+    public static CardEffect instance;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-
+        if (instance == null) instance = this;
         player = FindFirstObjectByType<PlayerController>().gameObject;
         weaponTrigger = FindFirstObjectByType<WeaponTrigger>().gameObject;
 
@@ -62,7 +64,7 @@ public class CardEffect : MonoBehaviour
             case "Triforce":
             {
 
-                    attackManager.hitDamageIncreaseRate += 1;//(increase damage)//playerMovementSpeedIncrease(1%)
+                    attackManager.hitDamageIncreaseRate += 1;//(increase damage)
                     attackManager.moveSpeedMultiplier += 0.01f;
                     attackManager.ResetPlayerProperty(); //playerSpeedIncrease (1%)
                     switchWeapon.UpLevelWeapon(0.01f);
@@ -100,6 +102,8 @@ public class CardEffect : MonoBehaviour
             {
                     attackManager.jumpMultiplier += 0.05f;
                     attackManager.ResetPlayerProperty();//playerJumpHeightIncrease (5%)
+                    if (attackManager.jumpMultiplier > 0.2f)
+                    { attackManager.jumpMultiplier = 0.2f; }
                     break;
             }
 
@@ -122,7 +126,8 @@ public class CardEffect : MonoBehaviour
             }
             case "Chain Swings":
             {
-                    weaponTrigger.AddComponent<ChainSwings>();
+                    attackManager.isChainSwing = true;
+                    attackManager.chainSwingsMultiplier += 0.1f;
                     //Chained melee hits deal extra dmg
 
                     //EnableChainSwings();
@@ -139,7 +144,7 @@ public class CardEffect : MonoBehaviour
                         }
                     }
                      */
-                break;
+                    break;
             }
             case "Skirmisher":
             {
@@ -408,11 +413,10 @@ public class CardEffect : MonoBehaviour
             }
             case "Deadly Entrance":
             {
-                    List<GameObject> inDoorArea = new List<GameObject>();
-                    InDoorTracker[] inDoorTrackers = FindObjectsByType<InDoorTracker>(FindObjectsSortMode.None);
-                    foreach (InDoorTracker area in inDoorTrackers)
+                    RoomController[] rooms = FindObjectsByType<RoomController>(FindObjectsSortMode.None);
+                    foreach (RoomController room in rooms)
                     {
-                        area.GetComponent<BoxCollider>().enabled = true;
+                        room.gameObject.AddComponent<InDoorTracker>();
                     }
                     //Increase damage for 10 sec after entering room
                     //EnableDeadlyEntrance

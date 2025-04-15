@@ -52,7 +52,8 @@ public class EnemyHealth : MonoBehaviour
         if(chance<chanceToDrop)
         {
             int x = Random.Range(0, weapons.Count);
-            Instantiate(weapons[x], pos ,Quaternion.identity);
+            BaseWeapon weapon = Instantiate(weapons[x], pos ,Quaternion.identity);
+            weapon.Drop();
         }
     }
     private void OnDisable()

@@ -30,7 +30,9 @@ public class AttackManager : MonoBehaviour
     public float rangeDamageMultiplier { get; set; } = 1f;
     public float eagleMultiplier { get; set; } = 0f;
     public float speedDaemonMultiplier { get; set; } = 0f;
-    
+    public float chainSwingsMultiplier { get; set; } = 0f;
+    [HideInInspector] public bool isChainSwing;
+
     private float hitNormalDamage;
     private float hitCriticalDamage;
     private PlayerController playerControl;

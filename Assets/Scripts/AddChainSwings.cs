@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ChainSwings : MonoBehaviour
+public class AddChainSwings : MonoBehaviour
 {
     private GameObject player;
     private AttackManager attackManager;
@@ -17,20 +17,23 @@ public class ChainSwings : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (attackManager.isChainSwing)
         {
-            isChainSwings = true;
-            if (!isIncreased)
+            if (other.CompareTag("Enemy"))
             {
-                attackManager.attackDamageMultiplier += 0.1f;
-                attackManager.ResetPlayerAttackAnimation();
-                isIncreased = true;
+                isChainSwings = true;
+                if (!isIncreased)
+                {
+                    attackManager.attackDamageMultiplier += attackManager.chainSwingsMultiplier;
+                    attackManager.ResetPlayerAttackAnimation();
+                    isIncreased = true;
+                }
+                if (resetCoroutine != null)
+                {
+                    StopCoroutine(resetCoroutine);
+                }
+                resetCoroutine = StartCoroutine(IncreaseMeleeDamage());
             }
-            if (resetCoroutine != null)
-            {
-                StopCoroutine(resetCoroutine);
-            }
-            resetCoroutine = StartCoroutine(IncreaseMeleeDamage());
         }
     }
 
@@ -39,7 +42,7 @@ public class ChainSwings : MonoBehaviour
         yield return new WaitForSeconds(3f);
         isChainSwings = false;
         isIncreased = false;
-        attackManager.attackDamageMultiplier -= 0.1f;
+        attackManager.attackDamageMultiplier -= attackManager.chainSwingsMultiplier;
         attackManager.ResetPlayerAttackAnimation();
     }
 }
