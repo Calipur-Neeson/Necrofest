@@ -29,6 +29,7 @@ public class RoomSpawner : MonoBehaviour
     private bool runSpawner = true;
     [SerializeField] private RoomController currentRoomController;
     private MiniMapManager miniMapManager;
+    private bool _isFinishSetup;
     private void Start()
     {
         //gridSize = roomTemplate.GetRoomSize();
@@ -42,7 +43,10 @@ public class RoomSpawner : MonoBehaviour
 
         miniMapManager = GetComponent<MiniMapManager>();
 
-        InvokeRepeating(nameof(InstantiateRoom), 0.5f, 0.5f);
+        while(!_isFinishSetup)
+        {
+            InstantiateRoom();
+        }
             //Invoke(nameof(InstantiateRoom), 0.2f);
             //InstantiateRoom();
 
@@ -76,10 +80,13 @@ public class RoomSpawner : MonoBehaviour
         {
             runSpawner = false;
             Debug.Log("Finish spawning");
-            CancelInvoke(nameof(InstantiateRoom));
+            //CancelInvoke(nameof(InstantiateRoom));
+            _isFinishSetup = true;
+            Debug.Log("Hello????", currentRoomController.transform);
             currentRoomController.gameObject.SetActive(false);
             Destroy(currentRoomController);
             currentRoomController = Instantiate(bossRoom, new Vector3(gridSize * (startPointX - (int)mapSize / 2), 0, gridSize * (startPointY - (int)mapSize / 2)), Quaternion.identity);
+            Debug.Log("Hello from the boss room", currentRoomController.transform);
             currentRoomController.positionOfRoom = new Vector2Int(startPointX, startPointY);
             miniMapManager.SetBossRoom(currentRoomController.positionOfRoom);
             switch (ran)

@@ -5,6 +5,8 @@ public class RoomCell : MonoBehaviour
 {
     public Image image;
 
+    private bool _isBossRoom;
+
     public void SetUnvisited()
     {
         image.color = Color.white;
@@ -18,6 +20,7 @@ public class RoomCell : MonoBehaviour
     public void SetBossRoom()
     {
         image.color = Color.red;
+        _isBossRoom = true;
     }
 
     public void SetPlayerHere()

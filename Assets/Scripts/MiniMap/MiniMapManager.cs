@@ -29,15 +29,12 @@ public class MiniMapManager : MonoBehaviour
     private void Awake()
     {
         CalculateMapRatio();
-    }
-
-    void Start()
-    {
         roomSpawner = GetComponent<RoomSpawner>();
         width = roomSpawner.mapSize;
         height = roomSpawner.mapSize;
         GenerateMap();
     }
+
     private void Update()
     {
         playerMiniMap.anchoredPosition = miniMapPoint_1.anchoredPosition + new Vector2((playerWorld.position.x - worldPoint_1.position.x) * 
