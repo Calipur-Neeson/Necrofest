@@ -27,15 +27,15 @@ public class EnemySpawner : MonoBehaviour
             enemy.SetActive(false);
             enemyWaitingSpawn.Add(enemy);
         }
-        //InvokeRepeating(nameof(SpawnEnemy), 1f, intervalTime);
+        InvokeRepeating(nameof(SpawnEnemy), 1f, intervalTime);
     }
     private void Update()
     {
         if (enemyDie.Count == enemyPoolCapacity)
         {
-            RoomController currentRoom = GetComponentInParent<RoomController>();
-            currentRoom.isAllEnemiesDie = true;
-            CancelInvoke(nameof(SpawnEnemy));
+            //RoomController currentRoom = GetComponentInParent<RoomController>();
+            //currentRoom.isAllEnemiesDie = true;
+            //CancelInvoke(nameof(SpawnEnemy));
             for (int i = enemyDie.Count - 1; i >= 0; i--)
             {
                 enemyWaitingSpawn.Add(enemyDie[i]);

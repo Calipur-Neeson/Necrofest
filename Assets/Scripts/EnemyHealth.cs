@@ -5,7 +5,6 @@ public class EnemyHealth : MonoBehaviour
     public float enemyHealth = 100f;
     private float health;
     private EnemySpawner spawner;
-    private EnemyKillTracker tracker;
 
     private string lastDamageSource;
 
@@ -13,7 +12,6 @@ public class EnemyHealth : MonoBehaviour
     {
         health = enemyHealth;
         spawner = GetComponentInParent<EnemySpawner>();
-        tracker = FindFirstObjectByType<EnemyKillTracker>();
     }
     public void TakeDamage(float damage, string weaponType)
     {
@@ -25,15 +23,6 @@ public class EnemyHealth : MonoBehaviour
             lastDamageSource = weaponType;
             Die();
         }
-        if (tracker.isMercy)
-        {
-            if (health < enemyHealth * 0.1f)
-            {
-                lastDamageSource = weaponType;
-                Die();
-                Debug.Log("Killed by Mercy~~~");
-            }
-        }
     }
 
     void Die()
@@ -41,13 +30,7 @@ public class EnemyHealth : MonoBehaviour
         //Debug.Log(gameObject.name + " Die");
         spawner.WaitingToSpawn(gameObject);
         //gameObject.SetActive(false);
-    }
-    private void OnDisable()
-    {
-        if (tracker != null && gameObject.activeInHierarchy == false)
-        {
-            tracker.OnEnemyKilled(lastDamageSource); 
-        }
+
     }
 
     public void RestEnemyHealth()

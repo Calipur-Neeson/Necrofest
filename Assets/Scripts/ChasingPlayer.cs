@@ -8,7 +8,7 @@ public class ChasingPlayer : MonoBehaviour
 
     private void Start()
     {
-        GameObject player =FindFirstObjectByType<PlayerController>().gameObject;
+        GameObject player =FindFirstObjectByType<FindPlayer>().gameObject;
         playerPos = player.transform;
     }
     void Update()
