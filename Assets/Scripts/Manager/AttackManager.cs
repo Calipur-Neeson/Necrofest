@@ -30,6 +30,7 @@ public class AttackManager : MonoBehaviour
     public float eagleMultiplier { get; set; } = 0f;
     public float speedDaemonMultiplier { get; set; } = 0f;
     public float chainSwingsMultiplier { get; set; } = 0f;
+    public float attackSpeedMultiplier { get; set; } = 1f;
     [HideInInspector] public bool isChainSwing;
 
     private float hitNormalDamage;
@@ -71,9 +72,9 @@ public class AttackManager : MonoBehaviour
         playerControl = player.GetComponent<PlayerController>();
         playerControl.attackDistance = distance * attackDistanceMultiplier;
         playerControl.attackDelay = delay;
-        playerControl.attackSpeed = speed;
+        playerControl.attackSpeed = speed * attackSpeedMultiplier;
         playerControl.attackDamage = damage * (attackDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
-        playerControl.animator.speed = animatorSpeed;
+        playerControl.animator.speed = animatorSpeed * attackSpeedMultiplier;
         rangeDamage = tempRangeDamage * (rangeDamageMultiplier + eagleMultiplier + speedDaemonMultiplier);
     }
     public void ResetPlayerProperty()

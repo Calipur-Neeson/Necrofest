@@ -92,16 +92,16 @@ public class RoomSpawner : MonoBehaviour
             switch (ran)
             {
                 case 1:
-                    currentRoomController.OpenGate(1);
-                    break;
-                case 2:
                     currentRoomController.OpenGate(2);
                     break;
+                case 2:
+                    currentRoomController.OpenGate(1);
+                    break;
                 case 3:
-                    currentRoomController.OpenGate(3);
+                    currentRoomController.OpenGate(4);
                     break;
                 case 4:
-                    currentRoomController.OpenGate(4);
+                    currentRoomController.OpenGate(3);
                     break;
             }
 
@@ -132,7 +132,7 @@ public class RoomSpawner : MonoBehaviour
         }
         grid[startPointX, startPointY] = 1;
         currentRoomController = Instantiate(roomTemplate, new Vector3(gridSize * (startPointX - (int) mapSize/2), 0, gridSize * (startPointY - (int)mapSize / 2)), Quaternion.identity);
-        currentRoomController.OpenRandomGate();
+        //currentRoomController.OpenRandomGate();
         currentRoomController.positionOfRoom = new Vector2Int(startPointX, startPointY);
         switch (dirs[ran])
         {

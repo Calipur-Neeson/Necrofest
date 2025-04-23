@@ -7,7 +7,7 @@ public class CardEffect : MonoBehaviour
     private PlayerHealth playerHealth;
     private AttackManager attackManager;
 
-    private SwitchWeapon switchWeapon;
+    //private SwitchWeapon switchWeapon;
     private GameObject weaponTrigger;
     private PlayerController playerController;
     private EnemyKillTracker enemyKillTracker;
@@ -67,7 +67,7 @@ public class CardEffect : MonoBehaviour
                     attackManager.hitDamageIncreaseRate += 1;//(increase damage)
                     attackManager.moveSpeedMultiplier += 0.01f;
                     attackManager.ResetPlayerProperty(); //playerSpeedIncrease (1%)
-                    switchWeapon.UpLevelWeapon(0.01f);
+                    attackManager.attackSpeedMultiplier += 0.01f;
                     attackManager.ResetPlayerAttackAnimation();//playerAttackSpeedIncrease (1%)
                     break;
             }
@@ -94,7 +94,7 @@ public class CardEffect : MonoBehaviour
             }
             case "Quick Swings":
             {
-                    switchWeapon.UpLevelWeapon(0.05f);
+                    attackManager.attackSpeedMultiplier += 0.05f;
                     attackManager.ResetPlayerAttackAnimation();//playerAttackSpeedIncrease (5%)
                     break;
             }
