@@ -51,6 +51,7 @@ public class LevelController : MonoBehaviour
             onPlayerEnterRoom.Invoke();
             enemySpawner.StartTOSpawn();
             currentRoom.isPlayerInRoom = false;
+            miniMapManager.PlayerInHere(currentRoom.positionOfRoom);
         }
         if (currentRoom.isAllEnemiesDie && !currentRoom.isReadyToGo)
         {

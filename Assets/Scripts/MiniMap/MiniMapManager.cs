@@ -47,10 +47,6 @@ public class MiniMapManager : MonoBehaviour
         foreach (Transform child in gridParent)
             Destroy(child.gameObject);
 
-        GridLayoutGroup grid = gridParent.GetComponent<GridLayoutGroup>();
-        grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        grid.constraintCount = width;
-
         for (int y = height - 1; y >= 0; y--) 
         {
             for (int x = 0; x < width; x++)
@@ -78,6 +74,10 @@ public class MiniMapManager : MonoBehaviour
     public void VisitRoom(Vector2Int pos)
     {
         cells[pos.x, pos.y].SetVisited();
+    }
+    public void PlayerInHere(Vector2Int pos)
+    {
+        cells[pos.x, pos.y].SetPlayerHere();
     }
 
     public void SetBossRoom(Vector2Int pos)
