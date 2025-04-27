@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("EnemyPool")]
-    public GameObject[] enemies;
+    public EnemyHealth[] enemies;
     [Range(1.0f, 40.0f)]
     public int enemyPoolCapacity;
     [Range(2.0f, 10.0f)]
@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < enemyPoolCapacity; i++)
         {
             int temp = Random.Range(0, enemies.Length);
-            GameObject enemy = Instantiate(enemies[temp], transform);
+            GameObject enemy = Instantiate(enemies[temp].gameObject, transform);
 
             enemy.SetActive(false);
             enemyWaitingSpawn.Add(enemy);

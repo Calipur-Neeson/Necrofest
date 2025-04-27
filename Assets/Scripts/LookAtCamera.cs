@@ -4,6 +4,10 @@ public class LookAtCamera : MonoBehaviour
 {
     [SerializeField] private Camera _mainCamera;
 
+    private void Start()
+    {
+        _mainCamera = FindFirstObjectByType<Camera>();
+    }
     private void LateUpdate()
     {
         Vector3 cameraPosition = _mainCamera.transform.position;

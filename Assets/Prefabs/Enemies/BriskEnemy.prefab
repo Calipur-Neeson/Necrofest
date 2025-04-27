@@ -280,13 +280,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5989372171575328886}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13724854f37e99743a1cdc88289ccd2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  detectionRange: 100
+  attackRange: 2
 --- !u!114 &87381035947123100
 MonoBehaviour:
   m_ObjectHideFlags: 0

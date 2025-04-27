@@ -9,6 +9,8 @@ public class EnemyHealth : MonoBehaviour
     private EnemySpawner spawner;
     private EnemyKillTracker tracker;
 
+    private Animator animator;
+    private bool isDead = false;
     [Header("DropIterm")]
     [SerializeField] private int chanceToDrop;
     public List<BaseWeapon> weapons;
@@ -20,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
         health = enemyHealth;
         spawner = GetComponentInParent<EnemySpawner>();
         tracker = FindFirstObjectByType<EnemyKillTracker>();
+        animator = GetComponent<Animator>();
     }
     public void TakeDamage(float damage, string weaponType)
     {
@@ -44,10 +47,15 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        //Debug.Log(gameObject.name + " Die");
+        isDead = true;
+        Debug.Log("dieeeeee");
+        animator.SetTrigger("die");       
+    }
+    public void OnDeathAnimationEnd()
+    {
         spawner.WaitingToSpawn(gameObject);
         Vector3 pos = transform.position ;
-        //gameObject.SetActive(false);
+
         int chance = Random.Range(0, 100);
         if(chance<chanceToDrop)
         {

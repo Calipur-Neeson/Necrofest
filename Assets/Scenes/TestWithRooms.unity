@@ -2707,10 +2707,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 5989372171575328886, guid: b72681b6e1b513443baccf65a5719336, type: 3}
-  - {fileID: 5989372171575328886, guid: 3e7afe54f62ab144da436d14ea3b8016, type: 3}
-  - {fileID: 7699723569312877257, guid: eef5c969e93424c488c77d9c9f374a22, type: 3}
-  enemyPoolCapacity: 2
+  - {fileID: -2591896647977250492, guid: e93cf7a0449e50f4c932132deff3f4ed, type: 3}
+  - {fileID: 3097218094610433244, guid: eef5c969e93424c488c77d9c9f374a22, type: 3}
+  - {fileID: 6540866993336863825, guid: fee48ab99ef98f24e9a9ad3a53b406e8, type: 3}
+  enemyPoolCapacity: 6
   intervalTime: 3
   spawnPosition: []
 --- !u!1 &402027334
@@ -4056,6 +4056,10 @@ PrefabInstance:
       propertyPath: dashEnergybar
       value: 
       objectReference: {fileID: 1149394145}
+    - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
+      propertyPath: healthUIPrefab
+      value: 
+      objectReference: {fileID: 6180433128041996968, guid: b06d632cf7a433f4eb2536e9e6fa3a5f, type: 3}
     - target: {fileID: 9082102702105612726, guid: 0630ddb66c43ce74b926a6ec5e0b0b3e, type: 3}
       propertyPath: healthContainer
       value: 

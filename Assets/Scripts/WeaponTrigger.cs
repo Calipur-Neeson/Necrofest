@@ -13,6 +13,7 @@ public class WeaponTrigger : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("¼ì²âµ½Åö×²¶ÔÏó£º" + other.name);
         //int layer = other.gameObject.layer;
         if (other.CompareTag("Enemy"))
         {
