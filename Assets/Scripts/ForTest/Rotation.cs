@@ -24,7 +24,7 @@ public class Rotation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("hit");
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            VRPlayerHealth playerHealth = other.GetComponent<VRPlayerHealth>();
             playerHealth.PlayerGetHurt(this.gameObject);
         }   
     }
