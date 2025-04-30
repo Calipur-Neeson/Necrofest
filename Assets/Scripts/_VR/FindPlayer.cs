@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics.HapticsUtility;
 
 public class FindPlayer : MonoBehaviour
 {
@@ -7,6 +9,6 @@ public class FindPlayer : MonoBehaviour
     private void Update()
     {
         parentPos = transform.parent.position;
-        transform.position = parentPos;
+        transform.position = parentPos;       
     }
 }

@@ -73,8 +73,8 @@ public class GunController : MonoBehaviour
     {
         if (!isRangeCooling & currentShotNum < shotNum)
         {
+            ActiveGunCollider();
             Invoke(nameof(PlayGunAudio), 0.1f);
-            Invoke(nameof(ActiveGunCollider), 0.1f);
             Invoke(nameof(ResetGunCollider), 0.4f);
             currentShotNum++;
 

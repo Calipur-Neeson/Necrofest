@@ -12,9 +12,11 @@ public class WeaponInter : MonoBehaviour
     private bool isGrabed;
     private Vector3 startPos;
 
+    private BoxCollider boxCollider;
     private void Start()
     {
         startPos = transform.position;
+        boxCollider = GetComponent<BoxCollider>();
     }
     private void Update()
     {
@@ -32,10 +34,12 @@ public class WeaponInter : MonoBehaviour
     public void OnSelectEnter()
     {
         isGrabed = true;
+        boxCollider.enabled = false;
     }
     public void OnSelectExit()
     {
         startPos = transform.position;
         isGrabed = false;
+        boxCollider.enabled = true;
     }  
 }
