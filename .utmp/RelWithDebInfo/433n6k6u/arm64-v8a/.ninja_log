@@ -1,0 +1,10 @@
+# ninja log v5
+18	1720	7676505776275380	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a74b87deedce6ff5
+6	1760	7676505776707390	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	7dad0bec066ed224
+23	1766	7676505776774177	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	87c10e865d3c61cd
+32	1837	7676505777439899	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	cc97bfe0f195b0bc
+28	1971	7676505778827174	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	be7c79933a2f6934
+1	2003	7676505779120108	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	4487ed844743b154
+14	2275	7676505781907978	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	403190ea405b3e8a
+10	2415	7676505783259669	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	bdcf9a8f490d73f7
+2415	2569	7676505784763329	E:/repository/Necrofest_ProjectONE/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/433n6k6u/obj/arm64-v8a/libgame.so	f694d0b7a2deb551

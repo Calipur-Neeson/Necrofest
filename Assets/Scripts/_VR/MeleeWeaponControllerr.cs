@@ -7,12 +7,16 @@ public class MeleeWeaponControllerr : MonoBehaviour
 
     private Vector3 lastPosition;
     private float currentSpeed;
+    AudioSource audioSource;
+    public AudioClip swordSound;
+    public AudioClip hitSound;
 
     void Start()
     {
         weaponCollider = GetComponent<CapsuleCollider>();
         lastPosition = transform.position;
         weaponCollider.isTrigger = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -24,6 +28,11 @@ public class MeleeWeaponControllerr : MonoBehaviour
         {
             weaponCollider.isTrigger = true;
         }
+        else if (currentSpeed > 2.5f)
+        {
+            audioSource.clip = swordSound;
+            audioSource.Play();
+        }
         else { weaponCollider.isTrigger = false;}
 
         lastPosition = transform.position;
@@ -33,6 +42,7 @@ public class MeleeWeaponControllerr : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            audioSource.PlayOneShot(hitSound);
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {

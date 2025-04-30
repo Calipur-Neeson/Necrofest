@@ -2,15 +2,11 @@ using UnityEngine;
 
 public class FindPlayer : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private Vector3 parentPos;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        parentPos = transform.parent.position;
+        transform.position = parentPos;
     }
 }

@@ -26,7 +26,7 @@ public class VRPlayerHealth : MonoBehaviour
             list.Add(go.transform.GetChild(0).gameObject);
         }
     }
-    public void PlayerGetHurt(GameObject enemyObject)
+    public void PlayerGetHurt()
     {
          currentHealth--;
          
@@ -53,7 +53,7 @@ public class VRPlayerHealth : MonoBehaviour
     {     
         //Die
         Debug.Log("You are dead");
-        HealPlayer(maxHealth - 1);
+        HealPlayer(maxHealth);
     }
 
     public void HealPlayer(int heal)

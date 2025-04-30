@@ -25,7 +25,7 @@ public class Rotation : MonoBehaviour
         {
             Debug.Log("hit");
             VRPlayerHealth playerHealth = other.GetComponent<VRPlayerHealth>();
-            playerHealth.PlayerGetHurt(this.gameObject);
+            playerHealth.PlayerGetHurt();
         }   
     }
 }
