@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 5139812384436816474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 3.8, z: -7.6}
-  m_LocalScale: {x: 22.1, y: 15.5, z: 13.72}
+  m_LocalPosition: {x: -0, y: 3.8, z: -10.3}
+  m_LocalScale: {x: 22.1, y: 15.5, z: 19.35}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8206280916956383046}
@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 50
+  isDead: 0
   chanceToDrop: 50
   weapons:
   - {fileID: 644865687911551534, guid: 40750a881b9b11b4298a5bca5bedb6a0, type: 3}
@@ -322,7 +323,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  attackRange: 1
+  attackRange: 1.38
+  cooldown: 1.5
+  gizmoColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &6243111666936920339
 MonoBehaviour:
   m_ObjectHideFlags: 0

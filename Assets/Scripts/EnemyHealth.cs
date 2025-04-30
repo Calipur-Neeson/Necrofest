@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour
     private EnemyKillTracker tracker;
 
     private Animator animator;
-    private bool isDead = false;
+    public bool isDead = false;
     [Header("DropIterm")]
     [SerializeField] private int chanceToDrop;
     public List<BaseWeapon> weapons;
@@ -48,8 +48,7 @@ public class EnemyHealth : MonoBehaviour
     void Die()
     {
         isDead = true;
-        Debug.Log("dieeeeee");
-        animator.SetTrigger("die");       
+        animator.SetTrigger("die");   
     }
     public void OnDeathAnimationEnd()
     {
