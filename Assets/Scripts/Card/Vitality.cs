@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class Vitality : NormalCards
 {
     private void Awake()

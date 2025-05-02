@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class DamageIncrease : MonoBehaviour
+namespace AG2187
 {
-    private AttackManager attackManager;
+    public class DamageIncrease : MonoBehaviour
+    {
+        private AttackManager attackManager;
 
-    private void Start()
-    {
-        GameObject player = GameObject.Find("Player");
-        attackManager = player.GetComponent<AttackManager>();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private void Start()
         {
-            attackManager.hitDamageIncreaseRate += 10;
+            GameObject player = GameObject.Find("Player");
+            attackManager = player.GetComponent<AttackManager>();
         }
-    }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                attackManager.hitDamageIncreaseRate += 10;
+            }
+        }
+    } 
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class SwoopIn : RareCards
 {
     private void Awake()

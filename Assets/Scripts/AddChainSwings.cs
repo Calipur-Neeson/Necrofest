@@ -1,48 +1,51 @@
 using System.Collections;
 using UnityEngine;
 
-public class AddChainSwings : MonoBehaviour
+namespace AG2187
 {
-    private GameObject player;
-    private AttackManager attackManager;
-    private bool isChainSwings = false;
-    private bool isIncreased = false;
-    private Coroutine resetCoroutine;
-
-    private void Start()
+    public class AddChainSwings : MonoBehaviour
     {
-        player = FindFirstObjectByType<PlayerController>().gameObject;
-        attackManager = player.GetComponent<AttackManager>();
-    }
+        private GameObject player;
+        private AttackManager attackManager;
+        private bool isChainSwings = false;
+        private bool isIncreased = false;
+        private Coroutine resetCoroutine;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (attackManager.isChainSwing)
+        private void Start()
         {
-            if (other.CompareTag("Enemy"))
+            player = FindFirstObjectByType<PlayerController>().gameObject;
+            attackManager = player.GetComponent<AttackManager>();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (attackManager.isChainSwing)
             {
-                isChainSwings = true;
-                if (!isIncreased)
+                if (other.CompareTag("Enemy"))
                 {
-                    attackManager.attackDamageMultiplier += attackManager.chainSwingsMultiplier;
-                    attackManager.ResetPlayerAttackAnimation();
-                    isIncreased = true;
+                    isChainSwings = true;
+                    if (!isIncreased)
+                    {
+                        attackManager.attackDamageMultiplier += attackManager.chainSwingsMultiplier;
+                        attackManager.ResetPlayerAttackAnimation();
+                        isIncreased = true;
+                    }
+                    if (resetCoroutine != null)
+                    {
+                        StopCoroutine(resetCoroutine);
+                    }
+                    resetCoroutine = StartCoroutine(IncreaseMeleeDamage());
                 }
-                if (resetCoroutine != null)
-                {
-                    StopCoroutine(resetCoroutine);
-                }
-                resetCoroutine = StartCoroutine(IncreaseMeleeDamage());
             }
         }
-    }
 
-    private IEnumerator IncreaseMeleeDamage()
-    {
-        yield return new WaitForSeconds(3f);
-        isChainSwings = false;
-        isIncreased = false;
-        attackManager.attackDamageMultiplier -= attackManager.chainSwingsMultiplier;
-        attackManager.ResetPlayerAttackAnimation();
-    }
+        private IEnumerator IncreaseMeleeDamage()
+        {
+            yield return new WaitForSeconds(3f);
+            isChainSwings = false;
+            isIncreased = false;
+            attackManager.attackDamageMultiplier -= attackManager.chainSwingsMultiplier;
+            attackManager.ResetPlayerAttackAnimation();
+        }
+    } 
 }

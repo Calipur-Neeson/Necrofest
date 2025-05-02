@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class Gamemanager : MonoBehaviour
+namespace AG2187
 {
-    private CardEffect cardEffect;
-    void Start()
+    public class Gamemanager : MonoBehaviour
     {
-        cardEffect = gameObject.GetComponent<CardEffect>();
-        cardEffect.TriggerEffect("Vitality");
-        cardEffect.TriggerEffect("Mobility");
-        cardEffect.TriggerEffect("Strength");
-    }
+        private CardEffect cardEffect;
+        void Start()
+        {
+            cardEffect = gameObject.GetComponent<CardEffect>();
+            cardEffect.TriggerEffect("Vitality");
+            cardEffect.TriggerEffect("Mobility");
+            cardEffect.TriggerEffect("Strength");
+        }
 
+    } 
 }

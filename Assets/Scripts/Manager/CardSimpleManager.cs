@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using AG2187;
 public class CardSimpleManager : MonoBehaviour
 {
     public List<NormalCards> normalCards;

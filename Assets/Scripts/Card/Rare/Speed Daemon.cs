@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class SpeedDaemon : RareCards
 {
     private void Awake()

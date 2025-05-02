@@ -6,548 +6,551 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+namespace AG2187
 {
-    PlayerInput playerInput;
-    PlayerInput.MainActions input;
-
-    private AttackManager attackManager;
-
-    CharacterController controller;
-    public Animator animator;
-    AudioSource audioSource;
-
-    [Header("Controller")]
-    public float moveSpeed = 5;
-    public float gravity = -25f;
-    public float jumpHeight = 1.0f;
-    
-    [Header("Dash")]
-    public float dashSpeed = 20.0f;
-    public float dashEnergyDrainRate = 10.0f;
-    public float maxDashEnergy = 100.0f;
-    public float dashEnergyCost = 60.0f;
-    public Slider dashSlider;
-    float currentDashEnergy;
-
-    [Header("Run")]
-    public float runSpeed = 10.0f;
-    public float maxRunEnergy = 100.0f;
-    public float runEnergyDrainRate = 5.0f;
-    public float runEnergyRegenRate = 5.0f;
-    public Slider runSlider;
-    float currentRunEnergy;
-    
-    Vector3 _PlayerVelocity;
-
-    bool isGrounded;
-    bool isRun;
-
-    [Header("Camera")]
-    public Camera cam;
-    public float sensitivity;
-
-    float xRotation = 0f;
-    int jumpCount = 0;
-    public float moveSpeed_temp = 0f;
-
-    [HideInInspector]public bool isEagle = false;
-    [HideInInspector]public bool isSwoopIn = false;
-    private bool isSwoopIned;
-    private Coroutine resetSwoopIn;
-
-    [HideInInspector] public bool isSpeedDaemon = false;
-
-    [HideInInspector]public bool isDivineDash = false;
-
-    private SphereCollider shotCollider;
-    private void Start()
+    public class PlayerController : MonoBehaviour
     {
-        shotCollider = bullet.GetComponentInChildren<SphereCollider>();
-        shotCollider.enabled = false;
-    }
-    void Awake()
-    { 
-        controller = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        PlayerInput playerInput;
+        PlayerInput.MainActions input;
 
-        attackManager = GetComponent<AttackManager>();
+        private AttackManager attackManager;
 
-        playerInput = new PlayerInput();
-        input = playerInput.Main;
-        AssignInputs();
+        CharacterController controller;
+        public Animator animator;
+        AudioSource audioSource;
 
-        rangeCoolDownImage.fillAmount = 0f;
+        [Header("Controller")]
+        public float moveSpeed = 5;
+        public float gravity = -25f;
+        public float jumpHeight = 1.0f;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        
-        moveSpeed_temp = moveSpeed;
-        dashSlider.maxValue = maxDashEnergy;
-        dashSlider.value = maxDashEnergy;
-        currentDashEnergy = maxDashEnergy;
-        
-        isRun = true;
-        runSlider.maxValue = maxRunEnergy;
-        runSlider.value = maxRunEnergy;
-        currentRunEnergy = maxRunEnergy;
+        [Header("Dash")]
+        public float dashSpeed = 20.0f;
+        public float dashEnergyDrainRate = 10.0f;
+        public float maxDashEnergy = 100.0f;
+        public float dashEnergyCost = 60.0f;
+        public Slider dashSlider;
+        float currentDashEnergy;
 
-    }
+        [Header("Run")]
+        public float runSpeed = 10.0f;
+        public float maxRunEnergy = 100.0f;
+        public float runEnergyDrainRate = 5.0f;
+        public float runEnergyRegenRate = 5.0f;
+        public Slider runSlider;
+        float currentRunEnergy;
 
-    void Update()
-    {
-        isGrounded = controller.isGrounded;
-        //Debug.Log(isGrounded);
-        // Repeat Inputs
-        if(input.Attack.IsPressed())
-        { Attack(); }
+        Vector3 _PlayerVelocity;
 
-        bulletNumBox.text = $"{shotNum - currentShotNum}";
-        RangeStartCoolingDown();
-        if(Input.GetKeyDown(KeyCode.Mouse1))
-        { ShotGun(); }
+        bool isGrounded;
+        bool isRun;
 
-        SetAnimations();
-        MoveInput(input.Movement.ReadValue<Vector2>());
+        [Header("Camera")]
+        public Camera cam;
+        public float sensitivity;
 
-        EagleEffect();
+        float xRotation = 0f;
+        int jumpCount = 0;
+        public float moveSpeed_temp = 0f;
 
-        if (isShoting)
+        [HideInInspector] public bool isEagle = false;
+        [HideInInspector] public bool isSwoopIn = false;
+        private bool isSwoopIned;
+        private Coroutine resetSwoopIn;
+
+        [HideInInspector] public bool isSpeedDaemon = false;
+
+        [HideInInspector] public bool isDivineDash = false;
+
+        private SphereCollider shotCollider;
+        private void Start()
         {
-            shotCollider.center += new Vector3(0, 0, 1) * 80.0f * Time.deltaTime;
-            shotCollider.radius += 6f * Time.deltaTime;
+            shotCollider = bullet.GetComponentInChildren<SphereCollider>();
+            shotCollider.enabled = false;
         }
-    }
-
-    //void FixedUpdate()
-    //{
-    //    MoveInput(input.Movement.ReadValue<Vector2>()); 
-    //}
-    
-    void LateUpdate() 
-    { LookInput(input.Look.ReadValue<Vector2>()); }
-
-    void MoveInput(Vector2 input)
-    {
-        Vector3 moveDirection = Vector3.zero;
-        moveDirection.x = input.x;
-        moveDirection.z = input.y;
-        
-        RegenRunEnergy();
-        RegenDashEnergy();
-        if (Input.GetKey(KeyCode.LeftShift))
+        void Awake()
         {
-            FastMove();
+            controller = GetComponent<CharacterController>();
+            animator = GetComponentInChildren<Animator>();
+            audioSource = GetComponent<AudioSource>();
+
+            attackManager = GetComponent<AttackManager>();
+
+            playerInput = new PlayerInput();
+            input = playerInput.Main;
+            AssignInputs();
+
+            rangeCoolDownImage.fillAmount = 0f;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            moveSpeed_temp = moveSpeed;
+            dashSlider.maxValue = maxDashEnergy;
+            dashSlider.value = maxDashEnergy;
+            currentDashEnergy = maxDashEnergy;
+
+            isRun = true;
+            runSlider.maxValue = maxRunEnergy;
+            runSlider.value = maxRunEnergy;
+            currentRunEnergy = maxRunEnergy;
+
         }
-        else if (Input.GetKey(KeyCode.LeftControl))
+
+        void Update()
         {
-            Dash();
-            Invoke(nameof(InitialMoveSpeed), 0.2f);
-        }
-        else
-        {
-            isRun = false; 
-            moveSpeed = moveSpeed_temp;
-        }
-        
-        controller.Move(transform.TransformDirection(moveDirection) * moveSpeed * Time.deltaTime);
-        _PlayerVelocity.y += gravity * Time.deltaTime;
-        if(isGrounded && _PlayerVelocity.y < 0)
-            _PlayerVelocity.y = -2f;
-        controller.Move(_PlayerVelocity * Time.deltaTime);
-        float currentMoveSpeed = transform.TransformDirection(moveDirection).magnitude * moveSpeed;
-        if (isSpeedDaemon)
-        {
-            if (currentMoveSpeed != 0) { attackManager.speedDaemonMultiplier = (currentMoveSpeed - 5) / 0.5f * 0.05f; }
-            else { attackManager.speedDaemonMultiplier = 0; }
-            attackManager.ResetPlayerAttackAnimation();
-        }    
-    }
+            isGrounded = controller.isGrounded;
+            //Debug.Log(isGrounded);
+            // Repeat Inputs
+            if (input.Attack.IsPressed())
+            { Attack(); }
 
-    void LookInput(Vector3 input)
-    {
-        float mouseX = input.x;
-        float mouseY = input.y;
+            bulletNumBox.text = $"{shotNum - currentShotNum}";
+            RangeStartCoolingDown();
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            { ShotGun(); }
 
-        xRotation -= (mouseY * Time.deltaTime * sensitivity);
-        xRotation = Mathf.Clamp(xRotation, -80, 80);
+            SetAnimations();
+            MoveInput(input.Movement.ReadValue<Vector2>());
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            EagleEffect();
 
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime * sensitivity));
-    }
-
-    void OnEnable() 
-    { input.Enable(); }
-
-    void OnDisable()
-    { input.Disable(); }
-
-    void Dash()
-    {
-        Vector2 inputVector = new Vector2();
-        inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
-        if (inputVector.x != 0 || inputVector.y != 0)
-        {
-            if (currentDashEnergy > dashEnergyCost)
+            if (isShoting)
             {
-                dashSpeed = moveSpeed_temp * 4;
-                moveSpeed = dashSpeed;
-                
-                currentDashEnergy -= dashEnergyCost;
-                if (isSwoopIn)
-                {
-                    if (!isSwoopIned)
-                    {
-                        attackManager.attackDamageMultiplier += 0.1f;
-                        attackManager.rangeDamageMultiplier += 0.1f;
-                        attackManager.ResetPlayerAttackAnimation();
-                        isSwoopIned = true;
-                    }
-                    if (resetSwoopIn != null)
-                    {
-                        StopCoroutine(resetSwoopIn);
-                    }
-                    resetSwoopIn = StartCoroutine(IncreaseDamage());
-                }
-
-                if (isDivineDash)
-                {
-                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
-                    for (int i = 0; i < enemies.Length; i++)
-                    {
-                        CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
-                        cc.enabled = false;
-                    }
-                }
-            }
-        }      
-    }
-    private IEnumerator IncreaseDamage()
-    {
-        yield return new WaitForSeconds(3f);
-        isSwoopIned = false;
-        attackManager.attackDamageMultiplier -= 0.1f;
-        attackManager.rangeDamageMultiplier -= 0.1f;
-        attackManager.ResetPlayerAttackAnimation();
-    }
-    private void InitialMoveSpeed()
-    {
-        moveSpeed = moveSpeed_temp;
-        if (isDivineDash)
-        {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
-                cc.enabled = true;
+                shotCollider.center += new Vector3(0, 0, 1) * 80.0f * Time.deltaTime;
+                shotCollider.radius += 6f * Time.deltaTime;
             }
         }
-    }
 
-    private void RegenDashEnergy()
-    {
-        if (currentDashEnergy <= dashSlider.maxValue)
-        {
-            currentDashEnergy += dashEnergyDrainRate * Time.deltaTime;
-            dashSlider.value = currentDashEnergy;
-        }
-    }
+        //void FixedUpdate()
+        //{
+        //    MoveInput(input.Movement.ReadValue<Vector2>()); 
+        //}
 
-    void FastMove()
-    {
-        isRun = true;
-        Vector2 inputVector = new Vector2();
-        inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
-        if (inputVector.x != 0 || inputVector.y != 0)
+        void LateUpdate()
+        { LookInput(input.Look.ReadValue<Vector2>()); }
+
+        void MoveInput(Vector2 input)
         {
-            if (currentRunEnergy > 1.0f)
+            Vector3 moveDirection = Vector3.zero;
+            moveDirection.x = input.x;
+            moveDirection.z = input.y;
+
+            RegenRunEnergy();
+            RegenDashEnergy();
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                runSpeed = moveSpeed_temp * 2;
-                moveSpeed = runSpeed;
-                currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
-                runSlider.value = currentRunEnergy;
+                FastMove();
+            }
+            else if (Input.GetKey(KeyCode.LeftControl))
+            {
+                Dash();
+                Invoke(nameof(InitialMoveSpeed), 0.2f);
             }
             else
             {
+                isRun = false;
                 moveSpeed = moveSpeed_temp;
             }
-        }
-    }
 
-    private void RegenRunEnergy()
-    {
-        if (isRun == false)
-        {
-            if (currentRunEnergy <= runSlider.maxValue)
+            controller.Move(transform.TransformDirection(moveDirection) * moveSpeed * Time.deltaTime);
+            _PlayerVelocity.y += gravity * Time.deltaTime;
+            if (isGrounded && _PlayerVelocity.y < 0)
+                _PlayerVelocity.y = -2f;
+            controller.Move(_PlayerVelocity * Time.deltaTime);
+            float currentMoveSpeed = transform.TransformDirection(moveDirection).magnitude * moveSpeed;
+            if (isSpeedDaemon)
             {
-                currentRunEnergy += runEnergyRegenRate * Time.deltaTime;
-                runSlider.value = currentRunEnergy;
+                if (currentMoveSpeed != 0) { attackManager.speedDaemonMultiplier = (currentMoveSpeed - 5) / 0.5f * 0.05f; }
+                else { attackManager.speedDaemonMultiplier = 0; }
+                attackManager.ResetPlayerAttackAnimation();
             }
-            
         }
-    }
-    void Jump()
-    {
-        // Adds force to the player rigidbody to jump
-        if (isGrounded)
-        {
-            _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
-            jumpCount++;           
-        }
-        else if (!isGrounded && jumpCount > 0)
-        {
-            _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-            jumpCount = 0;
-        }
-    }
 
-    private void EagleEffect()
-    {
-        if (isEagle)
+        void LookInput(Vector3 input)
         {
-            if (!isGrounded)
+            float mouseX = input.x;
+            float mouseY = input.y;
+
+            xRotation -= (mouseY * Time.deltaTime * sensitivity);
+            xRotation = Mathf.Clamp(xRotation, -80, 80);
+
+            cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+
+            transform.Rotate(Vector3.up * (mouseX * Time.deltaTime * sensitivity));
+        }
+
+        void OnEnable()
+        { input.Enable(); }
+
+        void OnDisable()
+        { input.Disable(); }
+
+        void Dash()
+        {
+            Vector2 inputVector = new Vector2();
+            inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
+            if (inputVector.x != 0 || inputVector.y != 0)
             {
-                attackManager.eagleMultiplier = 0.15f;
-            }
-            else
-            {
-                attackManager.eagleMultiplier = 0f;
-            }
-            attackManager.ResetPlayerAttackAnimation();            
-        }
-    }
+                if (currentDashEnergy > dashEnergyCost)
+                {
+                    dashSpeed = moveSpeed_temp * 4;
+                    moveSpeed = dashSpeed;
 
-    void AssignInputs()
-    {
-        input.Jump.performed += ctx => Jump();
-        input.Attack.started += ctx => Attack();
-    }
+                    currentDashEnergy -= dashEnergyCost;
+                    if (isSwoopIn)
+                    {
+                        if (!isSwoopIned)
+                        {
+                            attackManager.attackDamageMultiplier += 0.1f;
+                            attackManager.rangeDamageMultiplier += 0.1f;
+                            attackManager.ResetPlayerAttackAnimation();
+                            isSwoopIned = true;
+                        }
+                        if (resetSwoopIn != null)
+                        {
+                            StopCoroutine(resetSwoopIn);
+                        }
+                        resetSwoopIn = StartCoroutine(IncreaseDamage());
+                    }
 
-    // ---------- //
-    // ANIMATIONS //
-    // ---------- //
-
-    public const string IDLE = "Idle";
-    public const string WALK = "Walk";
-    public const string ATTACK1 = "Attack 1";
-    public const string ATTACK2 = "Attack 2";
-
-    string currentAnimationState;
-
-    public void ChangeAnimationState(string newState) 
-    {
-        // STOP THE SAME ANIMATION FROM INTERRUPTING WITH ITSELF //
-        if (currentAnimationState == newState) return;
-
-        // PLAY THE ANIMATION //
-        currentAnimationState = newState;
-        animator.CrossFadeInFixedTime(currentAnimationState, 0.2f);
-    }
-
-    void SetAnimations()
-    {
-        // If player is not attacking
-        if(!attacking)
-        {
-            if(_PlayerVelocity.x == 0 &&_PlayerVelocity.z == 0)
-            { ChangeAnimationState(IDLE); }
-            else
-            { ChangeAnimationState(WALK); }
-        }
-    }
-
-    // ------------------- //
-    // ATTACKING BEHAVIOUR //
-    // ------------------- //
-
-    [Header("MeleeAttacking")]
-    public float attackDistance = 3f;
-    public float attackDelay = 0.4f;
-    public float attackSpeed = 1f;
-    public float attackDamage = 1;
-    public LayerMask attackLayer;
-    public LayerMask enemyLayer;
-
-
-    public GameObject hitEffect;
-    public AudioClip swordSwing;
-    public AudioClip hitSound;
-
-    bool attacking = false;
-    bool readyToAttack = true;
-    int attackCount;
-
-    [Header("RangeAttacking")]
-    public Image rangeCoolDownImage;
-    public float rangeCoolDownTime = 6f;
-    public AudioClip gunSound;
-    public ParticleSystem explosion;
-    public ParticleSystem sparks;
-    public GameObject bullet;
-    private float rangeCurrentTime = 6f;
-    private bool isRangeCooling = false;
-    [HideInInspector]public bool isSkirmisher = false ;
-    private bool isAfterShoting = false;
-
-    private bool isShoting = false;
-
-    public TextMeshProUGUI bulletNumBox;
-    public int shotNum { get; set;} = 1;
-    private int currentShotNum = 0;
-
-    private void ShotGun()
-    {
-        if (!isRangeCooling & currentShotNum < shotNum)
-        {
-            animator.Play("GunShot",1,0f);
-            Invoke(nameof(PlayGunAudio), 0.1f);
-            Invoke(nameof(ActiveGunCollider), 0.1f);
-            Invoke(nameof(ResetGunCollider), 0.4f);
-            currentShotNum++;
-
-            IncreaseNextMelee();
-            if (currentShotNum == shotNum) 
-            { 
-                rangeCoolDownImage.fillAmount = 1f;
-                isRangeCooling=true; 
-            }
-        }  
-    }
-    private void ActiveGunCollider()
-    {
-        isShoting = true;
-        shotCollider.enabled = true;
-    }
-    private void ResetGunCollider()
-    {
-        shotCollider.enabled = false;
-        isShoting = false;
-        shotCollider.center = Vector3.zero;
-        shotCollider.radius = 0.1f;
-    }
-
-    private void PlayGunAudio()
-    {
-        audioSource.PlayOneShot(gunSound);
-        explosion.Play();
-        sparks.Play();
-        ParticleSystem bulletEffect = bullet.GetComponent<ParticleSystem>();
-        bulletEffect.Play();
-    }
-    private void RangeStartCoolingDown()
-    {
-        if (isRangeCooling & currentShotNum == shotNum)
-        {
-            rangeCurrentTime -= Time.deltaTime;
-            rangeCoolDownImage.fillAmount = rangeCurrentTime / rangeCoolDownTime;
-            if (rangeCurrentTime <= 0f)
-            {
-                isRangeCooling = false;
-                rangeCurrentTime = rangeCoolDownTime;
-                currentShotNum = 0;
+                    if (isDivineDash)
+                    {
+                        GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
+                        for (int i = 0; i < enemies.Length; i++)
+                        {
+                            CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
+                            cc.enabled = false;
+                        }
+                    }
+                }
             }
         }
-    }
-    private void IncreaseNextMelee()
-    {       
-        if (isSkirmisher)
+        private IEnumerator IncreaseDamage()
         {
-            isAfterShoting=true;
-            attackManager.attackDamageMultiplier += 0.2f;
-            attackManager.ResetPlayerAttackAnimation(); 
-        }     
-    }
-    private void ResetNextMelee()
-    {
-        if (isAfterShoting)
-        {
-            isAfterShoting = false;
-            attackManager.attackDamageMultiplier -= 0.2f;
+            yield return new WaitForSeconds(3f);
+            isSwoopIned = false;
+            attackManager.attackDamageMultiplier -= 0.1f;
+            attackManager.rangeDamageMultiplier -= 0.1f;
             attackManager.ResetPlayerAttackAnimation();
         }
-    }
-    private void Attack()
-    {
-        if(!readyToAttack || attacking) return;
-
-        readyToAttack = false;
-        attacking = true;
-
-        ActiveHitCollider();
-        SetHitCollider();
-        Invoke(nameof(ResetAttack), attackSpeed);
-        Invoke(nameof(AttackRaycast), attackDelay);
-        Invoke(nameof(ActiveHitCollider), attackDelay);
-
-        audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(swordSwing);
-        if (attackCount == 0)
+        private void InitialMoveSpeed()
         {
-            ChangeAnimationState(ATTACK1);
-            attackCount++;
-        }
-        else
-        {
-            ChangeAnimationState(ATTACK2);
-            attackCount = 0;
-        }
-        Invoke(nameof(ResetNextMelee), attackDelay);
-    }
-    void SetHitCollider()
-    {
-        GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
-        GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
-        CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
-        hitCollider.radius = 0.04f;
-        hitCollider.height = attackDistance;
-        hitCollider.direction = 2;
-        if(currentMeleeWeapon.GetComponent<Sword>() != null)
-        {
-            hitCollider.center = new Vector3(0,0, attackDistance/2);
-        }
-        if(currentMeleeWeapon.GetComponent<Axe>() != null)
-        {
-            hitCollider.center = new Vector3(0,0, attackDistance/2 - 0.85f);
-        }
-        if(currentMeleeWeapon.GetComponent<Hammer>() != null)
-        {
-            hitCollider.center = new Vector3(0,0, attackDistance/2 - 0.8f);
+            moveSpeed = moveSpeed_temp;
+            if (isDivineDash)
+            {
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyWeapon");
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    CapsuleCollider cc = enemies[i].GetComponent<CapsuleCollider>();
+                    cc.enabled = true;
+                }
+            }
         }
 
-    }
-    void ActiveHitCollider()
-    {
-        GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
-        GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
-        CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
-        hitCollider.enabled = !hitCollider.enabled;
-    }
-   
-    void ResetAttack()
-    {
-        attacking = false;
-        readyToAttack = true;
-    }
+        private void RegenDashEnergy()
+        {
+            if (currentDashEnergy <= dashSlider.maxValue)
+            {
+                currentDashEnergy += dashEnergyDrainRate * Time.deltaTime;
+                dashSlider.value = currentDashEnergy;
+            }
+        }
 
-    void AttackRaycast()
-    {
-        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
-        { 
-            HitTarget(hit.point);
+        void FastMove()
+        {
+            isRun = true;
+            Vector2 inputVector = new Vector2();
+            inputVector = playerInput.Main.Movement.ReadValue<Vector2>();
+            if (inputVector.x != 0 || inputVector.y != 0)
+            {
+                if (currentRunEnergy > 1.0f)
+                {
+                    runSpeed = moveSpeed_temp * 2;
+                    moveSpeed = runSpeed;
+                    currentRunEnergy -= runEnergyDrainRate * Time.deltaTime;
+                    runSlider.value = currentRunEnergy;
+                }
+                else
+                {
+                    moveSpeed = moveSpeed_temp;
+                }
+            }
+        }
 
-            if(hit.transform.TryGetComponent<Actor>(out Actor T))
-            { T.TakeDamage(attackDamage); }
-        } 
-    }
+        private void RegenRunEnergy()
+        {
+            if (isRun == false)
+            {
+                if (currentRunEnergy <= runSlider.maxValue)
+                {
+                    currentRunEnergy += runEnergyRegenRate * Time.deltaTime;
+                    runSlider.value = currentRunEnergy;
+                }
 
-    void HitTarget(Vector3 pos)
-    {
-        audioSource.pitch = 1;
-        audioSource.PlayOneShot(hitSound);
+            }
+        }
+        void Jump()
+        {
+            // Adds force to the player rigidbody to jump
+            if (isGrounded)
+            {
+                _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+                jumpCount++;
+            }
+            else if (!isGrounded && jumpCount > 0)
+            {
+                _PlayerVelocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+                jumpCount = 0;
+            }
+        }
 
-        GameObject GO = Instantiate(hitEffect, pos, Quaternion.identity);
-        Destroy(GO, 20);
-    }
+        private void EagleEffect()
+        {
+            if (isEagle)
+            {
+                if (!isGrounded)
+                {
+                    attackManager.eagleMultiplier = 0.15f;
+                }
+                else
+                {
+                    attackManager.eagleMultiplier = 0f;
+                }
+                attackManager.ResetPlayerAttackAnimation();
+            }
+        }
+
+        void AssignInputs()
+        {
+            input.Jump.performed += ctx => Jump();
+            input.Attack.started += ctx => Attack();
+        }
+
+        // ---------- //
+        // ANIMATIONS //
+        // ---------- //
+
+        public const string IDLE = "Idle";
+        public const string WALK = "Walk";
+        public const string ATTACK1 = "Attack 1";
+        public const string ATTACK2 = "Attack 2";
+
+        string currentAnimationState;
+
+        public void ChangeAnimationState(string newState)
+        {
+            // STOP THE SAME ANIMATION FROM INTERRUPTING WITH ITSELF //
+            if (currentAnimationState == newState) return;
+
+            // PLAY THE ANIMATION //
+            currentAnimationState = newState;
+            animator.CrossFadeInFixedTime(currentAnimationState, 0.2f);
+        }
+
+        void SetAnimations()
+        {
+            // If player is not attacking
+            if (!attacking)
+            {
+                if (_PlayerVelocity.x == 0 && _PlayerVelocity.z == 0)
+                { ChangeAnimationState(IDLE); }
+                else
+                { ChangeAnimationState(WALK); }
+            }
+        }
+
+        // ------------------- //
+        // ATTACKING BEHAVIOUR //
+        // ------------------- //
+
+        [Header("MeleeAttacking")]
+        public float attackDistance = 3f;
+        public float attackDelay = 0.4f;
+        public float attackSpeed = 1f;
+        public float attackDamage = 1;
+        public LayerMask attackLayer;
+        public LayerMask enemyLayer;
+
+
+        public GameObject hitEffect;
+        public AudioClip swordSwing;
+        public AudioClip hitSound;
+
+        bool attacking = false;
+        bool readyToAttack = true;
+        int attackCount;
+
+        [Header("RangeAttacking")]
+        public Image rangeCoolDownImage;
+        public float rangeCoolDownTime = 6f;
+        public AudioClip gunSound;
+        public ParticleSystem explosion;
+        public ParticleSystem sparks;
+        public GameObject bullet;
+        private float rangeCurrentTime = 6f;
+        private bool isRangeCooling = false;
+        [HideInInspector] public bool isSkirmisher = false;
+        private bool isAfterShoting = false;
+
+        private bool isShoting = false;
+
+        public TextMeshProUGUI bulletNumBox;
+        public int shotNum { get; set; } = 1;
+        private int currentShotNum = 0;
+
+        private void ShotGun()
+        {
+            if (!isRangeCooling & currentShotNum < shotNum)
+            {
+                animator.Play("GunShot", 1, 0f);
+                Invoke(nameof(PlayGunAudio), 0.1f);
+                Invoke(nameof(ActiveGunCollider), 0.1f);
+                Invoke(nameof(ResetGunCollider), 0.4f);
+                currentShotNum++;
+
+                IncreaseNextMelee();
+                if (currentShotNum == shotNum)
+                {
+                    rangeCoolDownImage.fillAmount = 1f;
+                    isRangeCooling = true;
+                }
+            }
+        }
+        private void ActiveGunCollider()
+        {
+            isShoting = true;
+            shotCollider.enabled = true;
+        }
+        private void ResetGunCollider()
+        {
+            shotCollider.enabled = false;
+            isShoting = false;
+            shotCollider.center = Vector3.zero;
+            shotCollider.radius = 0.1f;
+        }
+
+        private void PlayGunAudio()
+        {
+            audioSource.PlayOneShot(gunSound);
+            explosion.Play();
+            sparks.Play();
+            ParticleSystem bulletEffect = bullet.GetComponent<ParticleSystem>();
+            bulletEffect.Play();
+        }
+        private void RangeStartCoolingDown()
+        {
+            if (isRangeCooling & currentShotNum == shotNum)
+            {
+                rangeCurrentTime -= Time.deltaTime;
+                rangeCoolDownImage.fillAmount = rangeCurrentTime / rangeCoolDownTime;
+                if (rangeCurrentTime <= 0f)
+                {
+                    isRangeCooling = false;
+                    rangeCurrentTime = rangeCoolDownTime;
+                    currentShotNum = 0;
+                }
+            }
+        }
+        private void IncreaseNextMelee()
+        {
+            if (isSkirmisher)
+            {
+                isAfterShoting = true;
+                attackManager.attackDamageMultiplier += 0.2f;
+                attackManager.ResetPlayerAttackAnimation();
+            }
+        }
+        private void ResetNextMelee()
+        {
+            if (isAfterShoting)
+            {
+                isAfterShoting = false;
+                attackManager.attackDamageMultiplier -= 0.2f;
+                attackManager.ResetPlayerAttackAnimation();
+            }
+        }
+        private void Attack()
+        {
+            if (!readyToAttack || attacking) return;
+
+            readyToAttack = false;
+            attacking = true;
+
+            ActiveHitCollider();
+            SetHitCollider();
+            Invoke(nameof(ResetAttack), attackSpeed);
+            Invoke(nameof(AttackRaycast), attackDelay);
+            Invoke(nameof(ActiveHitCollider), attackDelay);
+
+            audioSource.pitch = Random.Range(0.9f, 1.1f);
+            audioSource.PlayOneShot(swordSwing);
+            if (attackCount == 0)
+            {
+                ChangeAnimationState(ATTACK1);
+                attackCount++;
+            }
+            else
+            {
+                ChangeAnimationState(ATTACK2);
+                attackCount = 0;
+            }
+            Invoke(nameof(ResetNextMelee), attackDelay);
+        }
+        void SetHitCollider()
+        {
+            GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
+            GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
+            CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
+            hitCollider.radius = 0.04f;
+            hitCollider.height = attackDistance;
+            hitCollider.direction = 2;
+            if (currentMeleeWeapon.GetComponent<Sword>() != null)
+            {
+                hitCollider.center = new Vector3(0, 0, attackDistance / 2);
+            }
+            if (currentMeleeWeapon.GetComponent<Axe>() != null)
+            {
+                hitCollider.center = new Vector3(0, 0, attackDistance / 2 - 0.85f);
+            }
+            if (currentMeleeWeapon.GetComponent<Hammer>() != null)
+            {
+                hitCollider.center = new Vector3(0, 0, attackDistance / 2 - 0.8f);
+            }
+
+        }
+        void ActiveHitCollider()
+        {
+            GameObject rightHand = FindFirstObjectByType<_rightHandPosition>().gameObject;
+            GameObject currentMeleeWeapon = rightHand.transform.GetChild(0).gameObject;
+            CapsuleCollider hitCollider = currentMeleeWeapon.GetComponent<CapsuleCollider>();
+            hitCollider.enabled = !hitCollider.enabled;
+        }
+
+        void ResetAttack()
+        {
+            attacking = false;
+            readyToAttack = true;
+        }
+
+        void AttackRaycast()
+        {
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, attackDistance, attackLayer))
+            {
+                HitTarget(hit.point);
+
+                if (hit.transform.TryGetComponent<Actor>(out Actor T))
+                { T.TakeDamage(attackDamage); }
+            }
+        }
+
+        void HitTarget(Vector3 pos)
+        {
+            audioSource.pitch = 1;
+            audioSource.PlayOneShot(hitSound);
+
+            GameObject GO = Instantiate(hitEffect, pos, Quaternion.identity);
+            Destroy(GO, 20);
+        }
+    } 
 }

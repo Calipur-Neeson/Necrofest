@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class WeaponTrigger : MonoBehaviour
+namespace AG2187
 {
-    
-    private GameObject player;
-    private AttackManager attackManager;
+    public class WeaponTrigger : MonoBehaviour
+    {
 
-    private void Start()
-    {
-        player = FindFirstObjectByType<PlayerController>().gameObject;
-        attackManager = player.GetComponent<AttackManager>();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("检测到碰撞对象：" + other.name);
-        //int layer = other.gameObject.layer;
-        if (other.CompareTag("Enemy"))
+        private GameObject player;
+        private AttackManager attackManager;
+
+        private void Start()
         {
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
+            player = FindFirstObjectByType<PlayerController>().gameObject;
+            attackManager = player.GetComponent<AttackManager>();
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("检测到碰撞对象：" + other.name);
+            //int layer = other.gameObject.layer;
+            if (other.CompareTag("Enemy"))
             {
-                attackManager.CalculateHitDamage();
-                float damage = attackManager.hitDamage;
-                enemyHealth.TakeDamage(damage,"Melee");
+                EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    attackManager.CalculateHitDamage();
+                    float damage = attackManager.hitDamage;
+                    enemyHealth.TakeDamage(damage, "Melee");
+                }
             }
         }
-    }
+    } 
 }

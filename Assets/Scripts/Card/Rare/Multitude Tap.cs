@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class MultitudeTap : RareCards
 {
     private void Awake()

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class CriticalHit : NormalCards
 {
     private void Awake()

@@ -1,91 +1,94 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class SwitchWeapon : MonoBehaviour
+namespace AG2187
 {
-    [Header("Number of Weapons")]
-
-    public GameObject[] weapons ;
-    public float[] distances; 
-    public float[] speeds; 
-    public float[] delays;
-    public float[] damages;
-    public float[] animatorSpeeds;
-    
-    int tempCount = 0;
-   
-    [Header("Weapons Info (Don't Change)")]
-    public float weaponSpeed;
-    public float weaponDelay;
-    public float weaponDamage;
-    public float weaponDistance;
-    public float attackAnimationSpeed;
-
-    private AttackManager attackManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class SwitchWeapon : MonoBehaviour
     {
-        ActivateOnlyOne();
-        SetWeaponInfo(0);
-        attackManager = GetComponentInParent<AttackManager>();
-        
-    }
+        [Header("Number of Weapons")]
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        { 
-            if (tempCount < weapons.Length-1)
-            {
-                weapons[tempCount].SetActive(false);
-                tempCount++;
-                weapons[tempCount].SetActive(true);
-                SetWeaponInfo(tempCount);
-            }
-            else
-            {
-                weapons[tempCount].SetActive(false);
-                tempCount = 0;
-                weapons[tempCount].SetActive(true);
-                SetWeaponInfo(tempCount);
-            }
-            attackManager.ResetPlayerAttackAnimation();
-        }
-    }
+        public GameObject[] weapons;
+        public float[] distances;
+        public float[] speeds;
+        public float[] delays;
+        public float[] damages;
+        public float[] animatorSpeeds;
 
-    private void SetWeaponInfo(int wNumber)
-    {
-        weaponDistance = distances[wNumber];
-        weaponDelay = delays[wNumber];
-        weaponSpeed = speeds[wNumber];
-        weaponDamage = damages[wNumber];
-        attackAnimationSpeed = animatorSpeeds[wNumber];
-    }
+        int tempCount = 0;
 
-    private void ActivateOnlyOne()
-    {
-        for (int i = 0; i < weapons.Length; i++)
+        [Header("Weapons Info (Don't Change)")]
+        public float weaponSpeed;
+        public float weaponDelay;
+        public float weaponDamage;
+        public float weaponDistance;
+        public float attackAnimationSpeed;
+
+        private AttackManager attackManager;
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
         {
-            if (weapons[i] != null)
-            {
-                weapons[i].SetActive(false);
-            }
-        }
-        weapons[0].SetActive(true);
-    }
+            ActivateOnlyOne();
+            SetWeaponInfo(0);
+            attackManager = GetComponentInParent<AttackManager>();
 
-    public void UpLevelWeapon(float rate)
-    {
-        for(int i = 0;i < weapons.Length;i++)
+        }
+
+        // Update is called once per frame
+        void Update()
         {
-            speeds[i] *= (1 - rate);
-            delays[i] *= (1 - rate);
-            animatorSpeeds[i] = (1 + rate);
-            if (weapons[i].activeSelf)
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                SetWeaponInfo(i);
+                if (tempCount < weapons.Length - 1)
+                {
+                    weapons[tempCount].SetActive(false);
+                    tempCount++;
+                    weapons[tempCount].SetActive(true);
+                    SetWeaponInfo(tempCount);
+                }
+                else
+                {
+                    weapons[tempCount].SetActive(false);
+                    tempCount = 0;
+                    weapons[tempCount].SetActive(true);
+                    SetWeaponInfo(tempCount);
+                }
+                attackManager.ResetPlayerAttackAnimation();
             }
         }
-        
-    }
+
+        private void SetWeaponInfo(int wNumber)
+        {
+            weaponDistance = distances[wNumber];
+            weaponDelay = delays[wNumber];
+            weaponSpeed = speeds[wNumber];
+            weaponDamage = damages[wNumber];
+            attackAnimationSpeed = animatorSpeeds[wNumber];
+        }
+
+        private void ActivateOnlyOne()
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                if (weapons[i] != null)
+                {
+                    weapons[i].SetActive(false);
+                }
+            }
+            weapons[0].SetActive(true);
+        }
+
+        public void UpLevelWeapon(float rate)
+        {
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                speeds[i] *= (1 - rate);
+                delays[i] *= (1 - rate);
+                animatorSpeeds[i] = (1 + rate);
+                if (weapons[i].activeSelf)
+                {
+                    SetWeaponInfo(i);
+                }
+            }
+
+        }
+    } 
 }

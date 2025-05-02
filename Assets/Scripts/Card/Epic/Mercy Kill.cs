@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class MercyKill : EpicCards
 {
     private void Awake()

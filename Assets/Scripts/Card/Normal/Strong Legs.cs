@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class StrongLegs : NormalCards
 {
     private void Awake()

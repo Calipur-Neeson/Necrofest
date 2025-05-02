@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class CriticalChain : EpicCards
+namespace AG2187
 {
-    private void Awake()
+    public class CriticalChain : EpicCards
     {
-        cardName = "Critical Chain";
-        cardDescription = "Increase crit rate after critting, double CC till next crit";
-    }
+        private void Awake()
+        {
+            cardName = "Critical Chain";
+            cardDescription = "Increase crit rate after critting, double CC till next crit";
+        }
+    } 
 }

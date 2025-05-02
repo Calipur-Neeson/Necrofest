@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using AG2187;
 public class Triforce : NormalCards
 {
     private void Awake()

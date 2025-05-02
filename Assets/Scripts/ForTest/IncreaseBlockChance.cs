@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public class IncreaseBlockChance : MonoBehaviour
+namespace AG2187
 {
-    private PlayerHealth playerHealth;
+    public class IncreaseBlockChance : MonoBehaviour
+    {
+        private PlayerHealth playerHealth;
 
-    private void Start()
-    {
-        GameObject player = GameObject.Find("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private void Start()
         {
-            playerHealth.blockChance += 10;
+            GameObject player = GameObject.Find("Player");
+            playerHealth = player.GetComponent<PlayerHealth>();
         }
-    }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                playerHealth.blockChance += 10;
+            }
+        }
+    } 
 }
