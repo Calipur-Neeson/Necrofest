@@ -11,6 +11,7 @@ namespace AG2187
             cardEffect.TriggerEffect("Vitality");
             cardEffect.TriggerEffect("Mobility");
             cardEffect.TriggerEffect("Strength");
+            //cardEffect.TriggerEffect("Ricochet");
         }
 
     } 

@@ -13,6 +13,7 @@ namespace AG2187
 
         [HideInInspector] public bool isRicochet = false;
 
+        public GameObject particlePrefab;
         private void Start()
         {
             player = FindFirstObjectByType<PlayerController>().gameObject;
@@ -34,6 +35,7 @@ namespace AG2187
                 }
                 if (isRicochet)
                 {
+                    SpawnEffectAt(other.transform.position);
                     Collider[] hitCollider = Physics.OverlapSphere(other.transform.position, 2.0f);
                     List<GameObject> nearByEnemies = new List<GameObject>();
                     foreach (Collider col in hitCollider)
@@ -67,6 +69,18 @@ namespace AG2187
         {
             EnemyHealth eh = enemy.GetComponent<EnemyHealth>();
             eh.TakeDamage(da, "");
+        }
+        public void SpawnEffectAt(Vector3 position)
+        {
+            GameObject effect = Instantiate(particlePrefab, position, Quaternion.identity);
+            ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+
+            if (ps != null)
+            {
+                Destroy(effect, 1 + ps.main.startLifetime.constantMax);
+                ps.Play();
+            }
+            
         }
     } 
 }
