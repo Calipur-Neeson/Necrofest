@@ -42,8 +42,13 @@ namespace AG2187
             if (!isInHand)
             {
                 HangingThere();
-                transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
             }
+        }
+        public override void HangingThere()
+        {
+            base.HangingThere();
+            transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+
         }
     } 
 }
