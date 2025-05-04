@@ -23,6 +23,11 @@ namespace AG2187
             Gizmos.color = gizmoColor;
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
+        private void OnEnable()
+        {
+            enemyHealth.isDead=false;
+            ResetAttack();
+        }
         private void Start()
         {
             GameObject player = FindFirstObjectByType<VRPlayerHealth>().gameObject;

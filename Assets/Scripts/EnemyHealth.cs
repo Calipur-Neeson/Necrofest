@@ -9,7 +9,7 @@ namespace AG2187
         public float enemyHealth = 100f;
         private float health;
         private EnemySpawner spawner;
-        private EnemyKillTracker tracker;
+        //private EnemyKillTracker tracker;
 
         private Animator animator;
         public bool isDead = false;
@@ -18,12 +18,15 @@ namespace AG2187
         public List<BaseWeapon> weapons;
 
         private string lastDamageSource;
-
+        private void OnEnable()
+        {
+            health = enemyHealth;
+        }
         private void Start()
         {
             health = enemyHealth;
             spawner = GetComponentInParent<EnemySpawner>();
-            tracker = FindFirstObjectByType<EnemyKillTracker>();
+            //tracker = FindFirstObjectByType<EnemyKillTracker>();
             animator = GetComponent<Animator>();
         }
         public void TakeDamage(float damage, string weaponType)
@@ -36,15 +39,15 @@ namespace AG2187
                 lastDamageSource = weaponType;
                 Die();
             }
-            if (tracker.isMercy)
-            {
-                if (health < enemyHealth * 0.1f)
-                {
-                    lastDamageSource = weaponType;
-                    Die();
-                    Debug.Log("Killed by Mercy~~~");
-                }
-            }
+            //if (tracker.isMercy)
+            //{
+            //    if (health < enemyHealth * 0.1f)
+            //    {
+            //        lastDamageSource = weaponType;
+            //        Die();
+            //        Debug.Log("Killed by Mercy~~~");
+            //    }
+            //}
         }
 
         void Die()
@@ -65,13 +68,13 @@ namespace AG2187
                 weapon.Drop();
             }
         }
-        private void OnDisable()
-        {
-            if (tracker != null && gameObject.activeInHierarchy == false)
-            {
-                tracker.OnEnemyKilled(lastDamageSource);
-            }
-        }
+        //private void OnDisable()
+        //{
+        //    if (tracker != null && gameObject.activeInHierarchy == false)
+        //    {
+        //        tracker.OnEnemyKilled(lastDamageSource);
+        //    }
+        //}
 
         public void RestEnemyHealth()
         {

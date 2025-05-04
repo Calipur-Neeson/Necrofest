@@ -7559,7 +7559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 5989372171575328886, guid: b72681b6e1b513443baccf65a5719336, type: 3}
+  - {fileID: 5607802356665315495, guid: e93cf7a0449e50f4c932132deff3f4ed, type: 3}
   enemyPoolCapacity: 1
   intervalTime: 3
   spawnPosition:
@@ -10649,6 +10649,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 75993615}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1663402659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6104796657444684912, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
+  m_PrefabInstance: {fileID: 8034836022003982569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1666214246
 GameObject:
   m_ObjectHideFlags: 0
@@ -12126,6 +12137,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4473650000123895851, guid: fbdcfc1f169a2c24f8b42dbd9809f70a, type: 3}
+      propertyPath: floatFrequency
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6225226077930544199, guid: fbdcfc1f169a2c24f8b42dbd9809f70a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.18
@@ -12195,6 +12210,22 @@ PrefabInstance:
     - target: {fileID: 3721357697936478999, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563188428139695301, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
+      propertyPath: moveProvider
+      value: 
+      objectReference: {fileID: 1663402659}
+    - target: {fileID: 7563188428139695301, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
+      propertyPath: speeduUputton.m_Reference
+      value: 
+      objectReference: {fileID: -5310310438100611890, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 7563188428139695301, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
+      propertyPath: speeduUputton.m_UseReference
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563188428139695301, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
+      propertyPath: speeduUputton.m_Action.m_Name
+      value: Speedu Uputton
       objectReference: {fileID: 0}
     - target: {fileID: 8577174210421653664, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
       propertyPath: m_LocalPosition.x

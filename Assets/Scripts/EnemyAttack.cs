@@ -26,8 +26,8 @@ public class EnemyAttack : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("hit");
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            playerHealth.PlayerGetHurt(this.gameObject);
+            VRPlayerHealth playerHealth = other.GetComponent<VRPlayerHealth>();
+            playerHealth.PlayerGetHurt();
         }
     }
 }
