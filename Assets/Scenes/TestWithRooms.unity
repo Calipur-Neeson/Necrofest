@@ -2787,7 +2787,7 @@ MonoBehaviour:
   - {fileID: -2591896647977250492, guid: e93cf7a0449e50f4c932132deff3f4ed, type: 3}
   - {fileID: 3097218094610433244, guid: eef5c969e93424c488c77d9c9f374a22, type: 3}
   - {fileID: 6540866993336863825, guid: fee48ab99ef98f24e9a9ad3a53b406e8, type: 3}
-  enemyPoolCapacity: 1
+  enemyPoolCapacity: 5
   intervalTime: 3
   spawnPosition: []
 --- !u!1 &402027334
