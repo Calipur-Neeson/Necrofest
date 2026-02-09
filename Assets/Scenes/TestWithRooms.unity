@@ -2099,6 +2099,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
+    - target: {fileID: 7563188428139695301, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
+      propertyPath: speeduUputton.m_Action.m_Name
+      value: Speedu Uputton
+      objectReference: {fileID: 0}
     - target: {fileID: 8577174210421653664, guid: 4eec3c10b24f535489e1c9f1673eedb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.79
